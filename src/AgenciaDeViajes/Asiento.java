@@ -10,10 +10,15 @@ package AgenciaDeViajes;
  */
 public class Asiento {
     private int categoria;
-    private String idAsiento;
+    /*Para la categoría se tiene lo siguiente:
+    1. Business
+    2. Premium Economic Class
+    3. Economic Class
+    */
+    private int idAsiento; //Se cambió de String a int
     private boolean estado;
-
-    public Asiento(int categoria, String idAsiento, boolean estado) {
+    
+    public Asiento(int categoria, int idAsiento, boolean estado) {
         this.categoria = categoria;
         this.idAsiento = idAsiento;
         this.estado = estado;
@@ -33,7 +38,7 @@ public class Asiento {
         return categoria;
     }
 
-    public String getIdAsiento() {
+    public int getIdAsiento() {
         return idAsiento;
     }
 
@@ -45,7 +50,7 @@ public class Asiento {
         this.categoria = categoria;
     }
 
-    public void setIdAsiento(String idAsiento) {
+    public void setIdAsiento(int idAsiento) {
         this.idAsiento = idAsiento;
     }
 }
