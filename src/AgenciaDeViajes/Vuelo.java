@@ -21,6 +21,14 @@ public class Vuelo {
     //aquí iria la hora de salida
     //aquí iria la hora de llegada
     private String estadoVuelo;
+    private int cont = 0; //SU ÚNICO PROPÓSITO ES LLEVAR EL CONTENO DEL ID DEL VUELO
+    
+    public Vuelo (String aereolinea, String origen, String destino, String estadoVuelo){
+        idVuelo = cont;
+        this.aereolinea = aereolinea;
+        this.origen = origen;
+        //POR DEFINIR LA PARTE DE ESCALAS
+    }
     
     public boolean asignarAsiento(String idAsiento){
         //INSERT CODE HERE
