@@ -26,8 +26,13 @@ public class Vuelo {
     public Vuelo (String aereolinea, String origen, String destino, String estadoVuelo){
         idVuelo = cont;
         this.aereolinea = aereolinea;
+        //Discutir el tema de las aereolineas (cuantas van a ser)
+        //Por ejemplo, la de United tiene 166 pasajeros (asientos)
+        //POR DEFINIR LA PARTE DEL ARRAYLIST DE ASIENTOS, QUE DEBERÍA SER UN VECTOR NORMAL
         this.origen = origen;
         //POR DEFINIR LA PARTE DE ESCALAS
+        this.destino = destino;
+        this.estadoVuelo = estadoVuelo;
     }
     
     public boolean asignarAsiento(String idAsiento){
