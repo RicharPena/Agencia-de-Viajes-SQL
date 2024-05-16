@@ -20,6 +20,8 @@ public class Reserva {
     private Vuelo vuelo;
     private ArrayList<Asiento> asientos = new ArrayList<Asiento>();
     //fecha que deberia ser de tipo date
+    private boolean pago;
+
     
     public Reserva(String idReserva, String aereolinea, String origen, String destino, String estadoVuelo){
         this.idReserva = idReserva;
@@ -62,6 +64,12 @@ public class Reserva {
         this.vuelo = vuelo;
     }
     
-    
+    public void setPago(boolean pago) {
+        this.pago = pago;
+    }
+
+    public boolean getPago() {
+        return pago;
+    }
     
 }
