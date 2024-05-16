@@ -4,17 +4,47 @@
  */
 package AgenciaDeViajes;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Systema
+ * 
+ * Se modificó la relación de los asientos en la Reserva, debido a que puede un usuario tener varios asientos
+ * Se eliminó los métodos setAsiento y getAsiento
+ * Se añadió un nuevo método llamado agregarAsientos
+ * Se añadió un nuevo método llamado eliminarAsientos
  */
 public class Reserva {
-    private String idReserva;
+    private String idReserva; //idReserva va con String porque el usuario le puede dar un nombre
     private Vuelo vuelo;
-    private Asiento asiento;
+    private ArrayList<Asiento> asientos = new ArrayList<Asiento>();
     //fecha que deberia ser de tipo date
     
-    //INSERT CONSTRUCTOR HERE
+    public Reserva(String idReserva, String aereolinea, String origen, String destino, String estadoVuelo){
+        this.idReserva = idReserva;
+        vuelo = new Vuelo(aereolinea, origen, destino, estadoVuelo);
+        asientos.add(vuelo.asignarAsiento(0));//POR AHORA QUEDA CON 0, YA QUE ESO SE DEFINE CON LA INTERFACE GRÁFICA
+    }
+    
+    //Con la interfase, se elije el idAsiento
+    public void agregarAsientos(int idAsiento){
+        asientos.add(vuelo.asignarAsiento(idAsiento));
+    }
+    
+    //Con la interfase, se elije el idAsiento
+    public boolean eliminarAsiento(int idAsiento){
+        vuelo.liberarAsiento(idAsiento); //ESTO PUEDE CAMBIAR SI CAMBIA EL METODO A BOOLEAN
+        
+        for ( Asiento asiento:asientos){
+            if (asiento.getIdAsiento() == idAsiento){
+                if (asientos.remove(asiento)){
+                    return true;
+                }//aquí estoy eliminando el asiento de la reserva
+            }
+        }
+        return false;
+    }
     
     public String getIdReserva() {
         return idReserva;
@@ -24,10 +54,6 @@ public class Reserva {
         return vuelo;
     }
 
-    public Asiento getAsiento() {
-        return asiento;
-    }
-
     public void setIdReserva(String idReserva) {
         this.idReserva = idReserva;
     }
@@ -35,10 +61,7 @@ public class Reserva {
     public void setVuelo(Vuelo vuelo) {
         this.vuelo = vuelo;
     }
-
-    public void setAsiento(Asiento asiento) {
-        this.asiento = asiento;
-    }
+    
     
     
 }
