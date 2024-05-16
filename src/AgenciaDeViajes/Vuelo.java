@@ -35,12 +35,14 @@ public class Vuelo {
             //Premien Economy Class: 48
             //Economy Class: 102
             asientos = new Asiento[166];
+            asientosDisponibles = 166;
             for (int i=0; i<166; i++){
                 if (i<16){
                     asientos[i].setCategoria(1);
                     asientos[i].setIdAsiento(cont1);
                     asientos[i].cambiarEstado(true);
                     cont1++;
+                    asientosDisponibles--;
                 }
                 else{
                     if (i>=16 && i<64){
@@ -48,6 +50,7 @@ public class Vuelo {
                         asientos[i].setIdAsiento(cont1);
                         asientos[i].cambiarEstado(true);
                         cont1++;
+                        asientosDisponibles--;
                     }
                     else{
                         if (i>=64 && i<166){
@@ -55,6 +58,7 @@ public class Vuelo {
                             asientos[i].setIdAsiento(cont1);
                             asientos[i].cambiarEstado(true);
                             cont1++;
+                            asientosDisponibles--;
                         }
                     }
                 }
@@ -67,12 +71,14 @@ public class Vuelo {
                 //Premium Economy Class: 40
                 //Economy Class: 258
                 asientos = new Asiento[330];
+                asientosDisponibles = 330;
                 for (int i=0; i<166; i++){
                     if (i<16){
                         asientos[i].setCategoria(1);
                         asientos[i].setIdAsiento(cont1);
                         asientos[i].cambiarEstado(true);
                         cont1++;
+                        asientosDisponibles--;
                     }
                     else{
                         if (i>=16 && i<64){
@@ -80,6 +86,7 @@ public class Vuelo {
                             asientos[i].setIdAsiento(cont1);
                             asientos[i].cambiarEstado(true);
                             cont1++;
+                            asientosDisponibles--;
                         }
                         else{
                             if (i>=64 && i<166){
@@ -87,6 +94,7 @@ public class Vuelo {
                                 asientos[i].setIdAsiento(cont1);
                                 asientos[i].cambiarEstado(true);
                                 cont1++;
+                                asientosDisponibles--;
                             }
                         }
                     }
@@ -99,12 +107,14 @@ public class Vuelo {
                     //Premium Economy Class: 30
                     //Economy Class: 157
                     asientos = new Asiento[211];
+                    asientosDisponibles = 211;
                     for (int i=0; i<166; i++){
                         if (i<16){
                             asientos[i].setCategoria(1);
                             asientos[i].setIdAsiento(cont1);
                             asientos[i].cambiarEstado(true);
                             cont1++;
+                            asientosDisponibles--;
                         }
                         else{
                             if (i>=16 && i<64){
@@ -112,6 +122,7 @@ public class Vuelo {
                                 asientos[i].setIdAsiento(cont1);
                                 asientos[i].cambiarEstado(true);
                                 cont1++;
+                                asientosDisponibles--;
                             }
                             else{
                                 if (i>=64 && i<166){
@@ -119,6 +130,7 @@ public class Vuelo {
                                     asientos[i].setIdAsiento(cont1);
                                     asientos[i].cambiarEstado(true);
                                     cont1++;
+                                    asientosDisponibles--;
                                 }
                             }
                         }
@@ -134,17 +146,30 @@ public class Vuelo {
         cont++;
     }
     
-    public boolean asignarAsiento(String idAsiento){
-        //INSERT CODE HERE
+    //se cambió el tipo de dato de String a int, al igual que lo que va a devolver el metodo
+    public Asiento asignarAsiento(int idAsiento){
+        for (Asiento asiento:asientos){
+            if (asiento.getIdAsiento() == idAsiento){
+                asiento.cambiarEstado(false); //false para indicar que el asiento ya está tomado
+                return asiento;
+            }
+        }
         
-        // solo para que se quite el error
-        return true;
+        return null;
     }
     
-    public void liberarAsiento(String idAsiento){
-        //INSERT CODE HERE
+    //ESTE PUEDE SER UN BOOLEAN y se cambió de String a int
+    public void liberarAsiento(int idAsiento){
+       for (Asiento asiento:asientos){
+            if (asiento.getIdAsiento() == idAsiento){
+                asiento.cambiarEstado(true); //TRUE para indicar que el asiento ya está libre
+            }
+        }
     }
-    
+
+    public Asiento[] getAsientos() {
+        return asientos;
+    }
     
     
 }
