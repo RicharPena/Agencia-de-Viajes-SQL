@@ -9,6 +9,8 @@ import java.util.ArrayList;
 /**
  *
  * @author Systema
+ * 
+ * Se modificó el tipo de retorno al método cancelarReserva y se le añadió un parámetro
  */
 public class Usuario {
     private String userName;
@@ -19,26 +21,48 @@ public class Usuario {
     //no existe lista boletos porque ya tenemos la reserva que actua como la de boletos
     
     //INSERT CONSTRUCTOR HERE
+
+    public Usuario(String userName, String password, String nombre, String tarjeta) {
+        this.userName = userName;
+        this.password = password;
+        this.nombre = nombre;
+        this.tarjeta = tarjeta;
+    }
+    
     
     
     public boolean login(String userName, String password){
+        if (this.userName.equals(userName)){
+            if (this.password.equals(password)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    //Se modificó los parámetros
+    public void pagoBoleto(String nombreReserva, String tarjeta){
+        Reserva reserva = Agencia.buscarReservas();
         
-        //POR AHORA
-        return true;
+        if (reserva != null){
+            if (tarjeta.length() == 10){
+                reserva.setPago(true);
+            }
+        }
     }
     
-    public void pagoBoleto(){
-        //INSERT CODE HERE
+    public void crearReserva(String idReserva, String aereolinea, String origen, String destino, String estadoVuelo){
+        listaReserva.add(new Reserva(idReserva, aereolinea, origen, destino, estadoVuelo));
     }
     
-    public void crearReserva(){
-        //INSER CODE HERE
+    //Se cambió de void a boolean
+    public boolean cancelarReserva(String idReserva, Reserva reservaTomada){
+        if (reservaTomada.getIdReserva().equals(idReserva)){
+            listaReserva.remove(reservaTomada);
+            return true;
+        }
+        return false;
     }
-    
-    public void cancelarReserva(){
-        //INSERT CODE HERE
-    }
-    
     
     public String getame() {
         return userName;
@@ -68,8 +92,13 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public void setTarjeta(String tarjeta) {
-        this.tarjeta = tarjeta;
+    //Se modificó de void a boolean
+    public boolean setTarjeta(String tarjeta) {
+        if (tarjeta.length() == 10){
+            this.tarjeta = tarjeta;
+            return true;
+        }
+        return false;
     }
     
     
