@@ -51,8 +51,8 @@ public class Usuario {
         }
     }
     
-    public void crearReserva(String idReserva, String aereolinea, String origen, String destino, String estadoVuelo){
-        listaReserva.add(new Reserva(idReserva, aereolinea, origen, destino, estadoVuelo));
+    public void crearReserva(String idReserva,int idVuelo, String aereolinea, String origen, String destino, String estadoVuelo){
+        listaReserva.add(new Reserva(idReserva,idVuelo, aereolinea, origen, destino, estadoVuelo));
     }
     
     //Se cambió de void a boolean
