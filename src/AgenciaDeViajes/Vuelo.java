@@ -82,7 +82,7 @@ public class Vuelo {
                     //Economy Class: 157
                     asientos = new Asiento[211];
                     asientosDisponibles = 211;
-                    for (int i=0; i<166; i++){
+                    for (int i=0; i<211; i++){
                         if (i<24){
                             asientos[i]=new Asiento(1,i,true);
                         }
