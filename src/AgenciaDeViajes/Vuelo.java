@@ -21,11 +21,9 @@ public class Vuelo {
     //aquí iria la hora de salida
     //aquí iria la hora de llegada
     private String estadoVuelo;
-    private int cont = 0; //SU ÚNICO PROPÓSITO ES LLEVAR EL CONTEO DEL ID DEL VUELO
-    private int cont1 = 0; //SU PROÓSITO ES LLEVAR EL CONTEO DE LAS SILLAS (ID) DE LAS AEREOLINEAS
     
-    public Vuelo (String aereolinea, String origen, String destino, String estadoVuelo){
-        idVuelo = cont;
+    public Vuelo (int id,String aereolinea, String origen, String destino, String estadoVuelo){
+        idVuelo = id;
         this.aereolinea = aereolinea;
         //Discutir el tema de las aereolineas (cuantas van a ser)
         //Por ejemplo, la de United tiene 166 pasajeros (asientos)
@@ -38,27 +36,15 @@ public class Vuelo {
             asientosDisponibles = 166;
             for (int i=0; i<166; i++){
                 if (i<16){
-                    asientos[i].setCategoria(1);
-                    asientos[i].setIdAsiento(cont1);
-                    asientos[i].cambiarEstado(true);
-                    cont1++;
-                    asientosDisponibles--;
+                    asientos[i]=new Asiento(1,i,true);
                 }
                 else{
                     if (i>=16 && i<64){
-                        asientos[i].setCategoria(2);
-                        asientos[i].setIdAsiento(cont1);
-                        asientos[i].cambiarEstado(true);
-                        cont1++;
-                        asientosDisponibles--;
+                        asientos[i]=new Asiento(2,i,true);
                     }
                     else{
                         if (i>=64 && i<166){
-                            asientos[i].setCategoria(3);
-                            asientos[i].setIdAsiento(cont1);
-                            asientos[i].cambiarEstado(true);
-                            cont1++;
-                            asientosDisponibles--;
+                            asientos[i]=new Asiento(3,i,true);
                         }
                     }
                 }
@@ -72,29 +58,17 @@ public class Vuelo {
                 //Economy Class: 258
                 asientos = new Asiento[330];
                 asientosDisponibles = 330;
-                for (int i=0; i<166; i++){
-                    if (i<16){
-                        asientos[i].setCategoria(1);
-                        asientos[i].setIdAsiento(cont1);
-                        asientos[i].cambiarEstado(true);
-                        cont1++;
-                        asientosDisponibles--;
+                for (int i=0; i<330; i++){
+                    if (i<34){
+                        asientos[i]=new Asiento(1,i,true);
                     }
                     else{
-                        if (i>=16 && i<64){
-                            asientos[i].setCategoria(2);
-                            asientos[i].setIdAsiento(cont1);
-                            asientos[i].cambiarEstado(true);
-                            cont1++;
-                            asientosDisponibles--;
+                        if (i>=34 && i<74){
+                            asientos[i]=new Asiento(2,i,true);
                         }
                         else{
-                            if (i>=64 && i<166){
-                                asientos[i].setCategoria(3);
-                                asientos[i].setIdAsiento(cont1);
-                                asientos[i].cambiarEstado(true);
-                                cont1++;
-                                asientosDisponibles--;
+                            if (i>=74 && i<330){
+                                asientos[i]=new Asiento(3,i,true);
                             }
                         }
                     }
@@ -109,28 +83,16 @@ public class Vuelo {
                     asientos = new Asiento[211];
                     asientosDisponibles = 211;
                     for (int i=0; i<166; i++){
-                        if (i<16){
-                            asientos[i].setCategoria(1);
-                            asientos[i].setIdAsiento(cont1);
-                            asientos[i].cambiarEstado(true);
-                            cont1++;
-                            asientosDisponibles--;
+                        if (i<24){
+                            asientos[i]=new Asiento(1,i,true);
                         }
                         else{
-                            if (i>=16 && i<64){
-                                asientos[i].setCategoria(2);
-                                asientos[i].setIdAsiento(cont1);
-                                asientos[i].cambiarEstado(true);
-                                cont1++;
-                                asientosDisponibles--;
+                            if (i>=24 && i<54){
+                                asientos[i]=new Asiento(2,i,true);
                             }
                             else{
-                                if (i>=64 && i<166){
-                                    asientos[i].setCategoria(3);
-                                    asientos[i].setIdAsiento(cont1);
-                                    asientos[i].cambiarEstado(true);
-                                    cont1++;
-                                    asientosDisponibles--;
+                                if (i>=54 && i<211){
+                                    asientos[i]=new Asiento(3,i,true);
                                 }
                             }
                         }
@@ -142,8 +104,6 @@ public class Vuelo {
         //POR DEFINIR LA PARTE DE ESCALAS
         this.destino = destino;
         this.estadoVuelo = estadoVuelo;
-        
-        cont++;
     }
     
     //se cambió el tipo de dato de String a int, al igual que lo que va a devolver el metodo
