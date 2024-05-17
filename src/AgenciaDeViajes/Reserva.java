@@ -23,9 +23,9 @@ public class Reserva {
     private boolean pago;
 
     
-    public Reserva(String idReserva, String aereolinea, String origen, String destino, String estadoVuelo){
+    public Reserva(String idReserva,int idVuelo, String aereolinea, String origen, String destino, String estadoVuelo){
         this.idReserva = idReserva;
-        vuelo = new Vuelo(aereolinea, origen, destino, estadoVuelo);
+        vuelo = new Vuelo(idVuelo,aereolinea, origen, destino, estadoVuelo);
         asientos.add(vuelo.asignarAsiento(0));//POR AHORA QUEDA CON 0, YA QUE ESO SE DEFINE CON LA INTERFACE GRÁFICA
     }
     
