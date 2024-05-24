@@ -8,8 +8,7 @@ package AgenciaDeViajes;
  *
  * @author Systema
  */
-public class Asiento {
-    private int categoria;
+public abstract class Asiento {
     /*Para la categoría se tiene lo siguiente:
     1. Business
     2. Premium Economic Class
@@ -18,15 +17,12 @@ public class Asiento {
     private int idAsiento; //Se cambió de String a int
     private boolean estado;
     
-    public Asiento(int categoria, int idAsiento, boolean estado) {
-        this.categoria = categoria;
+    public Asiento(int idAsiento, boolean estado) {
         this.idAsiento = idAsiento;
         this.estado = estado;
     }
     
-    public void calcularTarifa(){
-        //INSERT CODE HERE
-    }
+    public abstract void calcularTarifa();
     
     //Este es el mismo setEstado
     public void cambiarEstado(boolean estado) {
@@ -34,9 +30,6 @@ public class Asiento {
     }
     
     
-    public int getCategoria() {
-        return categoria;
-    }
 
     public int getIdAsiento() {
         return idAsiento;
@@ -46,9 +39,7 @@ public class Asiento {
         return estado;
     }
 
-    public void setCategoria(int categoria) {
-        this.categoria = categoria;
-    }
+    
 
     public void setIdAsiento(int idAsiento) {
         this.idAsiento = idAsiento;
