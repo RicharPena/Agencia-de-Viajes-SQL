@@ -4,6 +4,8 @@
  */
 package Interface;
 
+import javax.swing.Timer;
+
 /**
  *
  * @author SIS-01
@@ -31,6 +33,7 @@ public class Inicio extends javax.swing.JFrame {
         txtPassword = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JButton();
         btnRegister = new javax.swing.JButton();
+        txtMensaje = new javax.swing.JLabel();
         banner = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -69,6 +72,11 @@ public class Inicio extends javax.swing.JFrame {
         btnLogin.setBorderPainted(false);
         btnLogin.setContentAreaFilled(false);
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 420, -1, -1));
 
         btnRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Registrer button.png"))); // NOI18N
@@ -81,6 +89,11 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 520, -1, 80));
+
+        txtMensaje.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtMensaje.setForeground(new java.awt.Color(255, 0, 0));
+        txtMensaje.setText(" ");
+        jPanel1.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 390, -1, -1));
 
         banner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Login Banner.jpg"))); // NOI18N
         jPanel1.add(banner, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -99,8 +112,12 @@ public class Inicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    //BOTÓN DE REGISTRO
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        Registro registro = new Registro();
+        registro.setVisible(true);
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void txtUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMouseClicked
@@ -126,6 +143,41 @@ public class Inicio extends javax.swing.JFrame {
             txtPassword.setText("Contrasena");
         }
     }//GEN-LAST:event_txtPasswordMouseExited
+
+    
+    //BOTÓN DE LOGIN
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        String u = txtUsuario.getText();
+        String c = new String(txtPassword.getPassword());
+        
+        Timer timer = new Timer(2000, (e) -> {
+                    txtMensaje.setText(" ");
+                });
+        
+        timer.setRepeats(false);        
+        if (u.equals("Usuario") && c.equals("Contrasena")){
+            txtMensaje.setText("Hacen falta campos por llenar!!!");
+            timer.start();
+        }
+        else{
+            if (u.equals("Usuario")){
+                txtMensaje.setText("No se ha digitado ningún usuario!!!");
+                timer.start();
+            }
+            else{
+                if (c.equals("Contrasena")){
+                    txtMensaje.setText("No se ha escrito una contraseña!!!");
+                    timer.start();
+                }
+                else{
+                    this.setVisible(false);
+                    Sesion sesion = new Sesion();
+                    sesion.setVisible(true);
+                }
+            }
+        }
+        
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,6 +219,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnRegister;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel txtMensaje;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
