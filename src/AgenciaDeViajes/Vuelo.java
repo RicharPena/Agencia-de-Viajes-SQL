@@ -36,15 +36,15 @@ public class Vuelo {
             asientosDisponibles = 166;
             for (int i=0; i<166; i++){
                 if (i<16){
-                    asientos[i]=new Asiento(1,i,true);
+                    asientos[i]=new AsientoBusiness(i,true);
                 }
                 else{
                     if (i>=16 && i<64){
-                        asientos[i]=new Asiento(2,i,true);
+                        asientos[i]=new AsientoEconomicoPremium(i,true);
                     }
                     else{
                         if (i>=64 && i<166){
-                            asientos[i]=new Asiento(3,i,true);
+                            asientos[i]=new AsientoEconomico(i,true);
                         }
                     }
                 }
@@ -60,15 +60,15 @@ public class Vuelo {
                 asientosDisponibles = 330;
                 for (int i=0; i<330; i++){
                     if (i<34){
-                        asientos[i]=new Asiento(1,i,true);
+                        asientos[i]=new AsientoBusiness(i,true);
                     }
                     else{
                         if (i>=34 && i<74){
-                            asientos[i]=new Asiento(2,i,true);
+                            asientos[i]=new AsientoEconomicoPremium(i,true);
                         }
                         else{
                             if (i>=74 && i<330){
-                                asientos[i]=new Asiento(3,i,true);
+                                asientos[i]=new AsientoEconomico(i,true);
                             }
                         }
                     }
@@ -84,15 +84,15 @@ public class Vuelo {
                     asientosDisponibles = 211;
                     for (int i=0; i<211; i++){
                         if (i<24){
-                            asientos[i]=new Asiento(1,i,true);
+                            asientos[i]=new AsientoBusiness(i,true);
                         }
                         else{
                             if (i>=24 && i<54){
-                                asientos[i]=new Asiento(2,i,true);
+                                asientos[i]=new AsientoEconomicoPremium(i,true);
                             }
                             else{
                                 if (i>=54 && i<211){
-                                    asientos[i]=new Asiento(3,i,true);
+                                    asientos[i]=new AsientoEconomico(i,true);
                                 }
                             }
                         }
