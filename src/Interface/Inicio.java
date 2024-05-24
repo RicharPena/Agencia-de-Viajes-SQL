@@ -135,6 +135,7 @@ public class Inicio extends javax.swing.JFrame {
     private void txtPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMouseClicked
         if (new String(txtPassword.getPassword()).equals("Contrasena")){
             txtPassword.setText("");
+            //hola
         }
     }//GEN-LAST:event_txtPasswordMouseClicked
 
