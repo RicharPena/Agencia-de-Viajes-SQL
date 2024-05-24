@@ -4,6 +4,8 @@
  */
 package AgenciaDeViajes;
 
+import Interface.Inicio;
+
 /**
  *
  * @author Systema
@@ -18,7 +20,9 @@ package AgenciaDeViajes;
 public class Agencia {
     
     public static void main(String [] args){
+        Inicio inicio=new Inicio();
         
+        inicio.setVisible(true);
     }
     
     public static Reserva buscarReservas(){
