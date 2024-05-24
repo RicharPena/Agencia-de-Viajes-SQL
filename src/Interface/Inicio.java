@@ -46,6 +46,7 @@ public class Inicio extends javax.swing.JFrame {
         jPasswordField1.setText("jPasswordField1");
         jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 330, 480, 50));
 
+        btnRegister.setBackground(new java.awt.Color(250, 249, 247));
         btnRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Registrer button.png"))); // NOI18N
         btnRegister.setContentAreaFilled(false);
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
