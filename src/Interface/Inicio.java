@@ -40,22 +40,38 @@ public class Inicio extends javax.swing.JFrame {
         txtUsuario.setBackground(new java.awt.Color(250, 249, 248));
         txtUsuario.setText("Usuario");
         txtUsuario.setBorder(null);
+        txtUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtUsuarioMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtUsuarioMouseExited(evt);
+            }
+        });
         jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(711, 220, 480, 60));
 
         txtPassword.setBackground(new java.awt.Color(250, 249, 248));
-        txtPassword.setText("Contraseña");
+        txtPassword.setText("Contrasena");
         txtPassword.setToolTipText("");
         txtPassword.setBorder(null);
+        txtPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtPasswordMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtPasswordMouseExited(evt);
+            }
+        });
         jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 330, 480, 50));
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Btn Login.png"))); // NOI18N
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Login button.png"))); // NOI18N
         btnLogin.setBorder(null);
         btnLogin.setBorderPainted(false);
         btnLogin.setContentAreaFilled(false);
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel1.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 420, -1, -1));
 
-        btnRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Btn Register.png"))); // NOI18N
+        btnRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Registrer button.png"))); // NOI18N
         btnRegister.setBorder(null);
         btnRegister.setBorderPainted(false);
         btnRegister.setContentAreaFilled(false);
@@ -86,6 +102,30 @@ public class Inicio extends javax.swing.JFrame {
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegisterActionPerformed
+
+    private void txtUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMouseClicked
+        if (txtUsuario.getText().equals("Usuario")){
+            txtUsuario.setText("");
+        }
+    }//GEN-LAST:event_txtUsuarioMouseClicked
+    //Este otro método podría ir, funciona cuando sale el mouse de la caja que contiene el textfield
+    private void txtUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMouseExited
+        if (txtUsuario.getText().equals("")){
+            txtUsuario.setText("Usuario");
+        }
+    }//GEN-LAST:event_txtUsuarioMouseExited
+
+    private void txtPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMouseClicked
+        if (new String(txtPassword.getPassword()).equals("Contrasena")){
+            txtPassword.setText("");
+        }
+    }//GEN-LAST:event_txtPasswordMouseClicked
+
+    private void txtPasswordMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMouseExited
+        if (new String(txtPassword.getPassword()).equals("")){
+            txtPassword.setText("Contrasena");
+        }
+    }//GEN-LAST:event_txtPasswordMouseExited
 
     /**
      * @param args the command line arguments
