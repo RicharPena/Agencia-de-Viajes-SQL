@@ -8,6 +8,8 @@ import javax.swing.Timer;
 
 import Tipografias.Fuentes;
 import java.awt.Color;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -27,6 +29,7 @@ public class Inicio extends javax.swing.JFrame {
         txtUsuario.setForeground(Color.GRAY);
         txtPassword.setFont(tipoFuente.fuente(tipoFuente.RIO, 0, 18));
         txtPassword.setForeground(Color.GRAY);
+        txtPassword.setEchoChar('\0');
         txtMensaje.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
     }
 
@@ -39,8 +42,9 @@ public class Inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        banner = new javax.swing.JLabel();
+        banner1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        TbtnVisual = new javax.swing.JToggleButton();
         txtUsuario = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JButton();
@@ -48,14 +52,25 @@ public class Inicio extends javax.swing.JFrame {
         txtMensaje = new javax.swing.JLabel();
         banner = new javax.swing.JLabel();
 
-        banner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Starter Login.png"))); // NOI18N
-        banner.setPreferredSize(new java.awt.Dimension(980, 612));
-        jPanel1.add(banner, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        banner1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Starter Login.png"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        TbtnVisual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Button visual_001.png"))); // NOI18N
+        TbtnVisual.setToolTipText("");
+        TbtnVisual.setBorder(null);
+        TbtnVisual.setBorderPainted(false);
+        TbtnVisual.setContentAreaFilled(false);
+        TbtnVisual.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TbtnVisual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TbtnVisualActionPerformed(evt);
+            }
+        });
+        jPanel1.add(TbtnVisual, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 240, -1, -1));
 
         txtUsuario.setBackground(new java.awt.Color(250, 249, 248));
         txtUsuario.setText("Usuario");
@@ -73,10 +88,10 @@ public class Inicio extends javax.swing.JFrame {
                 txtUsuarioActionPerformed(evt);
             }
         });
-        jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 410, 40));
+        jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 360, 40));
 
         txtPassword.setBackground(new java.awt.Color(250, 249, 248));
-        txtPassword.setText("Contrasena");
+        txtPassword.setText("Contraseña");
         txtPassword.setToolTipText("");
         txtPassword.setBorder(null);
         txtPassword.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -87,7 +102,7 @@ public class Inicio extends javax.swing.JFrame {
                 txtPasswordMouseExited(evt);
             }
         });
-        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 240, 410, 40));
+        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 240, 360, 40));
 
         btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Button Login_001.png"))); // NOI18N
         btnLogin.setBorder(null);
@@ -111,15 +126,14 @@ public class Inicio extends javax.swing.JFrame {
                 btnRegisterActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 400, -1, 80));
+        jPanel1.add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 410, -1, 60));
 
         txtMensaje.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtMensaje.setForeground(new java.awt.Color(255, 0, 0));
         txtMensaje.setText(" ");
-        jPanel1.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 390, 500, -1));
+        jPanel1.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 290, 410, 30));
 
         banner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Starter Login.png"))); // NOI18N
-        banner.setPreferredSize(new java.awt.Dimension(980, 612));
         jPanel1.add(banner, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,30 +168,42 @@ public class Inicio extends javax.swing.JFrame {
             txtUsuario.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
             txtUsuario.setForeground(Color.BLACK);
         }
+        if (new String(txtPassword.getPassword()).equals("")){
+            txtPassword.setEchoChar('\0');
+            txtPassword.setText("Contraseña");
+            txtPassword.setFont(tipoFuente.fuente(tipoFuente.RIO,0,18));
+            txtPassword.setForeground(Color.GRAY);
+        }
     }//GEN-LAST:event_txtUsuarioMouseClicked
     //Este otro método podría ir, funciona cuando sale el mouse de la caja que contiene el textfield
+    //Mejor es si clickea en el otro txt y si no hay nada la cambia, ya que si sale de la caja y se cambia se siente extraño
     private void txtUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMouseExited
-        if (txtUsuario.getText().equals("")){
-            txtUsuario.setText("Usuario");
-            txtUsuario.setFont(tipoFuente.fuente(tipoFuente.RIO,0,18));
-            txtUsuario.setForeground(Color.GRAY);
-        }
+        
     }//GEN-LAST:event_txtUsuarioMouseExited
 
     private void txtPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMouseClicked
         if (new String(txtPassword.getPassword()).equals("Contraseña")){
             txtPassword.setText("");
-            txtPassword.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
-            txtPassword.setForeground(Color.BLACK);
+            if(TbtnVisual.isSelected()){
+                txtPassword.setEchoChar('\0');
+                txtPassword.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
+                txtPassword.setForeground(Color.BLACK);
+            }
+            else{
+                txtPassword.setEchoChar('\u2022');
+                txtPassword.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
+                txtPassword.setForeground(Color.BLACK);
+            }
+        }
+        if (txtUsuario.getText().equals("")){
+            txtUsuario.setText("Usuario");
+            txtUsuario.setFont(tipoFuente.fuente(tipoFuente.RIO,0,18));
+            txtUsuario.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_txtPasswordMouseClicked
 
     private void txtPasswordMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMouseExited
-        if (new String(txtPassword.getPassword()).equals("")){
-            txtPassword.setText("Contraseña");
-            txtPassword.setFont(tipoFuente.fuente(tipoFuente.RIO,0,18));
-            txtPassword.setForeground(Color.GRAY);
-        }
+        
     }//GEN-LAST:event_txtPasswordMouseExited
 
     
@@ -216,6 +242,30 @@ public class Inicio extends javax.swing.JFrame {
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
+    
+    
+    private void TbtnVisualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TbtnVisualActionPerformed
+        // TODO add your handling code here:
+        
+        Icon blindEye,eye;
+        
+        blindEye = new ImageIcon(getClass().getResource("/Images/Button visual_001.png"));
+        eye = new ImageIcon(getClass().getResource("/Images/Button visual_002.png"));
+        
+        if(TbtnVisual.isSelected()){
+            TbtnVisual.setIcon(eye);
+            txtPassword.setEchoChar('\0');
+        }
+        else{
+            TbtnVisual.setIcon(blindEye);
+            if(new String(txtPassword.getPassword()).equals("Contraseña")){
+                
+            }
+            else{
+                txtPassword.setEchoChar('\u2022');
+            }
+        }
+    }//GEN-LAST:event_TbtnVisualActionPerformed
 
     /**
      * @param args the command line arguments
@@ -253,7 +303,9 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton TbtnVisual;
     private javax.swing.JLabel banner;
+    private javax.swing.JLabel banner1;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnRegister;
     private javax.swing.JPanel jPanel1;
