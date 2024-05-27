@@ -8,6 +8,7 @@ import javax.swing.Timer;
 
 import Tipografias.Fuentes;
 import java.awt.Color;
+import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -23,13 +24,14 @@ public class Inicio extends javax.swing.JFrame {
     Fuentes tipoFuente;
     public Inicio() {
         initComponents();
+        putExitbutton();
         this.setLocationRelativeTo(null);
         tipoFuente = new Fuentes();
         txtUsuario.setFont(tipoFuente.fuente(tipoFuente.RIO,0,18));
         txtUsuario.setForeground(Color.GRAY);
+        txtPassword.setEchoChar('\0');
         txtPassword.setFont(tipoFuente.fuente(tipoFuente.RIO, 0, 18));
         txtPassword.setForeground(Color.GRAY);
-        txtPassword.setEchoChar('\0');
         txtMensaje.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
     }
 
@@ -42,7 +44,6 @@ public class Inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        banner1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         TbtnVisual = new javax.swing.JToggleButton();
         txtUsuario = new javax.swing.JTextField();
@@ -50,9 +51,10 @@ public class Inicio extends javax.swing.JFrame {
         btnLogin = new javax.swing.JButton();
         btnRegister = new javax.swing.JButton();
         txtMensaje = new javax.swing.JLabel();
+        Barra = new javax.swing.JPanel();
+        btnExit = new javax.swing.JButton();
+        btnMini = new javax.swing.JButton();
         banner = new javax.swing.JLabel();
-
-        banner1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Starter Login.png"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -88,7 +90,7 @@ public class Inicio extends javax.swing.JFrame {
                 txtUsuarioActionPerformed(evt);
             }
         });
-        jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 360, 40));
+        jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 410, 40));
 
         txtPassword.setBackground(new java.awt.Color(250, 249, 248));
         txtPassword.setText("Contraseña");
@@ -100,6 +102,11 @@ public class Inicio extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 txtPasswordMouseExited(evt);
+            }
+        });
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
             }
         });
         jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 240, 360, 40));
@@ -133,6 +140,62 @@ public class Inicio extends javax.swing.JFrame {
         txtMensaje.setText(" ");
         jPanel1.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 290, 410, 30));
 
+        Barra.setOpaque(false);
+        Barra.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                BarraMouseDragged(evt);
+            }
+        });
+        Barra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                BarraMousePressed(evt);
+            }
+        });
+
+        btnExit.setToolTipText("");
+        btnExit.setBorder(null);
+        btnExit.setBorderPainted(false);
+        btnExit.setContentAreaFilled(false);
+        btnExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnExitMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnExitMouseExited(evt);
+            }
+        });
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+
+        btnMini.setBorder(null);
+        btnMini.setBorderPainted(false);
+        btnMini.setContentAreaFilled(false);
+        btnMini.setPreferredSize(new java.awt.Dimension(40, 40));
+
+        javax.swing.GroupLayout BarraLayout = new javax.swing.GroupLayout(Barra);
+        Barra.setLayout(BarraLayout);
+        BarraLayout.setHorizontalGroup(
+            BarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BarraLayout.createSequentialGroup()
+                .addGap(0, 894, Short.MAX_VALUE)
+                .addComponent(btnMini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        BarraLayout.setVerticalGroup(
+            BarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(BarraLayout.createSequentialGroup()
+                .addComponent(btnMini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(Barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 40));
+
         banner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Starter Login.png"))); // NOI18N
         jPanel1.add(banner, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -154,7 +217,11 @@ public class Inicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    public void putExitbutton(){
+        ImageIcon exitImage=new ImageIcon(getClass().getResource("/images/Close_Button_01.png"));
+        Icon exitIcon =new ImageIcon(exitImage.getImage().getScaledInstance(btnExit.getWidth(),btnExit.getHeight(),Image.SCALE_SMOOTH));
+        btnExit.setIcon(exitIcon);
+    }
     //BOTÓN DE REGISTRO
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         this.setVisible(false);
@@ -163,14 +230,15 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void txtUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMouseClicked
+        String ps =new String(txtPassword.getPassword());
         if (txtUsuario.getText().equals("Usuario")){
             txtUsuario.setText("");
             txtUsuario.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
             txtUsuario.setForeground(Color.BLACK);
         }
-        if (new String(txtPassword.getPassword()).equals("")){
-            txtPassword.setEchoChar('\0');
+        if (ps.equals("")){
             txtPassword.setText("Contraseña");
+            txtPassword.setEchoChar('\0');
             txtPassword.setFont(tipoFuente.fuente(tipoFuente.RIO,0,18));
             txtPassword.setForeground(Color.GRAY);
         }
@@ -182,18 +250,17 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioMouseExited
 
     private void txtPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMouseClicked
-        if (new String(txtPassword.getPassword()).equals("Contraseña")){
+        String ps =new String(txtPassword.getPassword());
+        if (ps.equals("Contraseña")){
             txtPassword.setText("");
             if(TbtnVisual.isSelected()){
                 txtPassword.setEchoChar('\0');
-                txtPassword.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
-                txtPassword.setForeground(Color.BLACK);
             }
             else{
                 txtPassword.setEchoChar('\u2022');
-                txtPassword.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
-                txtPassword.setForeground(Color.BLACK);
             }
+            txtPassword.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
+            txtPassword.setForeground(Color.BLACK);
         }
         if (txtUsuario.getText().equals("")){
             txtUsuario.setText("Usuario");
@@ -266,6 +333,43 @@ public class Inicio extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_TbtnVisualActionPerformed
+    
+    int xMouse,yMouse;
+    private void BarraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraMousePressed
+        // TODO add your handling code here:
+        xMouse=evt.getX();
+        yMouse=evt.getY();
+    }//GEN-LAST:event_BarraMousePressed
+    
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void BarraMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraMouseDragged
+        // TODO add your handling code here:
+        int x=evt.getXOnScreen();
+        int y=evt.getYOnScreen();
+        setLocation(x-xMouse, y-yMouse);
+    }//GEN-LAST:event_BarraMouseDragged
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
+        // TODO add your handling code here:
+        ImageIcon exitImage=new ImageIcon(getClass().getResource("/images/Close_Button_02.png"));
+        Icon exitIcon =new ImageIcon(exitImage.getImage().getScaledInstance(btnExit.getWidth(),btnExit.getHeight(),Image.SCALE_SMOOTH));
+        btnExit.setIcon(exitIcon);
+    }//GEN-LAST:event_btnExitMouseEntered
+
+    private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
+        // TODO add your handling code here:
+        ImageIcon exitImage=new ImageIcon(getClass().getResource("/images/Close_Button_01.png"));
+        Icon exitIcon =new ImageIcon(exitImage.getImage().getScaledInstance(btnExit.getWidth(),btnExit.getHeight(),Image.SCALE_SMOOTH));
+        btnExit.setIcon(exitIcon);
+    }//GEN-LAST:event_btnExitMouseExited
 
     /**
      * @param args the command line arguments
@@ -303,10 +407,12 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Barra;
     private javax.swing.JToggleButton TbtnVisual;
     private javax.swing.JLabel banner;
-    private javax.swing.JLabel banner1;
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnMini;
     private javax.swing.JButton btnRegister;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel txtMensaje;
