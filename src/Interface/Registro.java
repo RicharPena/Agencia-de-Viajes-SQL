@@ -4,6 +4,11 @@
  */
 package Interface;
 
+import java.awt.Color;
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Systema
@@ -15,8 +20,17 @@ public class Registro extends javax.swing.JFrame {
      */
     public Registro() {
         initComponents();
+        putBackbutton();
+        txtUser.setBackground(new Color(0,0,0,1));
+        
+        setLocationRelativeTo(null);
     }
-
+    
+    public void putBackbutton(){
+        ImageIcon backImage=new ImageIcon(getClass().getResource("/images/Back_Button_01.png"));
+        Icon backIcon =new ImageIcon(backImage.getImage().getScaledInstance(btnBack.getWidth(),btnBack.getHeight(),Image.SCALE_SMOOTH));
+        btnBack.setIcon(backIcon);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,21 +40,81 @@ public class Registro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        btnBack = new javax.swing.JButton();
+        btnRegister = new javax.swing.JButton();
+        txtUser = new javax.swing.JTextField();
+        bannerRegister = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(500, 612));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnBack.setBorder(null);
+        btnBack.setBorderPainted(false);
+        btnBack.setContentAreaFilled(false);
+        btnBack.setPreferredSize(new java.awt.Dimension(60, 60));
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        btnRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Button Register_001.png"))); // NOI18N
+        btnRegister.setToolTipText("");
+        btnRegister.setBorder(null);
+        btnRegister.setBorderPainted(false);
+        btnRegister.setContentAreaFilled(false);
+        btnRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, -1, -1));
+
+        txtUser.setBackground(new java.awt.Color(250, 249, 248));
+        txtUser.setText("Usuario");
+        txtUser.setToolTipText("");
+        txtUser.setActionCommand("<Not Set>");
+        txtUser.setBorder(null);
+        jPanel1.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 400, 40));
+
+        bannerRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Starter Regiter.png"))); // NOI18N
+        jPanel1.add(bannerRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 612));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 612, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        Inicio inicio=new Inicio();
+        inicio.setVisible(true);
+    }//GEN-LAST:event_btnRegisterActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        Inicio inicio=new Inicio();
+        inicio.setVisible(true);
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +152,10 @@ public class Registro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bannerRegister;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnRegister;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }
