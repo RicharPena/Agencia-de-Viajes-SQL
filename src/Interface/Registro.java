@@ -21,7 +21,6 @@ public class Registro extends javax.swing.JFrame {
     public Registro() {
         initComponents();
         putBackbutton();
-        txtUser.setBackground(new Color(0,0,0,1));
         
         setLocationRelativeTo(null);
     }
