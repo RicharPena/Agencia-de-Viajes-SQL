@@ -4,6 +4,7 @@
  */
 package Interface;
 
+import AgenciaDeViajes.Usuario;
 import javax.swing.Timer;
 
 import Tipografias.Fuentes;
@@ -297,9 +298,13 @@ public class Inicio extends javax.swing.JFrame {
                     timer.start();
                 }
                 else{
-                    this.setVisible(false);
-                    Sesion sesion = new Sesion();
-                    sesion.setVisible(true);
+                    for (Usuario usuario:AgenciaDeViajes.Agencia.listaUsuarios){
+                        if (usuario.getUserName().equals(u) && usuario.getPassword().equals(c)){
+                            this.setVisible(false);
+                            Sesion sesion = new Sesion();
+                            sesion.setVisible(true);
+                        }
+                    }
                 }
             }
         }
