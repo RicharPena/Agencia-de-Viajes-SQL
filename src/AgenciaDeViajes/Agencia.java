@@ -23,9 +23,8 @@ public class Agencia {
     public static ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
     
     public static void main(String [] args){
-        
-        
-        //Vuelo vuelo1 = new Vuelo(1, "Avianca", "Cartagena", "Bogota", "Prueba");
+
+        Vuelo vuelo1 = new Vuelo(1, "Avianca", "Cartagena", "Bogota", "Prueba");
         Usuario usuario1 = new Usuario("Richar", "123", "Richar");
         
         listaUsuarios.add(usuario1);
