@@ -72,7 +72,7 @@ public class Usuario {
         return false;
     }
     
-    public String getame() {
+    public String getUserName() {
         return userName;
     }
 
