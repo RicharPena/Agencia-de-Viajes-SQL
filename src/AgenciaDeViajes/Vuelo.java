@@ -10,6 +10,20 @@ import java.util.ArrayList;
  *
  * @author Systema
  */
+
+//BOEING 737-800
+            //Business class: 16
+            //Premien Economy Class: 48
+            //Economy Class: 102
+//BOEING 777-200ER
+                //Business class 34
+                //Premium Economy Class: 40
+                //Economy Class: 258
+//BOEING 767-300ER
+                    //Business Class: 24
+                    //Premium Economy Class: 30
+                    //Economy Class: 157
+
 public class Vuelo {
     private int idVuelo;
     private String aereolinea;
@@ -25,77 +39,19 @@ public class Vuelo {
     public Vuelo (int id,String aereolinea, String origen, String destino, String estadoVuelo){
         idVuelo = id;
         this.aereolinea = aereolinea;
-        //Discutir el tema de las aereolineas (cuantas van a ser)
-        //Por ejemplo, la de United tiene 166 pasajeros (asientos)
-        if (aereolinea.equals("Avianca")){
-            //BOEING 737-800
-            //Business class: 16
-            //Premien Economy Class: 48
-            //Economy Class: 102
-            asientos = new Asiento[166];
-            asientosDisponibles = 166;
-            for (int i=0; i<166; i++){
-                if (i<16){
-                    asientos[i]=new AsientoBusiness(i,true);
-                }
-                else{
-                    if (i>=16 && i<64){
-                        asientos[i]=new AsientoEconomicoPremium(i,true);
-                    }
-                    else{
-                        if (i>=64 && i<166){
-                            asientos[i]=new AsientoEconomico(i,true);
-                        }
-                    }
-                }
-            }
-        }
-        else{
-            if (aereolinea.equals("Fly Emirates")){
-                //BOEING 777-200ER
-                //Business class 34
-                //Premium Economy Class: 40
-                //Economy Class: 258
-                asientos = new Asiento[330];
-                asientosDisponibles = 330;
-                for (int i=0; i<330; i++){
-                    if (i<34){
-                        asientos[i]=new AsientoBusiness(i,true);
-                    }
-                    else{
-                        if (i>=34 && i<74){
-                            asientos[i]=new AsientoEconomicoPremium(i,true);
-                        }
-                        else{
-                            if (i>=74 && i<330){
-                                asientos[i]=new AsientoEconomico(i,true);
-                            }
-                        }
-                    }
-                }
+        asientos = new Asiento[166];
+        asientosDisponibles = 166;
+        for (int i=0; i<166; i++){
+            if (i<16){
+                asientos[i]=new AsientoBusiness(i,true);
             }
             else{
-                if (aereolinea.equals("Latam")){
-                    //BOEING 767-300ER
-                    //Business Class: 24
-                    //Premium Economy Class: 30
-                    //Economy Class: 157
-                    asientos = new Asiento[211];
-                    asientosDisponibles = 211;
-                    for (int i=0; i<211; i++){
-                        if (i<24){
-                            asientos[i]=new AsientoBusiness(i,true);
-                        }
-                        else{
-                            if (i>=24 && i<54){
-                                asientos[i]=new AsientoEconomicoPremium(i,true);
-                            }
-                            else{
-                                if (i>=54 && i<211){
-                                    asientos[i]=new AsientoEconomico(i,true);
-                                }
-                            }
-                        }
+                if (i>=16 && i<64){
+                    asientos[i]=new AsientoEconomicoPremium(i,true);
+                }
+                else{
+                    if (i>=64 && i<166){
+                        asientos[i]=new AsientoEconomico(i,true);
                     }
                 }
             }
