@@ -10,7 +10,6 @@ import java.util.ArrayList;
  *
  * @author Systema
  */
-
 //BOEING 737-800
             //Business class: 16
             //Premien Economy Class: 48
@@ -86,6 +85,6 @@ public class Vuelo {
     public Asiento[] getAsientos() {
         return asientos;
     }
-    
+        
     
 }
