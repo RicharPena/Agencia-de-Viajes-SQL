@@ -77,6 +77,7 @@ public class Sesion extends javax.swing.JFrame {
         panelInicio = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         panelReserva = new javax.swing.JPanel();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
         panelBooking = new javax.swing.JPanel();
         panelTarjeta = new javax.swing.JPanel();
         panelConfig = new javax.swing.JPanel();
@@ -378,11 +379,17 @@ public class Sesion extends javax.swing.JFrame {
         panelReserva.setLayout(panelReservaLayout);
         panelReservaLayout.setHorizontalGroup(
             panelReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 660, Short.MAX_VALUE)
+            .addGroup(panelReservaLayout.createSequentialGroup()
+                .addGap(96, 96, 96)
+                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(373, Short.MAX_VALUE))
         );
         panelReservaLayout.setVerticalGroup(
             panelReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
+            .addGroup(panelReservaLayout.createSequentialGroup()
+                .addGap(98, 98, 98)
+                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(311, Short.MAX_VALUE))
         );
 
         jPanel12.add(panelReserva, "card3");
@@ -597,6 +604,7 @@ public class Sesion extends javax.swing.JFrame {
     private javax.swing.JLabel imgReserva;
     private javax.swing.JLabel imgSlogan;
     private javax.swing.JLabel imgTarjeta;
+    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
