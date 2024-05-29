@@ -7,6 +7,7 @@ package Interface;
 import Tipografias.Fuentes;
 import java.awt.Color;
 import java.awt.Image;
+import java.text.SimpleDateFormat;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -78,6 +79,7 @@ public class Sesion extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         panelReserva = new javax.swing.JPanel();
         jCalendar1 = new com.toedter.calendar.JCalendar();
+        txtFechaSalida = new javax.swing.JTextField();
         panelBooking = new javax.swing.JPanel();
         panelTarjeta = new javax.swing.JPanel();
         panelConfig = new javax.swing.JPanel();
@@ -375,13 +377,21 @@ public class Sesion extends javax.swing.JFrame {
 
         panelReserva.setBackground(new java.awt.Color(204, 255, 255));
 
+        jCalendar1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jCalendar1PropertyChange(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelReservaLayout = new javax.swing.GroupLayout(panelReserva);
         panelReserva.setLayout(panelReservaLayout);
         panelReservaLayout.setHorizontalGroup(
             panelReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelReservaLayout.createSequentialGroup()
                 .addGap(96, 96, 96)
-                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtFechaSalida))
                 .addContainerGap(373, Short.MAX_VALUE))
         );
         panelReservaLayout.setVerticalGroup(
@@ -389,7 +399,9 @@ public class Sesion extends javax.swing.JFrame {
             .addGroup(panelReservaLayout.createSequentialGroup()
                 .addGap(98, 98, 98)
                 .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(311, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(txtFechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(271, Short.MAX_VALUE))
         );
 
         jPanel12.add(panelReserva, "card3");
@@ -552,6 +564,13 @@ public class Sesion extends javax.swing.JFrame {
         panelInicio.setVisible(false);
         panelTarjeta.setVisible(false);
     }//GEN-LAST:event_btnConfigMouseClicked
+
+    private void jCalendar1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendar1PropertyChange
+        if(evt.getOldValue()!= null){
+            SimpleDateFormat ff = new SimpleDateFormat("dd/MM/yyyy");
+            txtFechaSalida.setText(ff.format(jCalendar1.getCalendar().getTime()));
+        }
+    }//GEN-LAST:event_jCalendar1PropertyChange
     
     /**
      * @param args the command line arguments
@@ -622,5 +641,6 @@ public class Sesion extends javax.swing.JFrame {
     private javax.swing.JPanel panelInicio;
     private javax.swing.JPanel panelReserva;
     private javax.swing.JPanel panelTarjeta;
+    private javax.swing.JTextField txtFechaSalida;
     // End of variables declaration//GEN-END:variables
 }
