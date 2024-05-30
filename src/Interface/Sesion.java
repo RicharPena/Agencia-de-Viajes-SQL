@@ -25,7 +25,7 @@ public class Sesion extends javax.swing.JFrame {
     public Sesion() {
         initComponents();
         setLocationRelativeTo(null);
-        putImage("/Images/logo_agencia.png", imgLogo);
+        putImage("/Images/logo_agencia_002.png", imgLogo);
         putImage("/Images/homeIcono.png", imgInicio);
         putImage("/Images/vuelosIcono.png", imgVuelos);
         putImage("/Images/reservasIcono.png", imgReserva);
@@ -33,6 +33,16 @@ public class Sesion extends javax.swing.JFrame {
         putImage("/Images/nombreAgencia_002.png", imgNombreAgencia);
         putImage("/Images/slogan_002.png", imgSlogan);
         putImage("/Images/logOutIcono.png", imgLogOut);
+        putImage("/Images/changeBGInicio.png",backgroundInicio);
+        putImage("/Images/changeBGVuelos.png",backgroundVuelos);
+        putImage("/Images/changeBGReserva.png",backgroundReserva);
+        putImage("/Images/changeBGConfig.png",backgroundConfig);
+        putImage("/Images/changeBGLogOut.png",backgroundLogOut);
+        backgroundInicio.setVisible(false);
+        backgroundVuelos.setVisible(false);
+        backgroundReserva.setVisible(false);
+        backgroundConfig.setVisible(false);
+        backgroundLogOut.setVisible(false);
         titleFont(txtInicio);
         titleFont(txtVuelos);
         titleFont(txtReserva);
@@ -74,18 +84,23 @@ public class Sesion extends javax.swing.JFrame {
         btnInicio = new javax.swing.JPanel();
         imgInicio = new javax.swing.JLabel();
         txtInicio = new javax.swing.JLabel();
+        backgroundInicio = new javax.swing.JLabel();
         btnVuelos = new javax.swing.JPanel();
         imgVuelos = new javax.swing.JLabel();
         txtVuelos = new javax.swing.JLabel();
+        backgroundVuelos = new javax.swing.JLabel();
         btnReserva = new javax.swing.JPanel();
         imgReserva = new javax.swing.JLabel();
         txtReserva = new javax.swing.JLabel();
+        backgroundReserva = new javax.swing.JLabel();
         btnConfiguracion = new javax.swing.JPanel();
         imgConfig = new javax.swing.JLabel();
         txtConfig = new javax.swing.JLabel();
+        backgroundConfig = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JPanel();
         imgLogOut = new javax.swing.JLabel();
         txtLogOut = new javax.swing.JLabel();
+        backgroundLogOut = new javax.swing.JLabel();
         encabezado = new javax.swing.JPanel();
         cardPanel = new javax.swing.JPanel();
         panelInicio = new javax.swing.JPanel();
@@ -94,9 +109,11 @@ public class Sesion extends javax.swing.JFrame {
         panelReserva = new javax.swing.JPanel();
         txtFechaSalida = new javax.swing.JTextField();
         panelConfig = new javax.swing.JPanel();
+        backGround = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1024, 620));
 
         absolutePanel.setBackground(new java.awt.Color(0, 0, 0));
         absolutePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -114,6 +131,7 @@ public class Sesion extends javax.swing.JFrame {
         absolutePanel.add(topMove, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1024, 40));
 
         empresaLogo.setBackground(new java.awt.Color(0, 102, 204));
+        empresaLogo.setOpaque(false);
         empresaLogo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         empresaLogo.add(imgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 85, 100));
         empresaLogo.add(imgNombreAgencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 30, 134, 29));
@@ -122,10 +140,12 @@ public class Sesion extends javax.swing.JFrame {
         absolutePanel.add(empresaLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 120));
 
         barraButtons.setBackground(new java.awt.Color(0, 102, 204));
+        barraButtons.setOpaque(false);
         barraButtons.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnInicio.setBackground(new java.awt.Color(0, 102, 204));
         btnInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInicio.setOpaque(false);
         btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnInicioMouseClicked(evt);
@@ -145,10 +165,14 @@ public class Sesion extends javax.swing.JFrame {
         txtInicio.setText("Inicio");
         btnInicio.add(txtInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 160, 60));
 
+        backgroundInicio.setToolTipText("");
+        btnInicio.add(backgroundInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 60));
+
         barraButtons.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 60));
 
         btnVuelos.setBackground(new java.awt.Color(0, 102, 204));
         btnVuelos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVuelos.setOpaque(false);
         btnVuelos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnVuelosMouseClicked(evt);
@@ -168,10 +192,14 @@ public class Sesion extends javax.swing.JFrame {
         txtVuelos.setText("Vuelos");
         btnVuelos.add(txtVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 160, 60));
 
+        backgroundVuelos.setToolTipText("");
+        btnVuelos.add(backgroundVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 60));
+
         barraButtons.add(btnVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 240, 60));
 
         btnReserva.setBackground(new java.awt.Color(0, 102, 204));
         btnReserva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReserva.setOpaque(false);
         btnReserva.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnReservaMouseClicked(evt);
@@ -191,10 +219,14 @@ public class Sesion extends javax.swing.JFrame {
         txtReserva.setText("Reserva");
         btnReserva.add(txtReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 160, 60));
 
+        backgroundReserva.setToolTipText("");
+        btnReserva.add(backgroundReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 60));
+
         barraButtons.add(btnReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 240, 60));
 
         btnConfiguracion.setBackground(new java.awt.Color(0, 102, 204));
         btnConfiguracion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConfiguracion.setOpaque(false);
         btnConfiguracion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnConfiguracionMouseClicked(evt);
@@ -214,10 +246,14 @@ public class Sesion extends javax.swing.JFrame {
         txtConfig.setText("Configuracion");
         btnConfiguracion.add(txtConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 160, 60));
 
+        backgroundConfig.setToolTipText("");
+        btnConfiguracion.add(backgroundConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 60));
+
         barraButtons.add(btnConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 240, 60));
 
         btnCerrarSesion.setBackground(new java.awt.Color(0, 102, 204));
         btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCerrarSesion.setOpaque(false);
         btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCerrarSesionMouseClicked(evt);
@@ -238,11 +274,15 @@ public class Sesion extends javax.swing.JFrame {
         txtLogOut.setText("Cerrar Sesion");
         btnCerrarSesion.add(txtLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 160, 60));
 
+        backgroundLogOut.setToolTipText("");
+        btnCerrarSesion.add(backgroundLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 60));
+
         barraButtons.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 240, 60));
 
         absolutePanel.add(barraButtons, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 240, 500));
 
         encabezado.setBackground(new java.awt.Color(0, 153, 255));
+        encabezado.setOpaque(false);
         encabezado.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         absolutePanel.add(encabezado, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 784, 40));
 
@@ -325,6 +365,10 @@ public class Sesion extends javax.swing.JFrame {
         absolutePanel.add(cardPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 784, 580));
         cardPanel.getAccessibleContext().setAccessibleName("");
 
+        backGround.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/backgraund gradiente.png"))); // NOI18N
+        backGround.setToolTipText("");
+        absolutePanel.add(backGround, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1024, 620));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -335,54 +379,52 @@ public class Sesion extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(absolutePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 120, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private Color original = new Color (0,102,204);
-    private Color cambio = new Color(51,153,255);
+    
     private void btnInicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseEntered
-        btnInicio.setBackground(cambio);
+        backgroundInicio.setVisible(true);
     }//GEN-LAST:event_btnInicioMouseEntered
 
     private void btnInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseExited
-        btnInicio.setBackground(original);
+        backgroundInicio.setVisible(false);
     }//GEN-LAST:event_btnInicioMouseExited
 
     private void btnReservaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservaMouseEntered
-        btnReserva.setBackground(cambio);
+        backgroundReserva.setVisible(true);
     }//GEN-LAST:event_btnReservaMouseEntered
 
     private void btnReservaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservaMouseExited
-        btnReserva.setBackground(original);
+        backgroundReserva.setVisible(false);
     }//GEN-LAST:event_btnReservaMouseExited
 
     private void btnVuelosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVuelosMouseEntered
-        btnVuelos.setBackground(cambio);
+        backgroundVuelos.setVisible(true);
     }//GEN-LAST:event_btnVuelosMouseEntered
 
     private void btnVuelosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVuelosMouseExited
-        btnVuelos.setBackground(original);
+        backgroundVuelos.setVisible(false);
     }//GEN-LAST:event_btnVuelosMouseExited
 
     private void btnConfiguracionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracionMouseEntered
-        btnConfiguracion.setBackground(cambio);
+        backgroundConfig.setVisible(true);
     }//GEN-LAST:event_btnConfiguracionMouseEntered
 
     private void btnConfiguracionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracionMouseExited
-        btnConfiguracion.setBackground(original);
+        backgroundConfig.setVisible(false);
     }//GEN-LAST:event_btnConfiguracionMouseExited
 
     private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
-        this.setVisible(false);
+        dispose();
         Inicio inicio = new Inicio();
         inicio.setVisible(true);
     }//GEN-LAST:event_btnCerrarSesionMouseClicked
 
     private void btnInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseClicked
-        btnInicio.setBackground(cambio);
+        
         panelInicio.setVisible(true);
         
         panelReserva.setVisible(false);
@@ -391,7 +433,7 @@ public class Sesion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicioMouseClicked
 
     private void btnReservaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservaMouseClicked
-        btnReserva.setBackground(cambio);
+        
         panelReserva.setVisible(true);
         
         panelInicio.setVisible(false);
@@ -400,7 +442,7 @@ public class Sesion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReservaMouseClicked
 
     private void btnVuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVuelosMouseClicked
-        btnVuelos.setBackground(cambio);
+        
         panelVuelos.setVisible(true);
         
         panelReserva.setVisible(false);
@@ -409,7 +451,7 @@ public class Sesion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVuelosMouseClicked
 
     private void btnConfiguracionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracionMouseClicked
-        btnConfiguracion.setBackground(cambio);
+        
         panelConfig.setVisible(true);
         
         panelReserva.setVisible(false);
@@ -443,12 +485,12 @@ public class Sesion extends javax.swing.JFrame {
 
     private void btnCerrarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseEntered
         // TODO add your handling code here:
-        btnCerrarSesion.setBackground(cambio);
+        backgroundLogOut.setVisible(true);
     }//GEN-LAST:event_btnCerrarSesionMouseEntered
 
     private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
         // TODO add your handling code here:
-        btnCerrarSesion.setBackground(original);
+        backgroundLogOut.setVisible(false);
     }//GEN-LAST:event_btnCerrarSesionMouseExited
     
     /**
@@ -488,6 +530,12 @@ public class Sesion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel absolutePanel;
+    private javax.swing.JLabel backGround;
+    private javax.swing.JLabel backgroundConfig;
+    private javax.swing.JLabel backgroundInicio;
+    private javax.swing.JLabel backgroundLogOut;
+    private javax.swing.JLabel backgroundReserva;
+    private javax.swing.JLabel backgroundVuelos;
     private javax.swing.JPanel barraButtons;
     private javax.swing.JPanel btnCerrarSesion;
     private javax.swing.JPanel btnConfiguracion;

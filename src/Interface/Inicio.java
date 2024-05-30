@@ -38,6 +38,7 @@ public class Inicio extends javax.swing.JFrame {
         cursiveFontinPF(txtPassword);
         txtPassword.setForeground(Color.GRAY);
         normalFontinJL(txtMensaje);
+        putImageinButton("/Images/miniLogo.png",btnMini);
     }
 
     /**
@@ -49,7 +50,7 @@ public class Inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        absolutoPanel = new javax.swing.JPanel();
         TbtnVisual = new javax.swing.JToggleButton();
         txtUsuario = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
@@ -64,7 +65,7 @@ public class Inicio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        absolutoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         TbtnVisual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Button visual_001.png"))); // NOI18N
         TbtnVisual.setToolTipText("");
@@ -77,7 +78,7 @@ public class Inicio extends javax.swing.JFrame {
                 TbtnVisualActionPerformed(evt);
             }
         });
-        jPanel1.add(TbtnVisual, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 240, -1, -1));
+        absolutoPanel.add(TbtnVisual, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 240, -1, -1));
 
         txtUsuario.setBackground(new java.awt.Color(250, 249, 248));
         txtUsuario.setText("Usuario");
@@ -95,7 +96,7 @@ public class Inicio extends javax.swing.JFrame {
                 txtUsuarioActionPerformed(evt);
             }
         });
-        jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 410, 40));
+        absolutoPanel.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 410, 40));
 
         txtPassword.setBackground(new java.awt.Color(250, 249, 248));
         txtPassword.setText("Contraseña");
@@ -114,9 +115,9 @@ public class Inicio extends javax.swing.JFrame {
                 txtPasswordActionPerformed(evt);
             }
         });
-        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 240, 360, 40));
+        absolutoPanel.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 240, 360, 40));
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Button Login_001.png"))); // NOI18N
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnLogin_001.png"))); // NOI18N
         btnLogin.setBorder(null);
         btnLogin.setBorderPainted(false);
         btnLogin.setContentAreaFilled(false);
@@ -126,9 +127,9 @@ public class Inicio extends javax.swing.JFrame {
                 btnLoginActionPerformed(evt);
             }
         });
-        jPanel1.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, -1, -1));
+        absolutoPanel.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, -1, -1));
 
-        btnRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Button Register_001.png"))); // NOI18N
+        btnRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnRegister_001.png"))); // NOI18N
         btnRegister.setBorder(null);
         btnRegister.setBorderPainted(false);
         btnRegister.setContentAreaFilled(false);
@@ -138,12 +139,12 @@ public class Inicio extends javax.swing.JFrame {
                 btnRegisterActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 410, -1, 60));
+        absolutoPanel.add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 410, -1, 60));
 
         txtMensaje.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtMensaje.setForeground(new java.awt.Color(255, 0, 0));
         txtMensaje.setText(" ");
-        jPanel1.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 290, 410, 30));
+        absolutoPanel.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 290, 410, 30));
 
         Barra.setOpaque(false);
         Barra.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -179,7 +180,13 @@ public class Inicio extends javax.swing.JFrame {
         btnMini.setBorder(null);
         btnMini.setBorderPainted(false);
         btnMini.setContentAreaFilled(false);
+        btnMini.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMini.setPreferredSize(new java.awt.Dimension(40, 40));
+        btnMini.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMiniActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout BarraLayout = new javax.swing.GroupLayout(Barra);
         Barra.setLayout(BarraLayout);
@@ -199,23 +206,23 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.add(Barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 40));
+        absolutoPanel.add(Barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 40));
 
-        banner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Starter Login.png"))); // NOI18N
-        jPanel1.add(banner, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        banner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Login.png"))); // NOI18N
+        absolutoPanel.add(banner, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 980, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(absolutoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 980, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(absolutoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -341,7 +348,6 @@ public class Inicio extends javax.swing.JFrame {
                 }
             }
         }
-        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
@@ -400,6 +406,11 @@ public class Inicio extends javax.swing.JFrame {
         putImageinButton("/images/Close_Button_01.png", btnExit);
     }//GEN-LAST:event_btnExitMouseExited
 
+    private void btnMiniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiniActionPerformed
+        // TODO add your handling code here:
+        this.setExtendedState(ICONIFIED);
+    }//GEN-LAST:event_btnMiniActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -438,12 +449,12 @@ public class Inicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Barra;
     private javax.swing.JToggleButton TbtnVisual;
+    private javax.swing.JPanel absolutoPanel;
     private javax.swing.JLabel banner;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnMini;
     private javax.swing.JButton btnRegister;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel txtMensaje;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsuario;

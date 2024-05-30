@@ -51,7 +51,7 @@ public class Registro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        absolutoPanel = new javax.swing.JPanel();
         btnBack = new javax.swing.JButton();
         btnRegister = new javax.swing.JButton();
         txtUser = new javax.swing.JTextField();
@@ -60,8 +60,8 @@ public class Registro extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(500, 612));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        absolutoPanel.setPreferredSize(new java.awt.Dimension(500, 612));
+        absolutoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnBack.setBorder(null);
         btnBack.setBorderPainted(false);
@@ -72,7 +72,7 @@ public class Registro extends javax.swing.JFrame {
                 btnBackActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        absolutoPanel.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         btnRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Button Register_001.png"))); // NOI18N
         btnRegister.setToolTipText("");
@@ -85,28 +85,28 @@ public class Registro extends javax.swing.JFrame {
                 btnRegisterActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, -1, -1));
+        absolutoPanel.add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, -1, -1));
 
         txtUser.setBackground(new java.awt.Color(250, 249, 248));
         txtUser.setText("Usuario");
         txtUser.setToolTipText("");
         txtUser.setActionCommand("<Not Set>");
         txtUser.setBorder(null);
-        jPanel1.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 400, 40));
+        absolutoPanel.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 400, 40));
 
-        bannerRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Starter Regiter.png"))); // NOI18N
-        jPanel1.add(bannerRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 612));
+        bannerRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Register.png"))); // NOI18N
+        absolutoPanel.add(bannerRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 612));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(absolutoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(absolutoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -163,10 +163,10 @@ public class Registro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel absolutoPanel;
     private javax.swing.JLabel bannerRegister;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnRegister;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }
