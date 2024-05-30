@@ -12,6 +12,11 @@ import java.awt.Color;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 
 /**
  *
@@ -22,18 +27,17 @@ public class Inicio extends javax.swing.JFrame {
     /**
      * Creates new form Inicio
      */
-    Fuentes tipoFuente;
+    
     public Inicio() {
         initComponents();
-        putExitbutton();
+        putImageinButton("/images/Close_Button_01.png", btnExit);
         this.setLocationRelativeTo(null);
-        tipoFuente = new Fuentes();
-        txtUsuario.setFont(tipoFuente.fuente(tipoFuente.RIO,0,18));
+        cursiveFontinTF(txtUsuario);
         txtUsuario.setForeground(Color.GRAY);
         txtPassword.setEchoChar('\0');
-        txtPassword.setFont(tipoFuente.fuente(tipoFuente.RIO, 0, 18));
+        cursiveFontinPF(txtPassword);
         txtPassword.setForeground(Color.GRAY);
-        txtMensaje.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
+        normalFontinJL(txtMensaje);
     }
 
     /**
@@ -218,14 +222,43 @@ public class Inicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void putExitbutton(){
-        ImageIcon exitImage=new ImageIcon(getClass().getResource("/images/Close_Button_01.png"));
-        Icon exitIcon =new ImageIcon(exitImage.getImage().getScaledInstance(btnExit.getWidth(),btnExit.getHeight(),Image.SCALE_SMOOTH));
-        btnExit.setIcon(exitIcon);
+    private void putImageinButton(String ruta, JButton btn){
+        ImageIcon image = new ImageIcon(getClass().getResource(ruta));
+        Icon imageIcon = new ImageIcon(image.getImage().getScaledInstance(btn.getWidth(), btn.getHeight(), Image.SCALE_SMOOTH));
+        btn.setIcon(imageIcon);
     }
+    
+    private void putImageinTButton(String ruta, JToggleButton Tbtn){
+        ImageIcon image = new ImageIcon(getClass().getResource(ruta));
+        Icon imageIcon = new ImageIcon(image.getImage().getScaledInstance(Tbtn.getWidth(), Tbtn.getHeight(), Image.SCALE_SMOOTH));
+        Tbtn.setIcon(imageIcon);
+    }
+    
+    Fuentes tipoFuente = new Fuentes();
+    
+    private void cursiveFontinTF(JTextField jtext){
+        jtext.setFont(tipoFuente.fuente(tipoFuente.RIO,0,18));
+    }
+    
+    private void cursiveFontinPF(JPasswordField jpass){
+        jpass.setFont(tipoFuente.fuente(tipoFuente.RIO,0,18));
+    }
+    
+    private void normalFontinTF(JTextField jtext){
+        jtext.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
+    }
+    
+    private void normalFontinPF(JPasswordField jpass){
+        jpass.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
+    }
+    
+    private void normalFontinJL(JLabel jLabel){
+        jLabel.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
+    }
+            
     //BOTÓN DE REGISTRO
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        this.setVisible(false);
+        dispose();
         Registro registro = new Registro();
         registro.setVisible(true);
     }//GEN-LAST:event_btnRegisterActionPerformed
@@ -234,13 +267,13 @@ public class Inicio extends javax.swing.JFrame {
         String ps =new String(txtPassword.getPassword());
         if (txtUsuario.getText().equals("Usuario")){
             txtUsuario.setText("");
-            txtUsuario.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
+            normalFontinTF(txtUsuario);
             txtUsuario.setForeground(Color.BLACK);
         }
         if (ps.equals("")){
             txtPassword.setText("Contraseña");
             txtPassword.setEchoChar('\0');
-            txtPassword.setFont(tipoFuente.fuente(tipoFuente.RIO,0,18));
+            cursiveFontinPF(txtPassword);
             txtPassword.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_txtUsuarioMouseClicked
@@ -260,12 +293,12 @@ public class Inicio extends javax.swing.JFrame {
             else{
                 txtPassword.setEchoChar('\u2022');
             }
-            txtPassword.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
+            normalFontinPF(txtPassword);
             txtPassword.setForeground(Color.BLACK);
         }
         if (txtUsuario.getText().equals("")){
             txtUsuario.setText("Usuario");
-            txtUsuario.setFont(tipoFuente.fuente(tipoFuente.RIO,0,18));
+            cursiveFontinTF(txtUsuario);
             txtUsuario.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_txtPasswordMouseClicked
@@ -319,17 +352,12 @@ public class Inicio extends javax.swing.JFrame {
     private void TbtnVisualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TbtnVisualActionPerformed
         // TODO add your handling code here:
         
-        Icon blindEye,eye;
-        
-        blindEye = new ImageIcon(getClass().getResource("/Images/Button visual_001.png"));
-        eye = new ImageIcon(getClass().getResource("/Images/Button visual_002.png"));
-        
         if(TbtnVisual.isSelected()){
-            TbtnVisual.setIcon(eye);
+            putImageinTButton("/Images/Button visual_002.png", TbtnVisual);
             txtPassword.setEchoChar('\0');
         }
         else{
-            TbtnVisual.setIcon(blindEye);
+            putImageinTButton("/Images/Button visual_001.png", TbtnVisual);
             if(new String(txtPassword.getPassword()).equals("Contraseña")){
                 
             }
@@ -364,16 +392,12 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
         // TODO add your handling code here:
-        ImageIcon exitImage=new ImageIcon(getClass().getResource("/images/Close_Button_02.png"));
-        Icon exitIcon =new ImageIcon(exitImage.getImage().getScaledInstance(btnExit.getWidth(),btnExit.getHeight(),Image.SCALE_SMOOTH));
-        btnExit.setIcon(exitIcon);
+        putImageinButton("/images/Close_Button_02.png", btnExit);
     }//GEN-LAST:event_btnExitMouseEntered
 
     private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
         // TODO add your handling code here:
-        ImageIcon exitImage=new ImageIcon(getClass().getResource("/images/Close_Button_01.png"));
-        Icon exitIcon =new ImageIcon(exitImage.getImage().getScaledInstance(btnExit.getWidth(),btnExit.getHeight(),Image.SCALE_SMOOTH));
-        btnExit.setIcon(exitIcon);
+        putImageinButton("/images/Close_Button_01.png", btnExit);
     }//GEN-LAST:event_btnExitMouseExited
 
     /**

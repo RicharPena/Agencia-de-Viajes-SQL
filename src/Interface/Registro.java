@@ -8,6 +8,9 @@ import java.awt.Color;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import Tipografias.Fuentes;
+import javax.swing.JButton;
 
 /**
  *
@@ -20,15 +23,24 @@ public class Registro extends javax.swing.JFrame {
      */
     public Registro() {
         initComponents();
-        putBackbutton();
-        
+        putImageinButton("/images/Back_Button_01.png",btnBack);
         setLocationRelativeTo(null);
     }
     
-    public void putBackbutton(){
-        ImageIcon backImage=new ImageIcon(getClass().getResource("/images/Back_Button_01.png"));
-        Icon backIcon =new ImageIcon(backImage.getImage().getScaledInstance(btnBack.getWidth(),btnBack.getHeight(),Image.SCALE_SMOOTH));
-        btnBack.setIcon(backIcon);
+    private void putImageinButton(String ruta, JButton btn){
+        ImageIcon image = new ImageIcon(getClass().getResource(ruta));
+        Icon imageIcon = new ImageIcon(image.getImage().getScaledInstance(btn.getWidth(), btn.getHeight(), Image.SCALE_SMOOTH));
+        btn.setIcon(imageIcon);
+    }
+    
+    Fuentes tipoFuente=new Fuentes();
+    
+    private void titleFont(JLabel jLabel){
+        jLabel.setFont(tipoFuente.fuente(tipoFuente.ITROMATRIC,0,18));
+    }
+    
+    private void normalFont(JLabel jLabel){
+        jLabel.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
     }
     /**
      * This method is called from within the constructor to initialize the form.

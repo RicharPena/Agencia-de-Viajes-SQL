@@ -24,21 +24,36 @@ public class Sesion extends javax.swing.JFrame {
     //private Fuentes fuente = new Fuentes();
     public Sesion() {
         initComponents();
+        setLocationRelativeTo(null);
         putImage("/Images/logo_agencia.png", imgLogo);
-        putImage("/Images/Inicio.png", imgInicio);
-        putImage("/Images/Reserva.png", imgReserva);
-        putImage("/Images/Booking.png", imgBooking);
-        putImage("/Images/Tarjeta.png", imgTarjeta);
-        putImage("/Images/Configuracion.png", imgConfig);
-        putImage("/Images/nombreAgencia.png", imgNombreAgencia);
-        putImage("/Images/Slogan.png", imgSlogan);
-        putImage("/Images/Back_Button_01.png", btnDevuelta);
+        putImage("/Images/homeIcono.png", imgInicio);
+        putImage("/Images/vuelosIcono.png", imgVuelos);
+        putImage("/Images/reservasIcono.png", imgReserva);
+        putImage("/Images/configIcono.png", imgConfig);
+        putImage("/Images/nombreAgencia_002.png", imgNombreAgencia);
+        putImage("/Images/slogan_002.png", imgSlogan);
+        putImage("/Images/logOutIcono.png", imgLogOut);
+        titleFont(txtInicio);
+        titleFont(txtVuelos);
+        titleFont(txtReserva);
+        titleFont(txtConfig);
+        titleFont(txtLogOut);
     }
     
     private void putImage(String ruta, JLabel jlabel){
         ImageIcon image = new ImageIcon(getClass().getResource(ruta));
         Icon imageIcon = new ImageIcon(image.getImage().getScaledInstance(jlabel.getWidth(), jlabel.getHeight(), Image.SCALE_SMOOTH));
         jlabel.setIcon(imageIcon);
+    }
+    
+    Fuentes tipoFuente=new Fuentes();
+    
+    private void titleFont(JLabel jLabel){
+        jLabel.setFont(tipoFuente.fuente(tipoFuente.ITROMATRIC,0,18));
+    }
+    
+    private void normalFont(JLabel jLabel){
+        jLabel.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,57 +64,68 @@ public class Sesion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel5 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
+        absolutePanel = new javax.swing.JPanel();
+        topMove = new javax.swing.JLabel();
+        empresaLogo = new javax.swing.JPanel();
         imgLogo = new javax.swing.JLabel();
         imgNombreAgencia = new javax.swing.JLabel();
         imgSlogan = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        barraButtons = new javax.swing.JPanel();
         btnInicio = new javax.swing.JPanel();
         imgInicio = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        txtInicio = new javax.swing.JLabel();
+        btnVuelos = new javax.swing.JPanel();
+        imgVuelos = new javax.swing.JLabel();
+        txtVuelos = new javax.swing.JLabel();
         btnReserva = new javax.swing.JPanel();
         imgReserva = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        btnBooking = new javax.swing.JPanel();
-        imgBooking = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        btnTarjeta = new javax.swing.JPanel();
-        imgTarjeta = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        btnConfig = new javax.swing.JPanel();
+        txtReserva = new javax.swing.JLabel();
+        btnConfiguracion = new javax.swing.JPanel();
         imgConfig = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        btnSalir = new javax.swing.JPanel();
-        btnDevuelta = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel12 = new javax.swing.JPanel();
+        txtConfig = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JPanel();
+        imgLogOut = new javax.swing.JLabel();
+        txtLogOut = new javax.swing.JLabel();
+        encabezado = new javax.swing.JPanel();
+        cardPanel = new javax.swing.JPanel();
         panelInicio = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
+        panelVuelos = new javax.swing.JPanel();
         panelReserva = new javax.swing.JPanel();
-        jCalendar1 = new com.toedter.calendar.JCalendar();
         txtFechaSalida = new javax.swing.JTextField();
-        panelBooking = new javax.swing.JPanel();
-        panelTarjeta = new javax.swing.JPanel();
         panelConfig = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
-        jPanel5.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        absolutePanel.setBackground(new java.awt.Color(0, 0, 0));
+        absolutePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel4.add(imgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 74, 70));
-        jPanel4.add(imgNombreAgencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, 140, 40));
-        jPanel4.add(imgSlogan, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 100, 20));
+        topMove.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                topMoveMouseDragged(evt);
+            }
+        });
+        topMove.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                topMoveMousePressed(evt);
+            }
+        });
+        absolutePanel.add(topMove, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1024, 40));
 
-        jPanel5.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, -1));
+        empresaLogo.setBackground(new java.awt.Color(0, 102, 204));
+        empresaLogo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        empresaLogo.add(imgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 85, 100));
+        empresaLogo.add(imgNombreAgencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 30, 134, 29));
+        empresaLogo.add(imgSlogan, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 60, 134, 17));
 
-        jPanel1.setBackground(new java.awt.Color(0, 102, 204));
+        absolutePanel.add(empresaLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 120));
+
+        barraButtons.setBackground(new java.awt.Color(0, 102, 204));
+        barraButtons.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnInicio.setBackground(new java.awt.Color(0, 102, 204));
+        btnInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnInicioMouseClicked(evt);
@@ -111,32 +137,41 @@ public class Sesion extends javax.swing.JFrame {
                 btnInicioMouseExited(evt);
             }
         });
+        btnInicio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnInicio.add(imgInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 7, 46, 46));
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Inicio");
+        txtInicio.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
+        txtInicio.setForeground(new java.awt.Color(255, 255, 255));
+        txtInicio.setText("Inicio");
+        btnInicio.add(txtInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 160, 60));
 
-        javax.swing.GroupLayout btnInicioLayout = new javax.swing.GroupLayout(btnInicio);
-        btnInicio.setLayout(btnInicioLayout);
-        btnInicioLayout.setHorizontalGroup(
-            btnInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnInicioLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(imgInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
-        );
-        btnInicioLayout.setVerticalGroup(
-            btnInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnInicioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(imgInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-        );
+        barraButtons.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 60));
+
+        btnVuelos.setBackground(new java.awt.Color(0, 102, 204));
+        btnVuelos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVuelos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVuelosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVuelosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVuelosMouseExited(evt);
+            }
+        });
+        btnVuelos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnVuelos.add(imgVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 7, 46, 46));
+
+        txtVuelos.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
+        txtVuelos.setForeground(new java.awt.Color(255, 255, 255));
+        txtVuelos.setText("Vuelos");
+        btnVuelos.add(txtVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 160, 60));
+
+        barraButtons.add(btnVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 240, 60));
 
         btnReserva.setBackground(new java.awt.Color(0, 102, 204));
+        btnReserva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReserva.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnReservaMouseClicked(evt);
@@ -148,209 +183,70 @@ public class Sesion extends javax.swing.JFrame {
                 btnReservaMouseExited(evt);
             }
         });
+        btnReserva.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnReserva.add(imgReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 7, 46, 46));
 
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Reserva");
+        txtReserva.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
+        txtReserva.setForeground(new java.awt.Color(255, 255, 255));
+        txtReserva.setText("Reserva");
+        btnReserva.add(txtReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 160, 60));
 
-        javax.swing.GroupLayout btnReservaLayout = new javax.swing.GroupLayout(btnReserva);
-        btnReserva.setLayout(btnReservaLayout);
-        btnReservaLayout.setHorizontalGroup(
-            btnReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnReservaLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(imgReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
-        );
-        btnReservaLayout.setVerticalGroup(
-            btnReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnReservaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(imgReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-        );
+        barraButtons.add(btnReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 240, 60));
 
-        btnBooking.setBackground(new java.awt.Color(0, 102, 204));
-        btnBooking.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnConfiguracion.setBackground(new java.awt.Color(0, 102, 204));
+        btnConfiguracion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConfiguracion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnBookingMouseClicked(evt);
+                btnConfiguracionMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnBookingMouseEntered(evt);
+                btnConfiguracionMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnBookingMouseExited(evt);
+                btnConfiguracionMouseExited(evt);
             }
         });
+        btnConfiguracion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnConfiguracion.add(imgConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 7, 46, 46));
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Booking");
+        txtConfig.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
+        txtConfig.setForeground(new java.awt.Color(255, 255, 255));
+        txtConfig.setText("Configuracion");
+        btnConfiguracion.add(txtConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 160, 60));
 
-        javax.swing.GroupLayout btnBookingLayout = new javax.swing.GroupLayout(btnBooking);
-        btnBooking.setLayout(btnBookingLayout);
-        btnBookingLayout.setHorizontalGroup(
-            btnBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnBookingLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(imgBooking, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
-        );
-        btnBookingLayout.setVerticalGroup(
-            btnBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnBookingLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(imgBooking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-        );
+        barraButtons.add(btnConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 240, 60));
 
-        btnTarjeta.setBackground(new java.awt.Color(0, 102, 204));
-        btnTarjeta.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCerrarSesion.setBackground(new java.awt.Color(0, 102, 204));
+        btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnTarjetaMouseClicked(evt);
+                btnCerrarSesionMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnTarjetaMouseEntered(evt);
+                btnCerrarSesionMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnTarjetaMouseExited(evt);
+                btnCerrarSesionMouseExited(evt);
             }
         });
+        btnCerrarSesion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnCerrarSesion.add(imgLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 7, 46, 46));
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Tarjeta");
+        txtLogOut.setBackground(new java.awt.Color(0, 0, 0));
+        txtLogOut.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
+        txtLogOut.setForeground(new java.awt.Color(255, 255, 255));
+        txtLogOut.setText("Cerrar Sesion");
+        btnCerrarSesion.add(txtLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 160, 60));
 
-        javax.swing.GroupLayout btnTarjetaLayout = new javax.swing.GroupLayout(btnTarjeta);
-        btnTarjeta.setLayout(btnTarjetaLayout);
-        btnTarjetaLayout.setHorizontalGroup(
-            btnTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnTarjetaLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(imgTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
-        );
-        btnTarjetaLayout.setVerticalGroup(
-            btnTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnTarjetaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(imgTarjeta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-        );
+        barraButtons.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 240, 60));
 
-        btnConfig.setBackground(new java.awt.Color(0, 102, 204));
-        btnConfig.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnConfigMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnConfigMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnConfigMouseExited(evt);
-            }
-        });
+        absolutePanel.add(barraButtons, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 240, 500));
 
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Configuracion");
+        encabezado.setBackground(new java.awt.Color(0, 153, 255));
+        encabezado.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        absolutePanel.add(encabezado, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 784, 40));
 
-        javax.swing.GroupLayout btnConfigLayout = new javax.swing.GroupLayout(btnConfig);
-        btnConfig.setLayout(btnConfigLayout);
-        btnConfigLayout.setHorizontalGroup(
-            btnConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnConfigLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(imgConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel6)
-                .addContainerGap(43, Short.MAX_VALUE))
-        );
-        btnConfigLayout.setVerticalGroup(
-            btnConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnConfigLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(imgConfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-        );
-
-        btnSalir.setBackground(new java.awt.Color(255, 255, 255));
-        btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSalirMouseClicked(evt);
-            }
-        });
-
-        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
-        jLabel1.setText("Cerrar Sesion");
-
-        javax.swing.GroupLayout btnSalirLayout = new javax.swing.GroupLayout(btnSalir);
-        btnSalir.setLayout(btnSalirLayout);
-        btnSalirLayout.setHorizontalGroup(
-            btnSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnSalirLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(btnDevuelta, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        btnSalirLayout.setVerticalGroup(
-            btnSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnSalirLayout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addGroup(btnSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(btnDevuelta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(17, 17, 17))
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnBooking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnTarjeta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnConfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(115, Short.MAX_VALUE)
-                .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(btnReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(btnBooking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(btnTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(btnConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
-                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel5.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 620));
-
-        jPanel2.setBackground(new java.awt.Color(0, 153, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel5.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 660, 70));
-
-        jPanel12.setLayout(new java.awt.CardLayout());
+        cardPanel.setLayout(new java.awt.CardLayout());
 
         panelInicio.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -363,78 +259,53 @@ public class Sesion extends javax.swing.JFrame {
             .addGroup(panelInicioLayout.createSequentialGroup()
                 .addGap(293, 293, 293)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(298, Short.MAX_VALUE))
+                .addContainerGap(422, Short.MAX_VALUE))
         );
         panelInicioLayout.setVerticalGroup(
             panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInicioLayout.createSequentialGroup()
                 .addGap(129, 129, 129)
                 .addComponent(jLabel7)
-                .addContainerGap(405, Short.MAX_VALUE))
+                .addContainerGap(435, Short.MAX_VALUE))
         );
 
-        jPanel12.add(panelInicio, "card2");
+        cardPanel.add(panelInicio, "card2");
+
+        panelVuelos.setBackground(new java.awt.Color(255, 204, 255));
+
+        javax.swing.GroupLayout panelVuelosLayout = new javax.swing.GroupLayout(panelVuelos);
+        panelVuelos.setLayout(panelVuelosLayout);
+        panelVuelosLayout.setHorizontalGroup(
+            panelVuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 784, Short.MAX_VALUE)
+        );
+        panelVuelosLayout.setVerticalGroup(
+            panelVuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 580, Short.MAX_VALUE)
+        );
+
+        cardPanel.add(panelVuelos, "card4");
 
         panelReserva.setBackground(new java.awt.Color(204, 255, 255));
-
-        jCalendar1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jCalendar1PropertyChange(evt);
-            }
-        });
 
         javax.swing.GroupLayout panelReservaLayout = new javax.swing.GroupLayout(panelReserva);
         panelReserva.setLayout(panelReservaLayout);
         panelReservaLayout.setHorizontalGroup(
             panelReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelReservaLayout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addGroup(panelReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jCalendar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtFechaSalida))
-                .addContainerGap(373, Short.MAX_VALUE))
+                .addGap(323, 323, 323)
+                .addComponent(txtFechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(397, Short.MAX_VALUE))
         );
         panelReservaLayout.setVerticalGroup(
             panelReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelReservaLayout.createSequentialGroup()
-                .addGap(98, 98, 98)
-                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(227, 227, 227)
                 .addComponent(txtFechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(271, Short.MAX_VALUE))
+                .addContainerGap(331, Short.MAX_VALUE))
         );
 
-        jPanel12.add(panelReserva, "card3");
-
-        panelBooking.setBackground(new java.awt.Color(255, 204, 255));
-
-        javax.swing.GroupLayout panelBookingLayout = new javax.swing.GroupLayout(panelBooking);
-        panelBooking.setLayout(panelBookingLayout);
-        panelBookingLayout.setHorizontalGroup(
-            panelBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 660, Short.MAX_VALUE)
-        );
-        panelBookingLayout.setVerticalGroup(
-            panelBookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
-        );
-
-        jPanel12.add(panelBooking, "card4");
-
-        panelTarjeta.setBackground(new java.awt.Color(255, 204, 204));
-
-        javax.swing.GroupLayout panelTarjetaLayout = new javax.swing.GroupLayout(panelTarjeta);
-        panelTarjeta.setLayout(panelTarjetaLayout);
-        panelTarjetaLayout.setHorizontalGroup(
-            panelTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 660, Short.MAX_VALUE)
-        );
-        panelTarjetaLayout.setVerticalGroup(
-            panelTarjetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
-        );
-
-        jPanel12.add(panelTarjeta, "card5");
+        cardPanel.add(panelReserva, "card3");
 
         panelConfig.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -442,26 +313,29 @@ public class Sesion extends javax.swing.JFrame {
         panelConfig.setLayout(panelConfigLayout);
         panelConfigLayout.setHorizontalGroup(
             panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 660, Short.MAX_VALUE)
+            .addGap(0, 784, Short.MAX_VALUE)
         );
         panelConfigLayout.setVerticalGroup(
             panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
+            .addGap(0, 580, Short.MAX_VALUE)
         );
 
-        jPanel12.add(panelConfig, "card6");
+        cardPanel.add(panelConfig, "card6");
 
-        jPanel5.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 660, 550));
+        absolutePanel.add(cardPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 784, 580));
+        cardPanel.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(absolutePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(absolutePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 120, Short.MAX_VALUE))
         );
 
         pack();
@@ -485,44 +359,35 @@ public class Sesion extends javax.swing.JFrame {
         btnReserva.setBackground(original);
     }//GEN-LAST:event_btnReservaMouseExited
 
-    private void btnBookingMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookingMouseEntered
-        btnBooking.setBackground(cambio);
-    }//GEN-LAST:event_btnBookingMouseEntered
+    private void btnVuelosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVuelosMouseEntered
+        btnVuelos.setBackground(cambio);
+    }//GEN-LAST:event_btnVuelosMouseEntered
 
-    private void btnBookingMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookingMouseExited
-        btnBooking.setBackground(original);
-    }//GEN-LAST:event_btnBookingMouseExited
+    private void btnVuelosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVuelosMouseExited
+        btnVuelos.setBackground(original);
+    }//GEN-LAST:event_btnVuelosMouseExited
 
-    private void btnTarjetaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTarjetaMouseEntered
-        btnTarjeta.setBackground(cambio);
-    }//GEN-LAST:event_btnTarjetaMouseEntered
+    private void btnConfiguracionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracionMouseEntered
+        btnConfiguracion.setBackground(cambio);
+    }//GEN-LAST:event_btnConfiguracionMouseEntered
 
-    private void btnTarjetaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTarjetaMouseExited
-        btnTarjeta.setBackground(original);
-    }//GEN-LAST:event_btnTarjetaMouseExited
+    private void btnConfiguracionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracionMouseExited
+        btnConfiguracion.setBackground(original);
+    }//GEN-LAST:event_btnConfiguracionMouseExited
 
-    private void btnConfigMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigMouseEntered
-        btnConfig.setBackground(cambio);
-    }//GEN-LAST:event_btnConfigMouseEntered
-
-    private void btnConfigMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigMouseExited
-        btnConfig.setBackground(original);
-    }//GEN-LAST:event_btnConfigMouseExited
-
-    private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
+    private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
         this.setVisible(false);
         Inicio inicio = new Inicio();
         inicio.setVisible(true);
-    }//GEN-LAST:event_btnSalirMouseClicked
+    }//GEN-LAST:event_btnCerrarSesionMouseClicked
 
     private void btnInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseClicked
         btnInicio.setBackground(cambio);
         panelInicio.setVisible(true);
         
         panelReserva.setVisible(false);
-        panelBooking.setVisible(false);
+        panelVuelos.setVisible(false);
         panelConfig.setVisible(false);
-        panelTarjeta.setVisible(false);
     }//GEN-LAST:event_btnInicioMouseClicked
 
     private void btnReservaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReservaMouseClicked
@@ -530,47 +395,61 @@ public class Sesion extends javax.swing.JFrame {
         panelReserva.setVisible(true);
         
         panelInicio.setVisible(false);
-        panelBooking.setVisible(false);
+        panelVuelos.setVisible(false);
         panelConfig.setVisible(false);
-        panelTarjeta.setVisible(false);
     }//GEN-LAST:event_btnReservaMouseClicked
 
-    private void btnBookingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookingMouseClicked
-        btnBooking.setBackground(cambio);
-        panelBooking.setVisible(true);
+    private void btnVuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVuelosMouseClicked
+        btnVuelos.setBackground(cambio);
+        panelVuelos.setVisible(true);
         
         panelReserva.setVisible(false);
         panelInicio.setVisible(false);
         panelConfig.setVisible(false);
-        panelTarjeta.setVisible(false);
-    }//GEN-LAST:event_btnBookingMouseClicked
+    }//GEN-LAST:event_btnVuelosMouseClicked
 
-    private void btnTarjetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTarjetaMouseClicked
-        btnTarjeta.setBackground(cambio);
-        panelTarjeta.setVisible(true);
-        
-        panelReserva.setVisible(false);
-        panelBooking.setVisible(false);
-        panelConfig.setVisible(false);
-        panelInicio.setVisible(false);
-    }//GEN-LAST:event_btnTarjetaMouseClicked
-
-    private void btnConfigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigMouseClicked
-        btnConfig.setBackground(cambio);
+    private void btnConfiguracionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfiguracionMouseClicked
+        btnConfiguracion.setBackground(cambio);
         panelConfig.setVisible(true);
         
         panelReserva.setVisible(false);
-        panelBooking.setVisible(false);
+        panelVuelos.setVisible(false);
         panelInicio.setVisible(false);
-        panelTarjeta.setVisible(false);
-    }//GEN-LAST:event_btnConfigMouseClicked
-
+    }//GEN-LAST:event_btnConfiguracionMouseClicked
+    
+    //Comenté esta parte porque hay como un error ahí en jCalendar1
+    /*
     private void jCalendar1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendar1PropertyChange
         if(evt.getOldValue()!= null){
             SimpleDateFormat ff = new SimpleDateFormat("dd/MM/yyyy");
             txtFechaSalida.setText(ff.format(jCalendar1.getCalendar().getTime()));
         }
     }//GEN-LAST:event_jCalendar1PropertyChange
+    */
+    
+    int xMouse,yMouse;
+    private void topMoveMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_topMoveMousePressed
+        // TODO add your handling code here:
+        xMouse=evt.getX();
+        yMouse=evt.getY();
+    }//GEN-LAST:event_topMoveMousePressed
+
+    private void topMoveMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_topMoveMouseDragged
+        // TODO add your handling code here:
+        int x=evt.getXOnScreen(),y=evt.getYOnScreen();
+        
+        setLocation(x-xMouse, y-yMouse);
+    }//GEN-LAST:event_topMoveMouseDragged
+
+    private void btnCerrarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseEntered
+        // TODO add your handling code here:
+        btnCerrarSesion.setBackground(cambio);
+    }//GEN-LAST:event_btnCerrarSesionMouseEntered
+
+    private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
+        // TODO add your handling code here:
+        btnCerrarSesion.setBackground(original);
+    }//GEN-LAST:event_btnCerrarSesionMouseExited
     
     /**
      * @param args the command line arguments
@@ -608,39 +487,35 @@ public class Sesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel btnBooking;
-    private javax.swing.JPanel btnConfig;
-    private javax.swing.JLabel btnDevuelta;
+    private javax.swing.JPanel absolutePanel;
+    private javax.swing.JPanel barraButtons;
+    private javax.swing.JPanel btnCerrarSesion;
+    private javax.swing.JPanel btnConfiguracion;
     private javax.swing.JPanel btnInicio;
     private javax.swing.JPanel btnReserva;
-    private javax.swing.JPanel btnSalir;
-    private javax.swing.JPanel btnTarjeta;
-    private javax.swing.JLabel imgBooking;
+    private javax.swing.JPanel btnVuelos;
+    private javax.swing.JPanel cardPanel;
+    private javax.swing.JPanel empresaLogo;
+    private javax.swing.JPanel encabezado;
     private javax.swing.JLabel imgConfig;
     private javax.swing.JLabel imgInicio;
+    private javax.swing.JLabel imgLogOut;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JLabel imgNombreAgencia;
     private javax.swing.JLabel imgReserva;
     private javax.swing.JLabel imgSlogan;
-    private javax.swing.JLabel imgTarjeta;
-    private com.toedter.calendar.JCalendar jCalendar1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel imgVuelos;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel panelBooking;
     private javax.swing.JPanel panelConfig;
     private javax.swing.JPanel panelInicio;
     private javax.swing.JPanel panelReserva;
-    private javax.swing.JPanel panelTarjeta;
+    private javax.swing.JPanel panelVuelos;
+    private javax.swing.JLabel topMove;
+    private javax.swing.JLabel txtConfig;
     private javax.swing.JTextField txtFechaSalida;
+    private javax.swing.JLabel txtInicio;
+    private javax.swing.JLabel txtLogOut;
+    private javax.swing.JLabel txtReserva;
+    private javax.swing.JLabel txtVuelos;
     // End of variables declaration//GEN-END:variables
 }
