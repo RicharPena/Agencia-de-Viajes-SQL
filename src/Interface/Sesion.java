@@ -10,7 +10,9 @@ import java.awt.Image;
 import java.text.SimpleDateFormat;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JToggleButton;
 
 /**
  *
@@ -25,16 +27,28 @@ public class Sesion extends javax.swing.JFrame {
     public Sesion() {
         initComponents();
         setLocationRelativeTo(null);
-        putImage("/Images/logo_agencia_002.png", imgLogo);
-        putImage("/Images/nombreAgencia_002.png", imgNombreAgencia);
-        putImage("/Images/slogan_002.png", imgSlogan);
+        putImageinJL("/Images/logo_agencia_002.png", imgLogo);
+        putImageinJL("/Images/nombreAgencia_002.png", imgNombreAgencia);
+        putImageinJL("/Images/slogan_002.png", imgSlogan);
         
     }
     
-    private void putImage(String ruta, JLabel jlabel){
+    private void putImageinJL(String ruta, JLabel jlabel){
         ImageIcon image = new ImageIcon(getClass().getResource(ruta));
         Icon imageIcon = new ImageIcon(image.getImage().getScaledInstance(jlabel.getWidth(), jlabel.getHeight(), Image.SCALE_SMOOTH));
         jlabel.setIcon(imageIcon);
+    }
+    
+    private void putImageinButton(String ruta, JButton btn){
+        ImageIcon image = new ImageIcon(getClass().getResource(ruta));
+        Icon imageIcon = new ImageIcon(image.getImage().getScaledInstance(btn.getWidth(), btn.getHeight(), Image.SCALE_SMOOTH));
+        btn.setIcon(imageIcon);
+    }
+    
+    private void putImageinTButton(String ruta, JToggleButton Tbtn){
+        ImageIcon image = new ImageIcon(getClass().getResource(ruta));
+        Icon imageIcon = new ImageIcon(image.getImage().getScaledInstance(Tbtn.getWidth(), Tbtn.getHeight(), Image.SCALE_SMOOTH));
+        Tbtn.setIcon(imageIcon);
     }
     
     Fuentes tipoFuente=new Fuentes();
@@ -62,6 +76,11 @@ public class Sesion extends javax.swing.JFrame {
         imgNombreAgencia = new javax.swing.JLabel();
         imgSlogan = new javax.swing.JLabel();
         barraButtons = new javax.swing.JPanel();
+        tbtnHome = new javax.swing.JToggleButton();
+        tbtnVuelos = new javax.swing.JToggleButton();
+        tbtnReservas = new javax.swing.JToggleButton();
+        tbtnConfig = new javax.swing.JToggleButton();
+        btnLogOut = new javax.swing.JButton();
         encabezado = new javax.swing.JPanel();
         cardPanel = new javax.swing.JPanel();
         panelInicio = new javax.swing.JPanel();
@@ -70,12 +89,13 @@ public class Sesion extends javax.swing.JFrame {
         panelReserva = new javax.swing.JPanel();
         txtFechaSalida = new javax.swing.JTextField();
         panelConfig = new javax.swing.JPanel();
-        backGround = new javax.swing.JLabel();
+        backgraund = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
         absolutePanel.setBackground(new java.awt.Color(0, 0, 0));
+        absolutePanel.setOpaque(false);
         absolutePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         topMove.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -93,7 +113,7 @@ public class Sesion extends javax.swing.JFrame {
         empresaLogo.setBackground(new java.awt.Color(0, 102, 204));
         empresaLogo.setOpaque(false);
         empresaLogo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        empresaLogo.add(imgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 85, 100));
+        empresaLogo.add(imgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 30, 68, 80));
         empresaLogo.add(imgNombreAgencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 30, 134, 29));
         empresaLogo.add(imgSlogan, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 60, 134, 17));
 
@@ -102,6 +122,42 @@ public class Sesion extends javax.swing.JFrame {
         barraButtons.setBackground(new java.awt.Color(0, 102, 204));
         barraButtons.setOpaque(false);
         barraButtons.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tbtnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnHome_001.png"))); // NOI18N
+        tbtnHome.setBorder(null);
+        tbtnHome.setBorderPainted(false);
+        tbtnHome.setContentAreaFilled(false);
+        tbtnHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        barraButtons.add(tbtnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 60));
+
+        tbtnVuelos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnVuelos_001.png"))); // NOI18N
+        tbtnVuelos.setBorder(null);
+        tbtnVuelos.setBorderPainted(false);
+        tbtnVuelos.setContentAreaFilled(false);
+        tbtnVuelos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        barraButtons.add(tbtnVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 240, 60));
+
+        tbtnReservas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnReservas_001.png"))); // NOI18N
+        tbtnReservas.setBorder(null);
+        tbtnReservas.setBorderPainted(false);
+        tbtnReservas.setContentAreaFilled(false);
+        tbtnReservas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        barraButtons.add(tbtnReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 240, 60));
+
+        tbtnConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnConfig_001.png"))); // NOI18N
+        tbtnConfig.setBorder(null);
+        tbtnConfig.setBorderPainted(false);
+        tbtnConfig.setContentAreaFilled(false);
+        tbtnConfig.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        barraButtons.add(tbtnConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 240, 60));
+
+        btnLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnLogOut_001.png"))); // NOI18N
+        btnLogOut.setBorder(null);
+        btnLogOut.setBorderPainted(false);
+        btnLogOut.setContentAreaFilled(false);
+        btnLogOut.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        barraButtons.add(btnLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 240, 60));
+
         absolutePanel.add(barraButtons, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 240, 500));
 
         encabezado.setBackground(new java.awt.Color(0, 153, 255));
@@ -129,7 +185,7 @@ public class Sesion extends javax.swing.JFrame {
             .addGroup(panelInicioLayout.createSequentialGroup()
                 .addGap(129, 129, 129)
                 .addComponent(textopanelInicio)
-                .addContainerGap(435, Short.MAX_VALUE))
+                .addContainerGap(445, Short.MAX_VALUE))
         );
 
         cardPanel.add(panelInicio, "card2");
@@ -144,7 +200,7 @@ public class Sesion extends javax.swing.JFrame {
         );
         panelVuelosLayout.setVerticalGroup(
             panelVuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
+            .addGap(0, 590, Short.MAX_VALUE)
         );
 
         cardPanel.add(panelVuelos, "card4");
@@ -165,7 +221,7 @@ public class Sesion extends javax.swing.JFrame {
             .addGroup(panelReservaLayout.createSequentialGroup()
                 .addGap(227, 227, 227)
                 .addComponent(txtFechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(331, Short.MAX_VALUE))
+                .addContainerGap(341, Short.MAX_VALUE))
         );
 
         cardPanel.add(panelReserva, "card3");
@@ -180,17 +236,16 @@ public class Sesion extends javax.swing.JFrame {
         );
         panelConfigLayout.setVerticalGroup(
             panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
+            .addGap(0, 590, Short.MAX_VALUE)
         );
 
         cardPanel.add(panelConfig, "card6");
 
-        absolutePanel.add(cardPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 784, 580));
+        absolutePanel.add(cardPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 784, 590));
         cardPanel.getAccessibleContext().setAccessibleName("");
 
-        backGround.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/backgraund gradiente.png"))); // NOI18N
-        backGround.setToolTipText("");
-        absolutePanel.add(backGround, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1024, 620));
+        backgraund.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/backgraund gradiente.png"))); // NOI18N
+        absolutePanel.add(backgraund, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1024, 630));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -201,7 +256,7 @@ public class Sesion extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(absolutePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(absolutePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -269,8 +324,9 @@ public class Sesion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel absolutePanel;
-    private javax.swing.JLabel backGround;
+    private javax.swing.JLabel backgraund;
     private javax.swing.JPanel barraButtons;
+    private javax.swing.JButton btnLogOut;
     private javax.swing.JPanel cardPanel;
     private javax.swing.JPanel empresaLogo;
     private javax.swing.JPanel encabezado;
@@ -281,6 +337,10 @@ public class Sesion extends javax.swing.JFrame {
     private javax.swing.JPanel panelInicio;
     private javax.swing.JPanel panelReserva;
     private javax.swing.JPanel panelVuelos;
+    private javax.swing.JToggleButton tbtnConfig;
+    private javax.swing.JToggleButton tbtnHome;
+    private javax.swing.JToggleButton tbtnReservas;
+    private javax.swing.JToggleButton tbtnVuelos;
     private javax.swing.JLabel textopanelInicio;
     private javax.swing.JLabel topMove;
     private javax.swing.JTextField txtFechaSalida;
