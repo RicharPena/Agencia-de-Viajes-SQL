@@ -334,6 +334,8 @@ public class Inicio extends javax.swing.JFrame {
                             break;
                         }
                     }
+                    txtMensaje.setText("Usuario/Contraseña incorrectas");
+                    timer.start();
                 }
             }
         }
