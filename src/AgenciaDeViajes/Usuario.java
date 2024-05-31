@@ -16,25 +16,19 @@ public class Usuario {
     private String userName;
     private String password;
     private String nombre;
-    private ArrayList<Reserva> listaReserva = new ArrayList<Reserva>();
+    private ArrayList<Reserva> listaReserva = new ArrayList<>();
     private String tarjeta;
     //no existe lista boletos porque ya tenemos la reserva que actua como la de boletos
     
     //INSERT CONSTRUCTOR HERE
     
     //PARA CUANDO DECIDE AÑADIR LA TARJETA
-    public Usuario(String userName, String password, String nombre, String tarjeta) {
+    public Usuario(String nombre, String userName, String password, String tarjeta, ArrayList<Reserva> listaReserva) {
         this.userName = userName;
         this.password = password;
         this.nombre = nombre;
         this.tarjeta = tarjeta;
-    }
-
-    //CUANDO SE DECIDE NO AÑADIR LA TARJETA
-    public Usuario(String userName, String password, String nombre) {
-        this.userName = userName;
-        this.password = password;
-        this.nombre = nombre;
+        this.listaReserva = listaReserva;
     }
     
     
