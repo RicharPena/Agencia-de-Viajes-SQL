@@ -20,12 +20,14 @@ import java.util.ArrayList;
  */
 public class Agencia {
     
-    public static ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
+    public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     
     public static void main(String [] args){
-
+        
+        ArrayList <Reserva> listaReserva = new ArrayList<>();
+        
         Vuelo vuelo1 = new Vuelo(1, "Avianca", "Cartagena", "Bogota", "Prueba");
-        Usuario usuario1 = new Usuario("Richar", "123", "Richar");
+        Usuario usuario1 = new Usuario("Richar", "Richar", "123", null, listaReserva);
         
         listaUsuarios.add(usuario1);
         
