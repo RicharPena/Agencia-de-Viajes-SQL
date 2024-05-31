@@ -4,13 +4,19 @@
  */
 package Interface;
 
-import java.awt.Color;
+import AgenciaDeViajes.Usuario;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import Tipografias.Fuentes;
 import javax.swing.JButton;
+import Tipografias.Fuentes;
+import java.awt.Color;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.JToggleButton;
+import javax.swing.Timer;
 
 /**
  *
@@ -25,6 +31,18 @@ public class Registro extends javax.swing.JFrame {
         initComponents();
         putImageinButton("/images/Back_Button_01.png",btnBack);
         setLocationRelativeTo(null);
+        cursiveFontinTF(txtName);
+        txtName.setForeground(Color.GRAY);
+        cursiveFontinTF(txtUserName);
+        txtUserName.setForeground(Color.GRAY);
+        
+        txtContra.setEchoChar('\0');
+        cursiveFontinTF(txtContra);
+        txtContra.setForeground(Color.GRAY);
+        
+        txtConfirContra.setEchoChar('\0');
+        cursiveFontinTF(txtConfirContra);
+        txtConfirContra.setForeground(Color.GRAY);
     }
     
     private void putImageinButton(String ruta, JButton btn){
@@ -42,6 +60,28 @@ public class Registro extends javax.swing.JFrame {
     private void normalFont(JLabel jLabel){
         jLabel.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
     }
+    
+    private void cursiveFontinTF(JTextField jtext){
+        jtext.setFont(tipoFuente.fuente(tipoFuente.RIO,0,18));
+    }
+    
+    private void normalFontinTF(JTextField jtext){
+        jtext.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
+    }
+    
+    private void cursiveFontinPF(JPasswordField jpass){
+        jpass.setFont(tipoFuente.fuente(tipoFuente.RIO,0,18));
+    }
+    
+    private void normalFontinPF(JPasswordField jpass){
+        jpass.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
+    }
+    
+    private void putImageinTButton(String ruta, JToggleButton Tbtn){
+        ImageIcon image = new ImageIcon(getClass().getResource(ruta));
+        Icon imageIcon = new ImageIcon(image.getImage().getScaledInstance(Tbtn.getWidth(), Tbtn.getHeight(), Image.SCALE_SMOOTH));
+        Tbtn.setIcon(imageIcon);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,7 +94,13 @@ public class Registro extends javax.swing.JFrame {
         absolutoPanel = new javax.swing.JPanel();
         btnBack = new javax.swing.JButton();
         btnRegister = new javax.swing.JButton();
-        txtUser = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
+        txtUserName = new javax.swing.JTextField();
+        txtContra = new javax.swing.JPasswordField();
+        txtConfirContra = new javax.swing.JPasswordField();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jToggleButton2 = new javax.swing.JToggleButton();
+        txtMensaje = new javax.swing.JLabel();
         bannerRegister = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -74,28 +120,92 @@ public class Registro extends javax.swing.JFrame {
         });
         absolutoPanel.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        btnRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Button Register_001.png"))); // NOI18N
+        btnRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnRegister_001.png"))); // NOI18N
         btnRegister.setToolTipText("");
         btnRegister.setBorder(null);
         btnRegister.setBorderPainted(false);
         btnRegister.setContentAreaFilled(false);
         btnRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegister.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegisterMouseClicked(evt);
+            }
+        });
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegisterActionPerformed(evt);
             }
         });
-        absolutoPanel.add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, -1, -1));
+        absolutoPanel.add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 440, -1, -1));
 
-        txtUser.setBackground(new java.awt.Color(250, 249, 248));
-        txtUser.setText("Usuario");
-        txtUser.setToolTipText("");
-        txtUser.setActionCommand("<Not Set>");
-        txtUser.setBorder(null);
-        absolutoPanel.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 400, 40));
+        txtName.setBackground(new java.awt.Color(250, 249, 248));
+        txtName.setText("Nombre");
+        txtName.setToolTipText("");
+        txtName.setActionCommand("<Not Set>");
+        txtName.setBorder(null);
+        txtName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNameMouseClicked(evt);
+            }
+        });
+        absolutoPanel.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 400, 40));
+
+        txtUserName.setBackground(new java.awt.Color(250, 249, 248));
+        txtUserName.setText("User Name");
+        txtUserName.setBorder(null);
+        txtUserName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtUserNameMouseClicked(evt);
+            }
+        });
+        absolutoPanel.add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 212, 400, 50));
+
+        txtContra.setBackground(new java.awt.Color(250, 249, 248));
+        txtContra.setText("Contraseña");
+        txtContra.setBorder(null);
+        txtContra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtContraMouseClicked(evt);
+            }
+        });
+        absolutoPanel.add(txtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 350, 50));
+
+        txtConfirContra.setBackground(new java.awt.Color(250, 249, 248));
+        txtConfirContra.setText("Confirmar Contraseña");
+        txtConfirContra.setBorder(null);
+        txtConfirContra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtConfirContraMouseClicked(evt);
+            }
+        });
+        absolutoPanel.add(txtConfirContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 350, 50));
+
+        jToggleButton1.setBackground(new java.awt.Color(255, 249, 248));
+        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Button visual_001.png"))); // NOI18N
+        jToggleButton1.setBorder(null);
+        jToggleButton1.setMaximumSize(new java.awt.Dimension(40, 40));
+        jToggleButton1.setMinimumSize(new java.awt.Dimension(40, 40));
+        jToggleButton1.setPreferredSize(new java.awt.Dimension(40, 40));
+        jToggleButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jToggleButton1MouseClicked(evt);
+            }
+        });
+        absolutoPanel.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, 40, 40));
+
+        jToggleButton2.setBackground(new java.awt.Color(255, 244, 243));
+        jToggleButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Button visual_001.png"))); // NOI18N
+        jToggleButton2.setBorder(null);
+        jToggleButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jToggleButton2MouseClicked(evt);
+            }
+        });
+        absolutoPanel.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 360, -1, 40));
+        absolutoPanel.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 420, 20));
 
         bannerRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Register.png"))); // NOI18N
-        absolutoPanel.add(bannerRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 612));
+        absolutoPanel.add(bannerRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 612));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,6 +236,191 @@ public class Registro extends javax.swing.JFrame {
         Inicio inicio=new Inicio();
         inicio.setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void txtNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNameMouseClicked
+        String ps1 = new String(txtContra.getPassword());
+        String ps2 = new String(txtConfirContra.getPassword());
+        
+        if (txtName.getText().equals("Nombre")){
+            txtName.setText("");
+            normalFontinTF(txtName);
+            txtName.setForeground(Color.BLACK);
+        }
+        if (txtUserName.getText().equals("")){
+            txtUserName.setText("User Name");
+            cursiveFontinTF(txtUserName);
+            txtUserName.setForeground(Color.GRAY);
+        }
+        if (ps1.equals("")){
+            txtContra.setText("Contraseña");
+            txtContra.setEchoChar('\0');
+            cursiveFontinPF(txtContra);
+            txtContra.setForeground(Color.GRAY);
+        }
+        if (ps2.equals("")){
+            txtConfirContra.setText("Confirmar Contraseña");
+            txtConfirContra.setEchoChar('\0');
+            cursiveFontinPF(txtConfirContra);
+            txtConfirContra.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_txtNameMouseClicked
+
+    private void txtUserNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUserNameMouseClicked
+        String ps1 = new String(txtContra.getPassword());
+        String ps2 = new String(txtConfirContra.getPassword());
+        
+        if (txtUserName.getText().equals("User Name")){
+            txtUserName.setText("");
+            normalFontinTF(txtUserName);
+            txtUserName.setForeground(Color.BLACK);
+        }
+        if (txtName.getText().equals("")){
+            txtName.setText("Nombre");
+            cursiveFontinTF(txtName);
+            txtName.setForeground(Color.GRAY);
+        }
+        if (ps1.equals("")){
+            txtContra.setText("Contraseña");
+            txtContra.setEchoChar('\0');
+            cursiveFontinPF(txtContra);
+            txtContra.setForeground(Color.GRAY);
+        }
+        if (ps2.equals("")){
+            txtConfirContra.setText("Confirmar Contraseña");
+            txtConfirContra.setEchoChar('\0');
+            cursiveFontinPF(txtConfirContra);
+            txtConfirContra.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_txtUserNameMouseClicked
+
+    private void txtContraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtContraMouseClicked
+        String ps1 = new String(txtContra.getPassword());
+        String ps2 = new String(txtConfirContra.getPassword());
+        
+        if (ps1.equals("Contraseña")){
+            txtContra.setText("");
+            if(jToggleButton1.isSelected()){
+                txtContra.setEchoChar('\0');
+            }
+            else{
+                txtContra.setEchoChar('\u2022');
+            }
+            normalFontinPF(txtContra);
+            txtContra.setForeground(Color.BLACK);
+        }
+        if (ps2.equals("")){
+            txtConfirContra.setText("Confirmar Contraseña");
+            txtConfirContra.setEchoChar('\0');
+            cursiveFontinPF(txtConfirContra);
+            txtConfirContra.setForeground(Color.GRAY);
+        }
+        if (txtName.getText().equals("")){
+            txtName.setText("Nombre");
+            cursiveFontinTF(txtName);
+            txtName.setForeground(Color.GRAY);
+        }
+        if (txtUserName.getText().equals("")){
+            txtUserName.setText("User Name");
+            cursiveFontinTF(txtUserName);
+            txtUserName.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_txtContraMouseClicked
+
+    private void txtConfirContraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirContraMouseClicked
+        String ps1 = new String(txtContra.getPassword());
+        String ps2 = new String(txtConfirContra.getPassword());
+        
+        if (ps2.equals("Confirmar Contraseña")){
+            txtConfirContra.setText("");
+            if(jToggleButton2.isSelected()){
+                txtConfirContra.setEchoChar('\0');
+            }
+            else{
+                txtConfirContra.setEchoChar('\u2022');
+            }
+            normalFontinPF(txtConfirContra);
+            txtConfirContra.setForeground(Color.BLACK);
+        }
+        if (ps1.equals("")){
+            txtContra.setText("Contraseña");
+            txtContra.setEchoChar('\0');
+            cursiveFontinPF(txtContra);
+            txtContra.setForeground(Color.GRAY);
+        }
+        if (txtName.getText().equals("")){
+            txtName.setText("Nombre");
+            cursiveFontinTF(txtName);
+            txtName.setForeground(Color.GRAY);
+        }
+        if (txtUserName.getText().equals("")){
+            txtUserName.setText("User Name");
+            cursiveFontinTF(txtUserName);
+            txtUserName.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_txtConfirContraMouseClicked
+
+    private void jToggleButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton1MouseClicked
+        if(jToggleButton1.isSelected()){
+            putImageinTButton("/Images/Button visual_002.png", jToggleButton1);
+            txtContra.setEchoChar('\0');
+        }
+        else{
+            putImageinTButton("/Images/Button visual_001.png", jToggleButton1);
+            if(new String(txtContra.getPassword()).equals("Contraseña")){
+                
+            }
+            else{
+                txtContra.setEchoChar('\u2022');
+            }
+        }
+    }//GEN-LAST:event_jToggleButton1MouseClicked
+
+    private void jToggleButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton2MouseClicked
+        if(jToggleButton2.isSelected()){
+            putImageinTButton("/Images/Button visual_002.png", jToggleButton2);
+            txtConfirContra.setEchoChar('\0');
+        }
+        else{
+            putImageinTButton("/Images/Button visual_001.png", jToggleButton2);
+            if(new String(txtConfirContra.getPassword()).equals("Confirmar Contraseña")){
+                
+            }
+            else{
+                txtConfirContra.setEchoChar('\u2022');
+            }
+        }
+    }//GEN-LAST:event_jToggleButton2MouseClicked
+
+    private void btnRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterMouseClicked
+        //TERMINAR BOTÓN DE REGISTRO
+        String n = txtName.getText();
+        String u = txtUserName.getText();
+        String c1 = new String(txtContra.getPassword());
+        String c2 = new String(txtConfirContra.getPassword());
+        
+        Timer timer = new Timer(2000, (e) -> {txtMensaje.setText("");});
+        
+        timer.setRepeats(false);        
+        if (u.equals("User Name") && n.equals("Nombre") && c1.equals("Contraseña") && c2.equals("Confirmar Contraseña")){
+            txtMensaje.setText("Hacen falta campos por llenar!!!");
+            timer.start();
+        }
+        else{
+            if (n.equals("Nombre")){
+                txtMensaje.setText("No se ha digitado ningún usuario!!!");
+                timer.start();
+            }
+            else{
+                if (c1.equals("Contraseña")){
+                    txtMensaje.setText("No se ha escrito una contraseña!!!");
+                    timer.start();
+                }
+                else{
+                    
+                }
+            }
+        }
+    }//GEN-LAST:event_btnRegisterMouseClicked
 
     /**
      * @param args the command line arguments
@@ -167,6 +462,12 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JLabel bannerRegister;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnRegister;
-    private javax.swing.JTextField txtUser;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JPasswordField txtConfirContra;
+    private javax.swing.JPasswordField txtContra;
+    private javax.swing.JLabel txtMensaje;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
 }
