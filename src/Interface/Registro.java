@@ -4,6 +4,7 @@
  */
 package Interface;
 
+import AgenciaDeViajes.Reserva;
 import AgenciaDeViajes.Usuario;
 import java.awt.Image;
 import javax.swing.Icon;
@@ -13,6 +14,7 @@ import Tipografias.Fuentes;
 import javax.swing.JButton;
 import Tipografias.Fuentes;
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
@@ -26,7 +28,7 @@ public class Registro extends javax.swing.JFrame {
 
     /**
      * Creates new form Registro
-     */
+     */    
     public Registro() {
         initComponents();
         putImageinButton("/images/Back_Button_01.png",btnBack);
@@ -91,6 +93,8 @@ public class Registro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         absolutoPanel = new javax.swing.JPanel();
         btnBack = new javax.swing.JButton();
         btnRegister = new javax.swing.JButton();
@@ -102,6 +106,19 @@ public class Registro extends javax.swing.JFrame {
         jToggleButton2 = new javax.swing.JToggleButton();
         txtMensaje = new javax.swing.JLabel();
         bannerRegister = new javax.swing.JLabel();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -183,12 +200,17 @@ public class Registro extends javax.swing.JFrame {
         jToggleButton1.setBackground(new java.awt.Color(255, 249, 248));
         jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Button visual_001.png"))); // NOI18N
         jToggleButton1.setBorder(null);
-        jToggleButton1.setMaximumSize(new java.awt.Dimension(40, 40));
-        jToggleButton1.setMinimumSize(new java.awt.Dimension(40, 40));
-        jToggleButton1.setPreferredSize(new java.awt.Dimension(40, 40));
+        jToggleButton1.setBorderPainted(false);
+        jToggleButton1.setContentAreaFilled(false);
+        jToggleButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jToggleButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jToggleButton1MouseClicked(evt);
+            }
+        });
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
             }
         });
         absolutoPanel.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, 40, 40));
@@ -196,12 +218,23 @@ public class Registro extends javax.swing.JFrame {
         jToggleButton2.setBackground(new java.awt.Color(255, 244, 243));
         jToggleButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Button visual_001.png"))); // NOI18N
         jToggleButton2.setBorder(null);
+        jToggleButton2.setBorderPainted(false);
+        jToggleButton2.setContentAreaFilled(false);
+        jToggleButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jToggleButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jToggleButton2MouseClicked(evt);
             }
         });
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
         absolutoPanel.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 360, -1, 40));
+
+        txtMensaje.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 18)); // NOI18N
+        txtMensaje.setForeground(new java.awt.Color(255, 0, 51));
         absolutoPanel.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 420, 20));
 
         bannerRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Register.png"))); // NOI18N
@@ -224,10 +257,59 @@ public class Registro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        // TODO add your handling code here:
-        dispose();
-        Inicio inicio=new Inicio();
-        inicio.setVisible(true);
+        String n = txtName.getText();
+        String u = txtUserName.getText();
+        String c1 = new String(txtContra.getPassword());
+        String c2 = new String(txtConfirContra.getPassword());
+        
+        Timer timer = new Timer(2000, (e) -> {txtMensaje.setText("");});
+        
+        timer.setRepeats(false);        
+        if (u.equals("User Name") && n.equals("Nombre") && c1.equals("Contraseña") && c2.equals("Confirmar Contraseña")){
+            txtMensaje.setText("Hacen falta campos por llenar!!!");
+            timer.start();
+            return;
+        }
+        if (n.equals("Nombre")){
+            txtMensaje.setText("No se ha digitado ningún usuario!!!");
+            timer.start();
+            return;
+        }
+        if (u.equals("User Name")){
+            txtMensaje.setText("No se ha escrito el usuario!!!");
+            timer.start();
+            return;
+        }
+        if(c1.equals("Contraseña")){
+            txtMensaje.setText("No se ha escrito ninguna contraseña!!!");
+            timer.start();
+            return;
+        }
+        if(c2.equals("Confirmar Contraseña")){
+            txtMensaje.setText("Falta verificar la contraseña!!!");
+            timer.start();
+        }
+        
+        if (u.equals("User Name") && n.equals("Nombre") && c1.equals("Contraseña") && c2.equals("Confirmar Contraseña")){
+            //nada
+        }
+        else{
+            for (Usuario usuario : AgenciaDeViajes.Agencia.listaUsuarios){
+                if (usuario.getUserName().equals(u)){
+                    txtMensaje.setText("Nombre de Usuario ya Registrado");
+                    timer.start();
+                    break;
+                }
+                else{
+                    ArrayList<Reserva> listaReservaDefecto = new ArrayList<>();
+                    AgenciaDeViajes.Agencia.listaUsuarios.add(new Usuario(n, u, c1, null, listaReservaDefecto));
+                    dispose();
+                    Inicio inicio=new Inicio();
+                    inicio.setVisible(true);
+                    break;
+                }
+            }
+        }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -360,6 +442,18 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_txtConfirContraMouseClicked
 
     private void jToggleButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton1MouseClicked
+        //NADA
+    }//GEN-LAST:event_jToggleButton1MouseClicked
+
+    private void jToggleButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton2MouseClicked
+        //No va nada
+    }//GEN-LAST:event_jToggleButton2MouseClicked
+
+    private void btnRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterMouseClicked
+        //No va nada
+    }//GEN-LAST:event_btnRegisterMouseClicked
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         if(jToggleButton1.isSelected()){
             putImageinTButton("/Images/Button visual_002.png", jToggleButton1);
             txtContra.setEchoChar('\0');
@@ -367,15 +461,15 @@ public class Registro extends javax.swing.JFrame {
         else{
             putImageinTButton("/Images/Button visual_001.png", jToggleButton1);
             if(new String(txtContra.getPassword()).equals("Contraseña")){
-                
+
             }
             else{
                 txtContra.setEchoChar('\u2022');
             }
         }
-    }//GEN-LAST:event_jToggleButton1MouseClicked
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
-    private void jToggleButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton2MouseClicked
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         if(jToggleButton2.isSelected()){
             putImageinTButton("/Images/Button visual_002.png", jToggleButton2);
             txtConfirContra.setEchoChar('\0');
@@ -383,44 +477,13 @@ public class Registro extends javax.swing.JFrame {
         else{
             putImageinTButton("/Images/Button visual_001.png", jToggleButton2);
             if(new String(txtConfirContra.getPassword()).equals("Confirmar Contraseña")){
-                
+
             }
             else{
                 txtConfirContra.setEchoChar('\u2022');
             }
         }
-    }//GEN-LAST:event_jToggleButton2MouseClicked
-
-    private void btnRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterMouseClicked
-        //TERMINAR BOTÓN DE REGISTRO
-        String n = txtName.getText();
-        String u = txtUserName.getText();
-        String c1 = new String(txtContra.getPassword());
-        String c2 = new String(txtConfirContra.getPassword());
-        
-        Timer timer = new Timer(2000, (e) -> {txtMensaje.setText("");});
-        
-        timer.setRepeats(false);        
-        if (u.equals("User Name") && n.equals("Nombre") && c1.equals("Contraseña") && c2.equals("Confirmar Contraseña")){
-            txtMensaje.setText("Hacen falta campos por llenar!!!");
-            timer.start();
-        }
-        else{
-            if (n.equals("Nombre")){
-                txtMensaje.setText("No se ha digitado ningún usuario!!!");
-                timer.start();
-            }
-            else{
-                if (c1.equals("Contraseña")){
-                    txtMensaje.setText("No se ha escrito una contraseña!!!");
-                    timer.start();
-                }
-                else{
-                    
-                }
-            }
-        }
-    }//GEN-LAST:event_btnRegisterMouseClicked
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -462,6 +525,8 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JLabel bannerRegister;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnRegister;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JPasswordField txtConfirContra;
