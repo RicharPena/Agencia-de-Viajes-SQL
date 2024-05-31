@@ -28,6 +28,8 @@ public class Inicio extends javax.swing.JFrame {
      * Creates new form Inicio
      */
     
+    public static int posicionUsuario;
+    
     public Inicio() {
         initComponents();
         putImageinButton("/images/Close_Button_01.png", btnExit);
@@ -323,11 +325,13 @@ public class Inicio extends javax.swing.JFrame {
                     timer.start();
                 }
                 else{
-                    for (Usuario usuario:AgenciaDeViajes.Agencia.listaUsuarios){
-                        if (usuario.getUserName().equals(u) && usuario.getPassword().equals(c)){
+                    for (int i=0 ;i < AgenciaDeViajes.Agencia.listaUsuarios.size(); i++){
+                        if (AgenciaDeViajes.Agencia.listaUsuarios.get(i).login(u, c)==true){
+                            posicionUsuario=i;
                             dispose();
                             Sesion sesion = new Sesion();
                             sesion.setVisible(true);
+                            break;
                         }
                     }
                 }
