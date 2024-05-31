@@ -325,7 +325,7 @@ public class Inicio extends javax.swing.JFrame {
                 else{
                     for (Usuario usuario:AgenciaDeViajes.Agencia.listaUsuarios){
                         if (usuario.getUserName().equals(u) && usuario.getPassword().equals(c)){
-                            this.setVisible(false);
+                            dispose();
                             Sesion sesion = new Sesion();
                             sesion.setVisible(true);
                         }
