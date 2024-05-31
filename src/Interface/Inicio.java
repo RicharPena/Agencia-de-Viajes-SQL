@@ -157,6 +157,7 @@ public class Inicio extends javax.swing.JFrame {
                 BarraMousePressed(evt);
             }
         });
+        Barra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnExit.setToolTipText("");
         btnExit.setBorder(null);
@@ -176,6 +177,7 @@ public class Inicio extends javax.swing.JFrame {
                 btnExitActionPerformed(evt);
             }
         });
+        Barra.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 10, 40, 40));
 
         btnMini.setBorder(null);
         btnMini.setBorderPainted(false);
@@ -187,26 +189,9 @@ public class Inicio extends javax.swing.JFrame {
                 btnMiniActionPerformed(evt);
             }
         });
+        Barra.add(btnMini, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 10, 40, 40));
 
-        javax.swing.GroupLayout BarraLayout = new javax.swing.GroupLayout(Barra);
-        Barra.setLayout(BarraLayout);
-        BarraLayout.setHorizontalGroup(
-            BarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BarraLayout.createSequentialGroup()
-                .addGap(0, 894, Short.MAX_VALUE)
-                .addComponent(btnMini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        BarraLayout.setVerticalGroup(
-            BarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(BarraLayout.createSequentialGroup()
-                .addComponent(btnMini, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        absolutoPanel.add(Barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 40));
+        absolutoPanel.add(Barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 60));
 
         banner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Login.png"))); // NOI18N
         absolutoPanel.add(banner, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
