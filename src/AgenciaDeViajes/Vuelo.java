@@ -29,7 +29,7 @@ public class Vuelo {
     private Asiento asientos[];
     private int asientosDisponibles;
     private String origen;
-    private ArrayList <String> escalas = new ArrayList<String>();
+    private String escalas[] = new String[5];
     private String destino;
     //aquí iria la hora de salida
     //aquí iria la hora de llegada
@@ -81,10 +81,48 @@ public class Vuelo {
             }
         }
     }
-
+    
+    public void asignarEscalas(String c1, String c2, String c3, String c4, String c5){
+        escalas[0] = c1;
+        escalas[1] = c2;
+        escalas[2] = c3;
+        escalas[3] = c4;
+        escalas[4] = c5;
+    }
+    
+    /*Esta función verifica la distancia que hay entre la ciudad de origen y el destino
+    tomando como referencia el vector (después en LA INTERFASE, SE VERIFICA QUE SI ES 0,
+    SIGNIFICA QUE NO SE PUEDE TOMAR LA MISMA CIUDAD DE ORIGEN Y DESTINO) 
+    */
+    //funcion aquí si se le ve utilidad
+    
+    /*Esta función verificará si existe en un determinado vuelo, las ciudades de origen y destino
+    que el usuario ha ingresado. La cuestión es que los vuelos son en 1 solo sentido, recorriendo
+    el vector de izquierda a derecha (de 0 a 4) por lo que la ciudad de origen debe estar antes
+    que la ciudad de destino
+    */
+    public boolean verificarEscalas(String origen, String destino){
+        for(int i=0; i<5; i++){
+            if (escalas[i].equals(origen)){
+                for(int j=i; j<5; j++){
+                    if(escalas[j].equals(destino)){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
     public Asiento[] getAsientos() {
         return asientos;
     }
-        
-    
+
+    public int getIdVuelo() {
+        return idVuelo;
+    }
+
+    public void setIdVuelo(int idVuelo) {
+        this.idVuelo = idVuelo;
+    }
 }
