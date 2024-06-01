@@ -16,7 +16,7 @@ public class Usuario {
     private String userName;
     private String password;
     private String nombre;
-    private ArrayList<Reserva> listaReserva = new ArrayList<>();
+    private ArrayList<Reserva> listaReserva;
     private String tarjeta;
     //no existe lista boletos porque ya tenemos la reserva que actua como la de boletos
     
@@ -40,6 +40,7 @@ public class Usuario {
             }
         }
         return false;
+        //return this.userName.equals(userName) && this.password.equals(password);
     }
     
     //Se modificó los parámetros
@@ -53,8 +54,20 @@ public class Usuario {
         }
     }
     
-    public void crearReserva(String idReserva,int idVuelo, String aereolinea, String origen, String destino, String estadoVuelo){
-        listaReserva.add(new Reserva(idReserva,idVuelo, aereolinea, origen, destino, estadoVuelo));
+    /**En la interfase se  hará lo siguiente:
+     * El usuario ingresará el idReserva, con el fin de el mismo ingresarlo (como un identificador para el)
+     * Luego seleccionará su origen y su destino, el sistema verificará si existe algún vuelo que entre sus escalas se encuentre las ciudades
+     * Si lo encuentra, el usuario escojerá con que aereolínea se querrá ir (con que vuelo), que será el idVuelo
+     * Escojerá su asiento, que devolverá el idAsiento
+     * @param idReserva
+     * @param idVuelo
+     * @param origen
+     * @param destino
+     * @param idAsiento
+    */
+    public void crearReserva(String idReserva,int idVuelo, String origen, String destino, int idAsiento){
+        listaReserva = new ArrayList<>();
+        listaReserva.add(new Reserva(idReserva,idVuelo, origen, destino, idAsiento));
     }
     
     //Se cambió de void a boolean
@@ -101,6 +114,10 @@ public class Usuario {
             return true;
         }
         return false;
+    }
+
+    public ArrayList<Reserva> getListaReserva() {
+        return listaReserva;
     }
     
     
