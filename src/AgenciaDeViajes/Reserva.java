@@ -21,17 +21,30 @@ public class Reserva {
     private ArrayList<Asiento> asientos = new ArrayList<Asiento>();
     //fecha que deberia ser de tipo date
     private boolean pago;
+    private String origen;
+    private String destino;
 
-    
-    public Reserva(String idReserva,int idVuelo, String aereolinea, String origen, String destino, String estadoVuelo){
+    //LA AEREOLÍNEA Y ES ESTADO VUELO SIMPLEMENTE SE PUEDEN QUITAR DEL CONSTRUCTOR, YA QUE CON EL IDVUELO SE PUEDEN SACAR ESOS DATOS
+    public Reserva(String idReserva,int idVuelo, String origen, String destino, int idAsiento){
         this.idReserva = idReserva;
-        vuelo = new Vuelo(idVuelo,aereolinea, origen, destino, estadoVuelo);
-        asientos.add(vuelo.asignarAsiento(0));//POR AHORA QUEDA CON 0, YA QUE ESO SE DEFINE CON LA INTERFACE GRÁFICA
+        for (Vuelo vueloE : Agencia.listaVuelos){
+            if (vueloE.getIdVuelo() == idVuelo){
+                this.origen = origen;
+                this.destino = destino;
+                vuelo = vueloE;
+                asientos.add(vuelo.asignarAsiento(idAsiento));
+                vueloE.asignarAsiento(idAsiento);
+            }
+        }
     }
     
     //Con la interfase, se elije el idAsiento
-    public void agregarAsientos(int idAsiento){
-        asientos.add(vuelo.asignarAsiento(idAsiento));
+    public void agregarAsientos(int idAsiento, int idVuelo){
+        for (Vuelo vueloE : Agencia.listaVuelos){
+            if (vueloE.getIdVuelo() == idVuelo){
+                asientos.add(vueloE.asignarAsiento(idAsiento));
+            }
+        }
     }
     
     //Con la interfase, se elije el idAsiento
