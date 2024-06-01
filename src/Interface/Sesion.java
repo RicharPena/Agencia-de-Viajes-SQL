@@ -27,25 +27,28 @@ public class Sesion extends javax.swing.JFrame {
     public Sesion() {
         initComponents();
         setLocationRelativeTo(null);
-        putImageinJL("/Images/logo_agencia_002.png", imgLogo);
-        putImageinJL("/Images/nombreAgencia_002.png", imgNombreAgencia);
-        putImageinJL("/Images/slogan_002.png", imgSlogan);
-        
+        putImageInJL("/Images/logo_agencia_002.png", imgLogo);
+        putImageInJL("/Images/nombreAgencia_002.png", imgNombreAgencia);
+        putImageInJL("/Images/slogan_002.png", imgSlogan);
+        shadowVuelos.setVisible(false);
+        shadowReservas.setVisible(false);
+        shadowConfig.setVisible(false);
+        shadowCS.setVisible(false);
     }
     
-    private void putImageinJL(String ruta, JLabel jlabel){
+    private void putImageInJL(String ruta, JLabel jlabel){
         ImageIcon image = new ImageIcon(getClass().getResource(ruta));
         Icon imageIcon = new ImageIcon(image.getImage().getScaledInstance(jlabel.getWidth(), jlabel.getHeight(), Image.SCALE_SMOOTH));
         jlabel.setIcon(imageIcon);
     }
     
-    private void putImageinButton(String ruta, JButton btn){
+    private void putImageInButton(String ruta, JButton btn){
         ImageIcon image = new ImageIcon(getClass().getResource(ruta));
         Icon imageIcon = new ImageIcon(image.getImage().getScaledInstance(btn.getWidth(), btn.getHeight(), Image.SCALE_SMOOTH));
         btn.setIcon(imageIcon);
     }
     
-    private void putImageinTButton(String ruta, JToggleButton Tbtn){
+    private void putImageInTButton(String ruta, JToggleButton Tbtn){
         ImageIcon image = new ImageIcon(getClass().getResource(ruta));
         Icon imageIcon = new ImageIcon(image.getImage().getScaledInstance(Tbtn.getWidth(), Tbtn.getHeight(), Image.SCALE_SMOOTH));
         Tbtn.setIcon(imageIcon);
@@ -75,24 +78,38 @@ public class Sesion extends javax.swing.JFrame {
         imgLogo = new javax.swing.JLabel();
         imgNombreAgencia = new javax.swing.JLabel();
         imgSlogan = new javax.swing.JLabel();
+        encabezado = new javax.swing.JLabel();
         barraButtons = new javax.swing.JPanel();
         tbtnHome = new javax.swing.JToggleButton();
         tbtnVuelos = new javax.swing.JToggleButton();
         tbtnReservas = new javax.swing.JToggleButton();
         tbtnConfig = new javax.swing.JToggleButton();
         btnLogOut = new javax.swing.JButton();
-        encabezado = new javax.swing.JPanel();
-        cardPanel = new javax.swing.JPanel();
-        panelInicio = new javax.swing.JPanel();
-        textopanelInicio = new javax.swing.JLabel();
-        panelVuelos = new javax.swing.JPanel();
-        panelReserva = new javax.swing.JPanel();
-        txtFechaSalida = new javax.swing.JTextField();
-        panelConfig = new javax.swing.JPanel();
+        iconHome = new javax.swing.JLabel();
+        iconVuelos = new javax.swing.JLabel();
+        iconReservas = new javax.swing.JLabel();
+        iconConfig = new javax.swing.JLabel();
+        iconLogOut = new javax.swing.JLabel();
+        shadowHome = new javax.swing.JLabel();
+        shadowVuelos = new javax.swing.JLabel();
+        shadowReservas = new javax.swing.JLabel();
+        shadowConfig = new javax.swing.JLabel();
+        shadowCS = new javax.swing.JLabel();
+        BGSC = new javax.swing.JLabel();
+        opciones = new javax.swing.JTabbedPane();
+        Inicio = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        Vuelos = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        Reservas = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        Config = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         backgraund = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        setResizable(false);
 
         absolutePanel.setBackground(new java.awt.Color(0, 0, 0));
         absolutePanel.setOpaque(false);
@@ -108,150 +125,260 @@ public class Sesion extends javax.swing.JFrame {
                 topMoveMousePressed(evt);
             }
         });
-        absolutePanel.add(topMove, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1024, 40));
+        absolutePanel.add(topMove, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1064, 40));
 
         empresaLogo.setBackground(new java.awt.Color(0, 102, 204));
         empresaLogo.setOpaque(false);
         empresaLogo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        empresaLogo.add(imgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 30, 68, 80));
+        empresaLogo.add(imgLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 68, 80));
         empresaLogo.add(imgNombreAgencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 30, 134, 29));
         empresaLogo.add(imgSlogan, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 60, 134, 17));
 
         absolutePanel.add(empresaLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 120));
 
+        encabezado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/heading.png"))); // NOI18N
+        absolutePanel.add(encabezado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1064, 40));
+
         barraButtons.setBackground(new java.awt.Color(0, 102, 204));
         barraButtons.setOpaque(false);
         barraButtons.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tbtnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnHome_001.png"))); // NOI18N
+        tbtnHome.setSelected(true);
         tbtnHome.setBorder(null);
         tbtnHome.setBorderPainted(false);
         tbtnHome.setContentAreaFilled(false);
         tbtnHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        barraButtons.add(tbtnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 60));
+        tbtnHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tbtnHomeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tbtnHomeMouseExited(evt);
+            }
+        });
+        tbtnHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbtnHomeActionPerformed(evt);
+            }
+        });
+        barraButtons.add(tbtnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 240, 60));
 
-        tbtnVuelos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnVuelos_001.png"))); // NOI18N
         tbtnVuelos.setBorder(null);
         tbtnVuelos.setBorderPainted(false);
         tbtnVuelos.setContentAreaFilled(false);
         tbtnVuelos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        barraButtons.add(tbtnVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 240, 60));
+        tbtnVuelos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tbtnVuelosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tbtnVuelosMouseExited(evt);
+            }
+        });
+        tbtnVuelos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbtnVuelosActionPerformed(evt);
+            }
+        });
+        barraButtons.add(tbtnVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 240, 60));
 
-        tbtnReservas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnReservas_001.png"))); // NOI18N
         tbtnReservas.setBorder(null);
         tbtnReservas.setBorderPainted(false);
         tbtnReservas.setContentAreaFilled(false);
         tbtnReservas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        barraButtons.add(tbtnReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 240, 60));
+        tbtnReservas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tbtnReservasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tbtnReservasMouseExited(evt);
+            }
+        });
+        tbtnReservas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbtnReservasActionPerformed(evt);
+            }
+        });
+        barraButtons.add(tbtnReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 240, 60));
 
-        tbtnConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnConfig_001.png"))); // NOI18N
         tbtnConfig.setBorder(null);
         tbtnConfig.setBorderPainted(false);
         tbtnConfig.setContentAreaFilled(false);
         tbtnConfig.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        barraButtons.add(tbtnConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 240, 60));
+        tbtnConfig.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tbtnConfigMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tbtnConfigMouseExited(evt);
+            }
+        });
+        tbtnConfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbtnConfigActionPerformed(evt);
+            }
+        });
+        barraButtons.add(tbtnConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 240, 60));
 
-        btnLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnLogOut_001.png"))); // NOI18N
         btnLogOut.setBorder(null);
         btnLogOut.setBorderPainted(false);
         btnLogOut.setContentAreaFilled(false);
         btnLogOut.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        barraButtons.add(btnLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 240, 60));
+        btnLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLogOutMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLogOutMouseExited(evt);
+            }
+        });
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
+        barraButtons.add(btnLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 240, 60));
 
-        absolutePanel.add(barraButtons, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 240, 500));
+        iconHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnHome.png"))); // NOI18N
+        iconHome.setToolTipText("");
+        barraButtons.add(iconHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 240, 60));
 
-        encabezado.setBackground(new java.awt.Color(0, 153, 255));
-        encabezado.setOpaque(false);
-        encabezado.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        absolutePanel.add(encabezado, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 784, 40));
+        iconVuelos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnVuelos.png"))); // NOI18N
+        iconVuelos.setToolTipText("");
+        barraButtons.add(iconVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 240, 60));
 
-        cardPanel.setLayout(new java.awt.CardLayout());
+        iconReservas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnReservas.png"))); // NOI18N
+        iconReservas.setToolTipText("");
+        barraButtons.add(iconReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 240, 60));
 
-        panelInicio.setBackground(new java.awt.Color(204, 204, 255));
+        iconConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnConfig.png"))); // NOI18N
+        iconConfig.setToolTipText("");
+        barraButtons.add(iconConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 240, 60));
 
-        textopanelInicio.setText("INICIO");
+        iconLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/BtnCS.png"))); // NOI18N
+        iconLogOut.setToolTipText("");
+        barraButtons.add(iconLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 240, 60));
 
-        javax.swing.GroupLayout panelInicioLayout = new javax.swing.GroupLayout(panelInicio);
-        panelInicio.setLayout(panelInicioLayout);
-        panelInicioLayout.setHorizontalGroup(
-            panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInicioLayout.createSequentialGroup()
-                .addGap(293, 293, 293)
-                .addComponent(textopanelInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(422, Short.MAX_VALUE))
+        shadowHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/shadow.png"))); // NOI18N
+        shadowHome.setToolTipText("");
+        barraButtons.add(shadowHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 240, 60));
+
+        shadowVuelos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/shadow.png"))); // NOI18N
+        shadowVuelos.setToolTipText("");
+        barraButtons.add(shadowVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 240, 60));
+        shadowVuelos.getAccessibleContext().setAccessibleName("");
+
+        shadowReservas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/shadow.png"))); // NOI18N
+        shadowReservas.setToolTipText("");
+        barraButtons.add(shadowReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 240, 60));
+
+        shadowConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/shadow.png"))); // NOI18N
+        shadowConfig.setToolTipText("");
+        barraButtons.add(shadowConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 240, 60));
+
+        shadowCS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/shadow.png"))); // NOI18N
+        shadowCS.setToolTipText("");
+        barraButtons.add(shadowCS, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 240, 60));
+
+        BGSC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/BGCS.png"))); // NOI18N
+        barraButtons.add(BGSC, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 240, 60));
+
+        absolutePanel.add(barraButtons, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 260, 510));
+
+        jLabel1.setText("Inicio");
+
+        javax.swing.GroupLayout InicioLayout = new javax.swing.GroupLayout(Inicio);
+        Inicio.setLayout(InicioLayout);
+        InicioLayout.setHorizontalGroup(
+            InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(InicioLayout.createSequentialGroup()
+                .addGap(251, 251, 251)
+                .addComponent(jLabel1)
+                .addContainerGap(524, Short.MAX_VALUE))
         );
-        panelInicioLayout.setVerticalGroup(
-            panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInicioLayout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(textopanelInicio)
-                .addContainerGap(445, Short.MAX_VALUE))
-        );
-
-        cardPanel.add(panelInicio, "card2");
-
-        panelVuelos.setBackground(new java.awt.Color(255, 204, 255));
-
-        javax.swing.GroupLayout panelVuelosLayout = new javax.swing.GroupLayout(panelVuelos);
-        panelVuelos.setLayout(panelVuelosLayout);
-        panelVuelosLayout.setHorizontalGroup(
-            panelVuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 784, Short.MAX_VALUE)
-        );
-        panelVuelosLayout.setVerticalGroup(
-            panelVuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
-        );
-
-        cardPanel.add(panelVuelos, "card4");
-
-        panelReserva.setBackground(new java.awt.Color(204, 255, 255));
-
-        javax.swing.GroupLayout panelReservaLayout = new javax.swing.GroupLayout(panelReserva);
-        panelReserva.setLayout(panelReservaLayout);
-        panelReservaLayout.setHorizontalGroup(
-            panelReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelReservaLayout.createSequentialGroup()
-                .addGap(323, 323, 323)
-                .addComponent(txtFechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(397, Short.MAX_VALUE))
-        );
-        panelReservaLayout.setVerticalGroup(
-            panelReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelReservaLayout.createSequentialGroup()
-                .addGap(227, 227, 227)
-                .addComponent(txtFechaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(341, Short.MAX_VALUE))
-        );
-
-        cardPanel.add(panelReserva, "card3");
-
-        panelConfig.setBackground(new java.awt.Color(255, 255, 204));
-
-        javax.swing.GroupLayout panelConfigLayout = new javax.swing.GroupLayout(panelConfig);
-        panelConfig.setLayout(panelConfigLayout);
-        panelConfigLayout.setHorizontalGroup(
-            panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 784, Short.MAX_VALUE)
-        );
-        panelConfigLayout.setVerticalGroup(
-            panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
+        InicioLayout.setVerticalGroup(
+            InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(InicioLayout.createSequentialGroup()
+                .addGap(214, 214, 214)
+                .addComponent(jLabel1)
+                .addContainerGap(360, Short.MAX_VALUE))
         );
 
-        cardPanel.add(panelConfig, "card6");
+        opciones.addTab("Inicio", Inicio);
 
-        absolutePanel.add(cardPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 784, 590));
-        cardPanel.getAccessibleContext().setAccessibleName("");
+        jLabel3.setText("Vuelos");
 
-        backgraund.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/backgraund gradiente.png"))); // NOI18N
-        absolutePanel.add(backgraund, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1024, 630));
+        javax.swing.GroupLayout VuelosLayout = new javax.swing.GroupLayout(Vuelos);
+        Vuelos.setLayout(VuelosLayout);
+        VuelosLayout.setHorizontalGroup(
+            VuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(VuelosLayout.createSequentialGroup()
+                .addGap(311, 311, 311)
+                .addComponent(jLabel3)
+                .addContainerGap(458, Short.MAX_VALUE))
+        );
+        VuelosLayout.setVerticalGroup(
+            VuelosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(VuelosLayout.createSequentialGroup()
+                .addGap(255, 255, 255)
+                .addComponent(jLabel3)
+                .addContainerGap(319, Short.MAX_VALUE))
+        );
+
+        opciones.addTab("Vuelos", Vuelos);
+
+        jLabel2.setText("Reservas");
+
+        javax.swing.GroupLayout ReservasLayout = new javax.swing.GroupLayout(Reservas);
+        Reservas.setLayout(ReservasLayout);
+        ReservasLayout.setHorizontalGroup(
+            ReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ReservasLayout.createSequentialGroup()
+                .addGap(228, 228, 228)
+                .addComponent(jLabel2)
+                .addContainerGap(531, Short.MAX_VALUE))
+        );
+        ReservasLayout.setVerticalGroup(
+            ReservasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ReservasLayout.createSequentialGroup()
+                .addGap(224, 224, 224)
+                .addComponent(jLabel2)
+                .addContainerGap(350, Short.MAX_VALUE))
+        );
+
+        opciones.addTab("Reservas", Reservas);
+
+        jLabel4.setText("Configuracion");
+
+        javax.swing.GroupLayout ConfigLayout = new javax.swing.GroupLayout(Config);
+        Config.setLayout(ConfigLayout);
+        ConfigLayout.setHorizontalGroup(
+            ConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ConfigLayout.createSequentialGroup()
+                .addGap(322, 322, 322)
+                .addComponent(jLabel4)
+                .addContainerGap(406, Short.MAX_VALUE))
+        );
+        ConfigLayout.setVerticalGroup(
+            ConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ConfigLayout.createSequentialGroup()
+                .addGap(212, 212, 212)
+                .addComponent(jLabel4)
+                .addContainerGap(362, Short.MAX_VALUE))
+        );
+
+        opciones.addTab("Configuracion", Config);
+
+        absolutePanel.add(opciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 5, 804, 625));
+
+        backgraund.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/BackGround.png"))); // NOI18N
+        absolutePanel.add(backgraund, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1064, 630));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(absolutePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(absolutePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1064, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,6 +413,183 @@ public class Sesion extends javax.swing.JFrame {
         
         setLocation(x-xMouse, y-yMouse);
     }//GEN-LAST:event_topMoveMouseDragged
+
+    private void tbtnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnHomeActionPerformed
+        // TODO add your handling code here:
+        if(tbtnHome.isSelected()){
+            shadowHome.setVisible(true);
+            
+            tbtnHome.setEnabled(false);
+            
+            opciones.setSelectedIndex(0);
+            tbtnVuelos.setSelected(false);
+            tbtnReservas.setSelected(false);
+            tbtnConfig.setSelected(false);
+            tbtnVuelos.setEnabled(true);
+            tbtnReservas.setEnabled(true);
+            tbtnConfig.setEnabled(true);
+            shadowVuelos.setVisible(false);
+            shadowReservas.setVisible(false);
+            shadowConfig.setVisible(false);
+        }
+    }//GEN-LAST:event_tbtnHomeActionPerformed
+
+    private void tbtnHomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbtnHomeMouseEntered
+        // TODO add your handling code here:
+        if(tbtnHome.isSelected()){
+            
+        }
+        else{
+            shadowHome.setVisible(true);
+        }
+    }//GEN-LAST:event_tbtnHomeMouseEntered
+
+    private void tbtnHomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbtnHomeMouseExited
+        // TODO add your handling code here:
+        if(tbtnHome.isSelected()){
+            
+        }
+        else{
+            shadowHome.setVisible(false);
+        }
+    }//GEN-LAST:event_tbtnHomeMouseExited
+
+    private void tbtnVuelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnVuelosActionPerformed
+        // TODO add your handling code here:
+        if(tbtnVuelos.isSelected()){
+            shadowVuelos.setVisible(true);
+            
+            tbtnVuelos.setEnabled(false);
+            
+            opciones.setSelectedIndex(1);
+            tbtnHome.setSelected(false);
+            tbtnReservas.setSelected(false);
+            tbtnConfig.setSelected(false);
+            tbtnHome.setEnabled(true);
+            tbtnReservas.setEnabled(true);
+            tbtnConfig.setEnabled(true);
+            shadowHome.setVisible(false);
+            shadowReservas.setVisible(false);
+            shadowConfig.setVisible(false);
+        }
+    }//GEN-LAST:event_tbtnVuelosActionPerformed
+
+    private void tbtnVuelosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbtnVuelosMouseEntered
+        // TODO add your handling code here:
+        if(tbtnVuelos.isSelected()){
+            
+        }
+        else{
+            shadowVuelos.setVisible(true);
+        }
+    }//GEN-LAST:event_tbtnVuelosMouseEntered
+
+    private void tbtnVuelosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbtnVuelosMouseExited
+        // TODO add your handling code here:
+        if(tbtnVuelos.isSelected()){
+            
+        }
+        else{
+            shadowVuelos.setVisible(false);
+        }
+    }//GEN-LAST:event_tbtnVuelosMouseExited
+
+    private void tbtnReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnReservasActionPerformed
+        // TODO add your handling code here:
+        if(tbtnReservas.isSelected()){
+            shadowReservas.setVisible(true);
+            
+            tbtnReservas.setEnabled(false);
+            
+            opciones.setSelectedIndex(2);
+            tbtnHome.setSelected(false);
+            tbtnVuelos.setSelected(false);
+            tbtnConfig.setSelected(false);
+            tbtnHome.setEnabled(true);
+            tbtnVuelos.setEnabled(true);
+            tbtnConfig.setEnabled(true);
+            shadowHome.setVisible(false);
+            shadowVuelos.setVisible(false);
+            shadowConfig.setVisible(false);
+        }
+    }//GEN-LAST:event_tbtnReservasActionPerformed
+
+    private void tbtnReservasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbtnReservasMouseEntered
+        // TODO add your handling code here:
+        if(tbtnReservas.isSelected()){
+            
+        }
+        else{
+            shadowReservas.setVisible(true);
+        }
+    }//GEN-LAST:event_tbtnReservasMouseEntered
+
+    private void tbtnReservasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbtnReservasMouseExited
+        // TODO add your handling code here:
+        if(tbtnReservas.isSelected()){
+            
+        }
+        else{
+            shadowReservas.setVisible(false);
+        }
+    }//GEN-LAST:event_tbtnReservasMouseExited
+
+    private void tbtnConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbtnConfigActionPerformed
+        // TODO add your handling code here:
+        if(tbtnConfig.isSelected()){
+            shadowConfig.setVisible(true);
+            
+            tbtnConfig.setEnabled(false);
+            
+            opciones.setSelectedIndex(3);
+            tbtnHome.setSelected(false);
+            tbtnVuelos.setSelected(false);
+            tbtnReservas.setSelected(false);
+            tbtnHome.setEnabled(true);
+            tbtnVuelos.setEnabled(true);
+            tbtnReservas.setEnabled(true);
+            shadowHome.setVisible(false);
+            shadowVuelos.setVisible(false);
+            shadowReservas.setVisible(false);
+        }
+    }//GEN-LAST:event_tbtnConfigActionPerformed
+
+    private void tbtnConfigMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbtnConfigMouseEntered
+        // TODO add your handling code here:
+        if(tbtnConfig.isSelected()){
+            
+        }
+        else{
+            shadowConfig.setVisible(true);
+        }
+    }//GEN-LAST:event_tbtnConfigMouseEntered
+
+    private void tbtnConfigMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbtnConfigMouseExited
+        // TODO add your handling code here:
+        if(tbtnConfig.isSelected()){
+            
+        }
+        else{
+            shadowConfig.setVisible(false);
+        }
+    }//GEN-LAST:event_tbtnConfigMouseExited
+
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+        // TODO add your handling code here:
+        Inicio inicio=new Inicio();
+        this.dispose();
+        inicio.setVisible(true);
+    }//GEN-LAST:event_btnLogOutActionPerformed
+
+    private void btnLogOutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogOutMouseEntered
+        // TODO add your handling code here:
+        shadowCS.setVisible(true);
+    }//GEN-LAST:event_btnLogOutMouseEntered
+
+    private void btnLogOutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogOutMouseExited
+        // TODO add your handling code here:
+        shadowCS.setVisible(false);
+    }//GEN-LAST:event_btnLogOutMouseExited
     
     /**
      * @param args the command line arguments
@@ -323,26 +627,39 @@ public class Sesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BGSC;
+    private javax.swing.JPanel Config;
+    private javax.swing.JPanel Inicio;
+    private javax.swing.JPanel Reservas;
+    private javax.swing.JPanel Vuelos;
     private javax.swing.JPanel absolutePanel;
     private javax.swing.JLabel backgraund;
     private javax.swing.JPanel barraButtons;
     private javax.swing.JButton btnLogOut;
-    private javax.swing.JPanel cardPanel;
     private javax.swing.JPanel empresaLogo;
-    private javax.swing.JPanel encabezado;
+    private javax.swing.JLabel encabezado;
+    private javax.swing.JLabel iconConfig;
+    private javax.swing.JLabel iconHome;
+    private javax.swing.JLabel iconLogOut;
+    private javax.swing.JLabel iconReservas;
+    private javax.swing.JLabel iconVuelos;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JLabel imgNombreAgencia;
     private javax.swing.JLabel imgSlogan;
-    private javax.swing.JPanel panelConfig;
-    private javax.swing.JPanel panelInicio;
-    private javax.swing.JPanel panelReserva;
-    private javax.swing.JPanel panelVuelos;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTabbedPane opciones;
+    private javax.swing.JLabel shadowCS;
+    private javax.swing.JLabel shadowConfig;
+    private javax.swing.JLabel shadowHome;
+    private javax.swing.JLabel shadowReservas;
+    private javax.swing.JLabel shadowVuelos;
     private javax.swing.JToggleButton tbtnConfig;
     private javax.swing.JToggleButton tbtnHome;
     private javax.swing.JToggleButton tbtnReservas;
     private javax.swing.JToggleButton tbtnVuelos;
-    private javax.swing.JLabel textopanelInicio;
     private javax.swing.JLabel topMove;
-    private javax.swing.JTextField txtFechaSalida;
     // End of variables declaration//GEN-END:variables
 }
