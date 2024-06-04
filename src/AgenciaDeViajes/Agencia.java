@@ -27,7 +27,6 @@ public class Agencia {
     public static void main(String [] args){
         
         Vuelo vuelo1 = new Vuelo(1, "Avianca", "Cartagena", "Boyaca", "Prueba");
-        vuelo1.asignarEscalas("Cartagena", "Barranquilla", "Santa Marta", "Bogota", "Boyaca");
         Usuario usuario1 = new Usuario("Richar", "Richar", "123", null, null);
         
         listaUsuarios.add(usuario1);
