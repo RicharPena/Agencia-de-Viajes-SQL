@@ -52,21 +52,6 @@ public class Usuario {
         }
     }
     
-    public boolean asientoOcupado(Vuelo vuelo, int asiento) {
-        for (Usuario usuario : Agencia.listaUsuarios) {
-            for (Reserva reserva : usuario.getListaReserva()) {
-                if (reserva.getVuelo().equals(vuelo)) {
-                    for (int as : reserva.getAsientos()) {
-                        if (as == asiento) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
     /**En la interfase se  hará lo siguiente:
      * El usuario ingresará el idReserva, con el fin de el mismo ingresarlo (como un identificador para el)
      * Luego seleccionará su origen y su destino, el sistema verificará si existe algún vuelo que entre sus escalas se encuentre las ciudades
@@ -79,34 +64,40 @@ public class Usuario {
     
     public void crearReserva(int idReserva,Vuelo vuelo, ArrayList<Integer>asientos){
         for(int i=0;i<asientos.size();i++){
-            if(asientoOcupado(vuelo,asientos.get(i))){
+            if(Agencia.asientoOcupado(vuelo,asientos.get(i))){
                 asientos.remove(i);
             }
         }
         if(asientos.isEmpty()){
             
         }else{
-            listaReserva = new ArrayList<>();
-            listaReserva.add(new Reserva(idReserva,vuelo,asientos));
+            if(vueloRepetido(vuelo)){
+                
+            }else{
+                listaReserva = new ArrayList<>();
+                listaReserva.add(new Reserva(idReserva,vuelo,asientos));
+            }
         }
     }
     
     public void cancelarReserva(int idReserva){
-        for(Vuelo vuelo:Agencia.listaVuelos){
-            if(vuelo.equals(listaReserva.get(idReserva-1).getVuelo())){
-                for(int i=0;i<listaReserva.get(idReserva-1).getAsientos().size();i++){
-                    for(int j=0;j<vuelo.getAsientos().length;j++){
-                        if(vuelo.getAsientos()[j].getIdAsiento()==listaReserva.get(idReserva-1).getAsientos().get(i)){
-                            vuelo.getAsientos()[j].setOcupado(false);
-                        }
-                    }
-                }
-            }
-        }
+        listaReserva.get(idReserva-1).eliminarAsientos(listaReserva.get(idReserva-1).getAsientos());
         
         listaReserva.remove(idReserva-1);
         
         Agencia.actualizarVuelos();
+    }
+    
+    private boolean vueloRepetido(Vuelo vuelo){
+        boolean repetido=false;
+        
+        for(Reserva reserva:listaReserva){
+            if(reserva.getVuelo().getIdVuelo()==vuelo.getIdVuelo()){
+                repetido=true;
+            }
+        }
+        
+        return repetido;
     }
     
     public String getUserName() {

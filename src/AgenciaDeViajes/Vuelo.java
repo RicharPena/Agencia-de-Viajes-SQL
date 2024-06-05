@@ -28,7 +28,7 @@ public class Vuelo {
         this.idVuelo = idVuelo;
         this.aereolinea = aereolinea;
         
-        if (this.aereolinea.equals("Avianca")) {
+        if (aereolinea.equals("Avianca")) {
             //BOEING 737-800
             //Avianca
             //Business class: 16
@@ -53,7 +53,7 @@ public class Vuelo {
             this.asientosDisponibles = 166;
         }
         else{
-            if(this.aereolinea.equals("Fly Emirates")){
+            if(aereolinea.equals("Fly Emirates")){
                 //BOEING 777-200ER
                 //Fly Emirates
                 //Business class 32
@@ -79,7 +79,7 @@ public class Vuelo {
                 this.asientosDisponibles = 332;
             }
             else{
-                if(this.aereolinea.equals("Latam Airlanes")){
+                if(aereolinea.equals("Latam Airlanes")){
                     //BOEING 767-300ER
                     //Latam Airlanes
                     //Business Class: 24
@@ -107,30 +107,39 @@ public class Vuelo {
             }
         }
         
-        
         this.origen = origen;
         this.escalas = escalas;
         this.destino = destino;
         this.estadoVuelo = true;
     }
+    
+    public Vuelo(int idVuelo, String aereolinea, Asiento[] asientos, int asientosDisponibles, String origen, ArrayList<String> escalas, String destino, boolean estadoVuelo) {
+        this.idVuelo = idVuelo;
+        this.aereolinea = aereolinea;
+        this.asientos = asientos;
+        this.asientosDisponibles = asientosDisponibles;
+        this.origen = origen;
+        this.escalas = escalas;
+        this.destino = destino;
+        this.estadoVuelo = estadoVuelo;
+    }
 
     //se cambió el tipo de dato de String a int, al igual que lo que va a devolver el metodo
-    public Asiento asignarAsiento(int idAsiento) {
+    public void asignarAsiento(int idAsiento) {
         for (Asiento asiento : asientos) {
             if (asiento.getIdAsiento() == idAsiento) {
-                asiento.setOcupado(true); //false para indicar que el asiento ya está tomado
-                return asiento;
+                asiento.setOcupado(true); //true para indicar que el asiento ya está tomado
+                asientosDisponibles--;
             }
         }
-        
-        return null;
     }
 
     //ESTE PUEDE SER UN BOOLEAN y se cambió de String a int
     public void liberarAsiento(int idAsiento) {
         for (Asiento asiento : asientos) {
             if (asiento.getIdAsiento() == idAsiento) {
-                asiento.setOcupado(false); //TRUE para indicar que el asiento ya está libre
+                asiento.setOcupado(false); //false para indicar que el asiento ya está libre
+                asientosDisponibles++;
             }
         }
     }

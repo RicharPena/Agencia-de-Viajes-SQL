@@ -45,6 +45,21 @@ public class Agencia {
         return null;
     }
     
+    public static boolean asientoOcupado(Vuelo vuelo, int asiento) {
+        for (Usuario usuario : Agencia.listaUsuarios) {
+            for (Reserva reserva : usuario.getListaReserva()) {
+                if (reserva.getVuelo().equals(vuelo)) {
+                    for (int as : reserva.getAsientos()) {
+                        if (as == asiento) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
     public static void actualizarVuelos(){
         for(Vuelo vuelo:listaVuelos){
             for(Usuario usuario:listaUsuarios){

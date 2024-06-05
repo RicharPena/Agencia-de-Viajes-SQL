@@ -38,6 +38,7 @@ public class Reserva {
         }
         this.vuelo=Agencia.listaVuelos.get(vuelo.getIdVuelo()-1);
         this.asientos=asientos;
+        Agencia.actualizarVuelos();
     }
     
     //Con la interfase, se elije el idAsiento
@@ -50,6 +51,7 @@ public class Reserva {
         for(int i=0;i<asientos.size();i++){
             this.asientos.add(asientos.get(i));
         }
+        Agencia.actualizarVuelos();
     }
     
     //Con la interfase, se elije el idAsiento
