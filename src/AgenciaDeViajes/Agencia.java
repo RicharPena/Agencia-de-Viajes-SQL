@@ -6,7 +6,7 @@ package AgenciaDeViajes;
 
 import Interface.Inicio;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
+import java.util.Arrays;
 
 /**
  *
@@ -23,31 +23,16 @@ public class Agencia {
     
     public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     public static ArrayList<Vuelo> listaVuelos = new ArrayList<>();
-    
     public static void main(String [] args){
+        String[]ciudades={};
+        ArrayList<String>escalas=new ArrayList<>(Arrays.asList(ciudades));
         
-        Vuelo vuelo1 = new Vuelo(1, "Avianca", "Cartagena", "Boyaca", "Prueba");
+        
+        Vuelo vuelo1 = new Vuelo(1, "Avianca", "Cartagena",escalas,"Boyaca");
         Usuario usuario1 = new Usuario("Richar", "Richar", "123", null, null);
         
         listaUsuarios.add(usuario1);
         listaVuelos.add(vuelo1);
-        
-        for (Vuelo vuelo : listaVuelos){
-            if (vuelo.verificarEscalas("Cartagena", "Bogota") == true){
-                usuario1.crearReserva("Viaje a Bogota", 1, "Cartagena", "Bogota", 0);
-                break;
-            }
-        }
-        
-        int op = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite 1"));
-        if (op ==1 ){
-            for (Reserva reserva: usuario1.getListaReserva()){
-                if (reserva.getIdReserva().equals("Viaje a Bogota")){
-                    reserva.agregarAsientos(1, 1);
-                    break;
-                }
-            }
-        }
         
         Inicio inicio=new Inicio();
         
@@ -60,4 +45,15 @@ public class Agencia {
         return null;
     }
     
+    public static void actualizarVuelos(){
+        for(Vuelo vuelo:listaVuelos){
+            for(Usuario usuario:listaUsuarios){
+                for(Reserva reserva:usuario.getListaReserva()){
+                    if(reserva.getVuelo().getIdVuelo()==vuelo.getIdVuelo()){
+                        reserva.setVuelo(vuelo);
+                    }
+                }
+            }
+        }
+    }
 }

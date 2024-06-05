@@ -10,16 +10,7 @@ import java.util.ArrayList;
  *
  * @author Systema
  */
-//BOEING 777-200ER
-//Fly Emirates
-//Business class 32
-//Premium Economy Class: 42
-//Economy Class: 258
-//BOEING 767-300ER
-//Latam
-//Business Class: 24
-//Premium Economy Class: 30
-//Economy Class: 156
+
 public class Vuelo {
 
     private int idVuelo;
@@ -27,14 +18,14 @@ public class Vuelo {
     private Asiento asientos[];
     private int asientosDisponibles;
     private String origen;
-    private ArrayList<String> escalas = new ArrayList<>();
+    private ArrayList<String> escalas;
     private String destino;
     //aquí iria la hora de salida
     //aquí iria la hora de llegada
-    private String estadoVuelo;
+    private boolean estadoVuelo;
     
-    public Vuelo(int id, String aereolinea, String origen, String destino, String estadoVuelo) {
-        idVuelo = id;
+    public Vuelo(int idVuelo, String aereolinea, String origen, ArrayList<String> escalas, String destino) {
+        this.idVuelo = idVuelo;
         this.aereolinea = aereolinea;
         
         if (this.aereolinea.equals("Avianca")) {
@@ -48,32 +39,86 @@ public class Vuelo {
             
             for (int i = 0; i < 166; i++) {
                 if (i < 16) {
-                    asientos[i] = new AsientoBusiness(i+1, true);
+                    asientos[i] = new AsientoBusiness(i+1, false);
                 } else {
                     if (i >= 16 && i < 64) {
-                    asientos[i] = new AsientoEconomicoPremium(i+1, true);
+                        asientos[i] = new AsientoEconomicoPremium(i+1, false);
                     } else {
                         if (i >= 64 && i < 166) {
-                            asientos[i] = new AsientoEconomico(i+1, true);
+                            asientos[i] = new AsientoEconomico(i+1, false);
                         }
                     }
                 }
             }
-            
+            this.asientosDisponibles = 166;
         }
-        this.asientosDisponibles = 166;
+        else{
+            if(this.aereolinea.equals("Fly Emirates")){
+                //BOEING 777-200ER
+                //Fly Emirates
+                //Business class 32
+                //Premium Economy Class: 42
+                //Economy Class: 258
+            
+                asientos = new Asiento[332];
+            
+                for (int i = 0; i < 332; i++) {
+                    if (i < 32) {
+                        asientos[i] = new AsientoBusiness(i+1, false);
+                    } else {
+                        if (i >= 32 && i < 74) {
+                            asientos[i] = new AsientoEconomicoPremium(i+1, false);
+                        } else {
+                            if (i >= 74 && i < 332) {
+                                asientos[i] = new AsientoEconomico(i+1, false);
+                            }
+                        }
+                    }
+                }
+            
+                this.asientosDisponibles = 332;
+            }
+            else{
+                if(this.aereolinea.equals("Latam Airlanes")){
+                    //BOEING 767-300ER
+                    //Latam Airlanes
+                    //Business Class: 24
+                    //Premium Economy Class: 30
+                    //Economy Class: 156
+                    
+                    asientos = new Asiento[210];
+                    
+                    for (int i = 0; i < 210; i++) {
+                        if (i < 24) {
+                            asientos[i] = new AsientoBusiness(i+1, false);
+                        } else {
+                            if (i >= 24 && i < 54) {
+                                asientos[i] = new AsientoEconomicoPremium(i+1, false);
+                            } else {
+                                if (i >= 54 && i < 210) {
+                                    asientos[i] = new AsientoEconomico(i+1, false);
+                                }
+                            }
+                        }
+                    }
+                    
+                    this.asientosDisponibles = 332;
+                }
+            }
+        }
+        
         
         this.origen = origen;
-        //POR DEFINIR LA PARTE DE ESCALAS
+        this.escalas = escalas;
         this.destino = destino;
-        this.estadoVuelo = estadoVuelo;
+        this.estadoVuelo = true;
     }
 
     //se cambió el tipo de dato de String a int, al igual que lo que va a devolver el metodo
     public Asiento asignarAsiento(int idAsiento) {
         for (Asiento asiento : asientos) {
             if (asiento.getIdAsiento() == idAsiento) {
-                asiento.cambiarEstado(false); //false para indicar que el asiento ya está tomado
+                asiento.setOcupado(true); //false para indicar que el asiento ya está tomado
                 return asiento;
             }
         }
@@ -85,7 +130,7 @@ public class Vuelo {
     public void liberarAsiento(int idAsiento) {
         for (Asiento asiento : asientos) {
             if (asiento.getIdAsiento() == idAsiento) {
-                asiento.cambiarEstado(true); //TRUE para indicar que el asiento ya está libre
+                asiento.setOcupado(false); //TRUE para indicar que el asiento ya está libre
             }
         }
     }

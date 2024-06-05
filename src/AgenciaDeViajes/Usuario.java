@@ -31,8 +31,6 @@ public class Usuario {
         this.listaReserva = listaReserva;
     }
     
-    
-    
     public boolean login(String userName, String password){
         if (this.userName.equals(userName)){
             if (this.password.equals(password)){
@@ -54,29 +52,61 @@ public class Usuario {
         }
     }
     
+    public boolean asientoOcupado(Vuelo vuelo, int asiento) {
+        for (Usuario usuario : Agencia.listaUsuarios) {
+            for (Reserva reserva : usuario.getListaReserva()) {
+                if (reserva.getVuelo().equals(vuelo)) {
+                    for (int as : reserva.getAsientos()) {
+                        if (as == asiento) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
     /**En la interfase se  hará lo siguiente:
      * El usuario ingresará el idReserva, con el fin de el mismo ingresarlo (como un identificador para el)
      * Luego seleccionará su origen y su destino, el sistema verificará si existe algún vuelo que entre sus escalas se encuentre las ciudades
      * Si lo encuentra, el usuario escojerá con que aereolínea se querrá ir (con que vuelo), que será el idVuelo
      * Escojerá su asiento, que devolverá el idAsiento
      * @param idReserva
-     * @param idVuelo
-     * @param origen
-     * @param destino
-     * @param idAsiento
+     * @param vuelo 
+     * @param asientos 
     */
-    public void crearReserva(String idReserva,int idVuelo, String origen, String destino, int idAsiento){
-        listaReserva = new ArrayList<>();
-        listaReserva.add(new Reserva(idReserva,idVuelo, origen, destino, idAsiento));
+    
+    public void crearReserva(int idReserva,Vuelo vuelo, ArrayList<Integer>asientos){
+        for(int i=0;i<asientos.size();i++){
+            if(asientoOcupado(vuelo,asientos.get(i))){
+                asientos.remove(i);
+            }
+        }
+        if(asientos.isEmpty()){
+            
+        }else{
+            listaReserva = new ArrayList<>();
+            listaReserva.add(new Reserva(idReserva,vuelo,asientos));
+        }
     }
     
-    //Se cambió de void a boolean
-    public boolean cancelarReserva(String idReserva, Reserva reservaTomada){
-        if (reservaTomada.getIdReserva().equals(idReserva)){
-            listaReserva.remove(reservaTomada);
-            return true;
+    public void cancelarReserva(int idReserva){
+        for(Vuelo vuelo:Agencia.listaVuelos){
+            if(vuelo.equals(listaReserva.get(idReserva-1).getVuelo())){
+                for(int i=0;i<listaReserva.get(idReserva-1).getAsientos().size();i++){
+                    for(int j=0;j<vuelo.getAsientos().length;j++){
+                        if(vuelo.getAsientos()[j].getIdAsiento()==listaReserva.get(idReserva-1).getAsientos().get(i)){
+                            vuelo.getAsientos()[j].setOcupado(false);
+                        }
+                    }
+                }
+            }
         }
-        return false;
+        
+        listaReserva.remove(idReserva-1);
+        
+        Agencia.actualizarVuelos();
     }
     
     public String getUserName() {
@@ -119,7 +149,4 @@ public class Usuario {
     public ArrayList<Reserva> getListaReserva() {
         return listaReserva;
     }
-    
-    
-    
 }

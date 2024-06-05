@@ -16,60 +16,74 @@ import java.util.ArrayList;
  * Se añadió un nuevo método llamado eliminarAsientos
  */
 public class Reserva {
-    private String idReserva; //idReserva va con String porque el usuario le puede dar un nombre
+    private int idReserva; //idReserva va con String porque el usuario le puede dar un nombre
     private Vuelo vuelo;
-    private ArrayList<Asiento> asientos = new ArrayList<Asiento>();
+    private ArrayList<Integer> asientos = new ArrayList<>();
     //fecha que deberia ser de tipo date
     private boolean pago;
-    private String origen;
-    private String destino;
 
-    //LA AEREOLÍNEA Y ES ESTADO VUELO SIMPLEMENTE SE PUEDEN QUITAR DEL CONSTRUCTOR, YA QUE CON EL IDVUELO SE PUEDEN SACAR ESOS DATOS
-    public Reserva(String idReserva,int idVuelo, String origen, String destino, int idAsiento){
-        this.idReserva = idReserva;
-        for (Vuelo vueloE : Agencia.listaVuelos){
-            if (vueloE.getIdVuelo() == idVuelo){
-                this.origen = origen;
-                this.destino = destino;
-                vuelo = vueloE;
-                asientos.add(vuelo.asignarAsiento(idAsiento));
-                vueloE.asignarAsiento(idAsiento);
-            }
+    //CONSTRUCTOR DE RESERVA PARA INICIALIZAR RESERVAS QUE YA HAY
+    public Reserva(int idReserva, Vuelo vuelo, ArrayList<Integer>asientos, boolean pago){
+        this.idReserva=idReserva;
+        this.vuelo=vuelo;
+        this.asientos=asientos;
+        this.pago=pago;
+    }
+    
+    //CONSTRUCTOR DE RESERVA PARA CREAR NUEVAS RESERVAS
+    public Reserva(int idReserva,Vuelo vuelo, ArrayList<Integer>asientos){
+        this.idReserva=idReserva;
+        for(int i=0;i<asientos.size();i++){
+            Agencia.listaVuelos.get(vuelo.getIdVuelo()-1).asignarAsiento(asientos.get(i));
         }
+        this.vuelo=Agencia.listaVuelos.get(vuelo.getIdVuelo()-1);
+        this.asientos=asientos;
     }
     
     //Con la interfase, se elije el idAsiento
-    public void agregarAsientos(int idAsiento, int idVuelo){
-        for (Vuelo vueloE : Agencia.listaVuelos){
-            if (vueloE.getIdVuelo() == idVuelo){
-                asientos.add(vueloE.asignarAsiento(idAsiento));
-            }
+    public void agregarAsientos(ArrayList<Integer>asientos){
+        for(int i=0;i<asientos.size();i++){
+            Agencia.listaVuelos.get(vuelo.getIdVuelo()-1).asignarAsiento(asientos.get(i));
         }
-    }
-    
-    //Con la interfase, se elije el idAsiento
-    public boolean eliminarAsiento(int idAsiento){
-        vuelo.liberarAsiento(idAsiento); //ESTO PUEDE CAMBIAR SI CAMBIA EL METODO A BOOLEAN
+        this.vuelo=Agencia.listaVuelos.get(vuelo.getIdVuelo()-1);
         
-        for ( Asiento asiento:asientos){
-            if (asiento.getIdAsiento() == idAsiento){
-                if (asientos.remove(asiento)){
-                    return true;
-                }//aquí estoy eliminando el asiento de la reserva
-            }
+        for(int i=0;i<asientos.size();i++){
+            this.asientos.add(asientos.get(i));
         }
-        return false;
     }
     
-    public String getIdReserva() {
+    //Con la interfase, se elije el idAsiento
+    public void eliminarAsientos(ArrayList<Integer>asientos){
+        for(int i=0;i<asientos.size();i++){
+            Agencia.listaVuelos.get(vuelo.getIdVuelo()-1).liberarAsiento(asientos.get(i));
+        }
+        this.vuelo=Agencia.listaVuelos.get(vuelo.getIdVuelo()-1);
+        for(int i=0;i<this.asientos.size();i++){
+            for(int j=0;j<asientos.size();j++){
+                if(this.asientos.get(i).equals(asientos.get(j))){
+                    this.asientos.remove(i);
+                }
+            }
+        }
+    }
+    
+    public int getIdReserva() {
         return idReserva;
     }
 
     public Vuelo getVuelo() {
         return vuelo;
     }
+    
+    public ArrayList<Integer> getAsientos() {
+        return asientos;
+    }
+    
+    public boolean getPago() {
+        return pago;
+    }
 
-    public void setIdReserva(String idReserva) {
+    public void setIdReserva(int idReserva) {
         this.idReserva = idReserva;
     }
 
@@ -77,12 +91,11 @@ public class Reserva {
         this.vuelo = vuelo;
     }
     
+    public void setAsientos(ArrayList<Integer> asientos) {
+        this.asientos = asientos;
+    }
+    
     public void setPago(boolean pago) {
         this.pago = pago;
     }
-
-    public boolean getPago() {
-        return pago;
-    }
-    
 }
