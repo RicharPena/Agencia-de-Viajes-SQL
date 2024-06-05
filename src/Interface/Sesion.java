@@ -454,11 +454,11 @@ public class Sesion extends javax.swing.JFrame {
                 btnSaveChangesActionPerformed(evt);
             }
         });
-        Config.add(btnSaveChanges, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 470, 226, 56));
+        Config.add(btnSaveChanges, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 480, 226, 56));
 
         txtMensaje.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         txtMensaje.setForeground(new java.awt.Color(255, 51, 51));
-        Config.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        Config.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 730, 30));
 
         BGConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/BGPanelConfig.png"))); // NOI18N
         BGConfig.setToolTipText("");
