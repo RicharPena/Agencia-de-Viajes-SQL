@@ -8,6 +8,8 @@ import Tipografias.Fuentes;
 import java.awt.Color;
 import java.awt.Image;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,6 +35,13 @@ public class Sesion extends javax.swing.JFrame {
         putImageInJL("/Images/logo_agencia_002.png", imgLogo);
         putImageInJL("/Images/nombreAgencia_002.png", imgNombreAgencia);
         putImageInJL("/Images/slogan_002.png", imgSlogan);
+        putImageInJL("/Images/Panel Inicio.png", BGinicio);
+        
+        Fuentes tipoFuente = new Fuentes();
+        
+        txtShowUserName.setFont(tipoFuente.fuente(tipoFuente.OSB, 0, 70));
+        txtShowUserName.setText(AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getUserName());
+        
         shadowVuelos.setVisible(false);
         shadowReservas.setVisible(false);
         shadowConfig.setVisible(false);
@@ -41,6 +50,13 @@ public class Sesion extends javax.swing.JFrame {
         parametroJTextFiel(txtCambioNombre);
         parametroJTextFiel(txtCambioUserName);
         parametroJTextFiel(txtTarjeta);
+        
+        if (AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getTarjeta() == null){
+            //El textField queda así, sin nada.
+        }
+        else{
+            txtTarjeta.setText(AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getTarjeta());
+        }
         
         parametroJPassword(txtCambioContra);
         parametroJPassword(txtConfCamContra);
@@ -138,7 +154,7 @@ public class Sesion extends javax.swing.JFrame {
         BGSC = new javax.swing.JLabel();
         opciones = new javax.swing.JTabbedPane();
         Inicio = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        txtShowUserName = new javax.swing.JLabel();
         BGinicio = new javax.swing.JLabel();
         Vuelos = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -338,11 +354,12 @@ public class Sesion extends javax.swing.JFrame {
 
         Inicio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Inicio");
-        Inicio.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 214, -1, -1));
+        txtShowUserName.setFont(new java.awt.Font("Maiandra GD", 0, 58)); // NOI18N
+        Inicio.add(txtShowUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, 440, 70));
 
+        BGinicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Panel Inicio.png"))); // NOI18N
         BGinicio.setToolTipText("");
-        Inicio.add(BGinicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 804, 590));
+        Inicio.add(BGinicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 804, 600));
 
         opciones.addTab("Inicio", Inicio);
 
@@ -408,9 +425,16 @@ public class Sesion extends javax.swing.JFrame {
         });
         Config.add(txtConfCamContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 285, 300, 45));
 
+        txtTarjeta.setText("Agregar / Cambiar Tarjeta");
         txtTarjeta.setBorder(null);
+        txtTarjeta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtTarjetaMouseClicked(evt);
+            }
+        });
         Config.add(txtTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 380, 375, 42));
 
+        TbtnVisual1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Button visual_001.png"))); // NOI18N
         TbtnVisual1.setBorder(null);
         TbtnVisual1.setBorderPainted(false);
         TbtnVisual1.setContentAreaFilled(false);
@@ -420,8 +444,9 @@ public class Sesion extends javax.swing.JFrame {
                 TbtnVisual1ActionPerformed(evt);
             }
         });
-        Config.add(TbtnVisual1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        Config.add(TbtnVisual1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 290, -1, -1));
 
+        TbtnVisual2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Button visual_001.png"))); // NOI18N
         TbtnVisual2.setBorder(null);
         TbtnVisual2.setBorderPainted(false);
         TbtnVisual2.setContentAreaFilled(false);
@@ -431,7 +456,7 @@ public class Sesion extends javax.swing.JFrame {
                 TbtnVisual2ActionPerformed(evt);
             }
         });
-        Config.add(TbtnVisual2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        Config.add(TbtnVisual2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 290, -1, -1));
 
         btnEditAddTarjet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnEdit-Addtarjet.png"))); // NOI18N
         btnEditAddTarjet.setToolTipText("");
@@ -458,7 +483,7 @@ public class Sesion extends javax.swing.JFrame {
 
         txtMensaje.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         txtMensaje.setForeground(new java.awt.Color(255, 51, 51));
-        Config.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 730, 30));
+        Config.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, 730, 30));
 
         BGConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/BGPanelConfig.png"))); // NOI18N
         BGConfig.setToolTipText("");
@@ -691,6 +716,8 @@ public class Sesion extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCambioUserNameActionPerformed
 
     private void btnSaveChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveChangesActionPerformed
+        txtMensaje.setForeground(Color.RED);
+        
         String c1 = new String(txtCambioContra.getPassword());
         String c2 = new String(txtConfCamContra.getPassword());
         
@@ -723,7 +750,7 @@ public class Sesion extends javax.swing.JFrame {
             }
         }
         
-        if (txtCambioContra.getPassword().equals("Contraseña Nueva") && txtConfCamContra.getPassword().equals("Confirmar Contraseña")){
+        if (c1.equals("Contraseña Nueva") && c2.equals("Confirmar Contraseña")){
             //NADA
         }
         else{
@@ -756,6 +783,11 @@ public class Sesion extends javax.swing.JFrame {
         
         if (txtCambioUserName.getText().equals("Nuevo User Name") && txtCambioNombre.getText().equals("Nuevo Nombre") && c1.equals("Contraseña Nueva") && c2.equals("Confirmar Contraseña") && txtTarjeta.getText().equals("Agregar / Cambiar Tarjeta")){
             txtMensaje.setText("Ningún cambio se ha realizado!!!");
+            timer.start();
+        }
+        else{
+            txtMensaje.setForeground(Color.GREEN);
+            txtMensaje.setText("Cambios Realizados con Éxito");
             timer.start();
         }
     }//GEN-LAST:event_btnSaveChangesActionPerformed
@@ -939,8 +971,62 @@ public class Sesion extends javax.swing.JFrame {
     }//GEN-LAST:event_TbtnVisual2ActionPerformed
 
     private void btnEditAddTarjetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditAddTarjetActionPerformed
-        // TODO add your handling code here:
+        txtMensaje.setForeground(Color.RED);
+        Timer timer = new Timer(2000, (e) -> {txtMensaje.setText("");});
+        
+        timer.setRepeats(false); 
+        
+        if(txtTarjeta.getText().equals("Agregar / Cambiar Tarjeta")){
+            txtMensaje.setText("No se ha realizado ningún cambio en la Tarjeta!!!");
+            timer.start();
+        }
+        else{
+            if (txtTarjeta.getText().length() == 10){
+                AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).setTarjeta(txtTarjeta.getText());
+                txtMensaje.setForeground(Color.GREEN);
+                txtMensaje.setText("Tarjeta Agregada / Cambiada con éxito");
+                timer.start();
+            }
+            else{
+                txtMensaje.setText("Tarjeta Inválida");
+                timer.start();
+            }
+        }
+        
     }//GEN-LAST:event_btnEditAddTarjetActionPerformed
+
+    private void txtTarjetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTarjetaMouseClicked
+        String c1 = new String(txtCambioContra.getPassword());
+        String c2 = new String(txtConfCamContra.getPassword());
+        
+        if (txtCambioNombre.getText().equals("")){
+            txtCambioNombre.setText("Nuevo Nombre");
+            cursiveFontinTF(txtCambioNombre);
+            txtCambioNombre.setForeground(Color.GRAY);
+        }
+        if (txtCambioUserName.getText().equals("")){
+            txtCambioUserName.setText("Nuevo User Name");
+            cursiveFontinTF(txtCambioUserName);
+            txtCambioUserName.setForeground(Color.GRAY);
+        }
+        if (txtTarjeta.getText().equals("Agregar / Cambiar Tarjeta")){
+            txtTarjeta.setText("");
+            normalFontinTF(txtTarjeta);
+            txtTarjeta.setForeground(Color.BLACK);
+        }
+        if (c1.equals("")){
+            txtCambioContra.setText("Contraseña Nueva");
+            txtCambioContra.setEchoChar('\0');
+            cursiveFontinPF(txtCambioContra);
+            txtCambioContra.setForeground(Color.GRAY);
+        }
+        if (c2.equals("")){
+            txtConfCamContra.setText("Confirmar Contraseña");
+            txtConfCamContra.setEchoChar('\0');
+            cursiveFontinPF(txtConfCamContra);
+            txtConfCamContra.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_txtTarjetaMouseClicked
     
     /**
      * @param args the command line arguments
@@ -1003,7 +1089,6 @@ public class Sesion extends javax.swing.JFrame {
     private javax.swing.JLabel imgLogo;
     private javax.swing.JLabel imgNombreAgencia;
     private javax.swing.JLabel imgSlogan;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTabbedPane opciones;
@@ -1022,6 +1107,7 @@ public class Sesion extends javax.swing.JFrame {
     private javax.swing.JTextField txtCambioUserName;
     private javax.swing.JPasswordField txtConfCamContra;
     private javax.swing.JLabel txtMensaje;
+    private javax.swing.JLabel txtShowUserName;
     private javax.swing.JTextField txtTarjeta;
     // End of variables declaration//GEN-END:variables
 }
