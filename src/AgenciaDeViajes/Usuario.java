@@ -16,7 +16,7 @@ public class Usuario {
     private String userName;
     private String password;
     private String nombre;
-    private ArrayList<Reserva> listaReserva;
+    private ArrayList<Reserva> listaReserva = new ArrayList<>();
     private String tarjeta;
     //no existe lista boletos porque ya tenemos la reserva que actua como la de boletos
     
@@ -63,21 +63,7 @@ public class Usuario {
     */
     
     public void crearReserva(int idReserva,Vuelo vuelo, ArrayList<Integer>asientos){
-        for(int i=0;i<asientos.size();i++){
-            if(Agencia.asientoOcupado(vuelo,asientos.get(i))){
-                asientos.remove(i);
-            }
-        }
-        if(asientos.isEmpty()){
-            
-        }else{
-            if(vueloRepetido(vuelo)){
-                
-            }else{
-                listaReserva = new ArrayList<>();
-                listaReserva.add(new Reserva(idReserva,vuelo,asientos));
-            }
-        }
+        listaReserva.add(new Reserva(idReserva,vuelo,asientos));
     }
     
     public void cancelarReserva(int idReserva){
@@ -86,18 +72,6 @@ public class Usuario {
         listaReserva.remove(idReserva-1);
         
         Agencia.actualizarVuelos();
-    }
-    
-    private boolean vueloRepetido(Vuelo vuelo){
-        boolean repetido=false;
-        
-        for(Reserva reserva:listaReserva){
-            if(reserva.getVuelo().getIdVuelo()==vuelo.getIdVuelo()){
-                repetido=true;
-            }
-        }
-        
-        return repetido;
     }
     
     public String getUserName() {

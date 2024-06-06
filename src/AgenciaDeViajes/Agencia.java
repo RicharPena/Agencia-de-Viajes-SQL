@@ -20,7 +20,6 @@ import java.util.Arrays;
  * 
  */
 public class Agencia {
-    
     public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     public static ArrayList<Vuelo> listaVuelos = new ArrayList<>();
     public static void main(String [] args){
@@ -52,6 +51,35 @@ public class Agencia {
                     for (int as : reserva.getAsientos()) {
                         if (as == asiento) {
                             return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
+    public static boolean vueloRepetido(Usuario user,Vuelo vuelo){
+        boolean repetido=false;
+        
+        for(Reserva reserva:user.getListaReserva()){
+            if(reserva.getVuelo().getIdVuelo()==vuelo.getIdVuelo()){
+                repetido=true;
+            }
+        }
+        
+        return repetido;
+    }
+    
+    public static boolean asientoOcupadoPorOtroUsuario(Vuelo vuelo, int asiento, Usuario usuario) {
+        for(Usuario u : listaUsuarios){
+            if(!u.equals(usuario)){
+                for(Reserva reserva : u.getListaReserva()){
+                    if(reserva.getVuelo().equals(vuelo)){
+                        for(int as : reserva.getAsientos()){
+                            if (as == asiento && vuelo.getAsientos()[asiento-1].getOcupado()){
+                                return true;
+                            }
                         }
                     }
                 }
