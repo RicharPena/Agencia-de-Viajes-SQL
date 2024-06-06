@@ -16,6 +16,7 @@ public class Fuentes {
     public String RIO = "Krub-Italic.ttf";
     public String BPR = "Krub-Regular.ttf";
     public String ITROMATRIC = "LeagueSpartan-Medium.ttf";
+    public String OSB = "OpenSans-Bold.ttf";
 
     /* Font.PLAIN = 0 , Font.BOLD = 1 , Font.ITALIC = 2
  * tamanio = float
