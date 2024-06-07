@@ -18,6 +18,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -29,6 +30,9 @@ public class Sesion extends javax.swing.JFrame {
      * Creates new form Sesion
      */
     //private Fuentes fuente = new Fuentes();
+    DefaultTableModel tb = new DefaultTableModel();
+    private JButton btnReservar = new JButton("Reservar");
+    
     public Sesion() {
         initComponents();
         setLocationRelativeTo(null);
@@ -47,6 +51,7 @@ public class Sesion extends javax.swing.JFrame {
         shadowConfig.setVisible(false);
         shadowCS.setVisible(false);
         
+        //A partir de aquí se inicia el panel de configuración
         parametroJTextFiel(txtCambioNombre);
         parametroJTextFiel(txtCambioUserName);
         parametroJTextFiel(txtTarjeta);
@@ -60,6 +65,37 @@ public class Sesion extends javax.swing.JFrame {
         
         parametroJPassword(txtCambioContra);
         parametroJPassword(txtConfCamContra);
+        
+        //A partir de aquí se inicia el panel de Vuelos
+        String ids[] ={"Origen", "Destino", "Horario", "Business", "Eco Premium", "Economico", "Estado Vuelo", "¿Reservas?"};
+        tb.setColumnIdentifiers(ids);
+        tblVuelos.setModel(tb);
+        
+        String origen, destino, horario, estadoVuelo;
+        //cambiar en Asientos, el void de calcularTarifa a int
+        int business, ecoPremium, eco;
+        //DEFINIR LAS PROPIEDADES DEL JBUTTON CREADO
+        btnReservar.setText("Reservar");
+        
+        for (int i=0; i< AgenciaDeViajes.Agencia.listaVuelos.size(); i++){
+            origen = AgenciaDeViajes.Agencia.listaVuelos.get(i).getOrigen();
+            destino = AgenciaDeViajes.Agencia.listaVuelos.get(i).getDestino();
+            business = AgenciaDeViajes.Agencia.listaVuelos.get(i).getAsientos()[1].calcularTarifa();
+            ecoPremium = AgenciaDeViajes.Agencia.listaVuelos.get(i).getAsientos()[32].calcularTarifa();
+            eco = AgenciaDeViajes.Agencia.listaVuelos.get(i).getAsientos()[75].calcularTarifa();
+            horario = "h";
+            
+            if (AgenciaDeViajes.Agencia.listaVuelos.get(i).getEstadoVuelo() == true){
+                estadoVuelo = "Vuelo Habilitado";
+            }
+            else{
+                estadoVuelo = "Vuelo No Disponible";
+            }
+            //definir horario;
+            tb.addRow(new Object[]{ origen, destino, horario, business, ecoPremium, eco, estadoVuelo, btnReservar});
+        }
+        
+        this.tblVuelos.setDefaultRenderer(Object.class, new RenderBoton());
         
         putImageInTButton("/images/Button visual_001.png", TbtnVisual1);
         putImageInTButton("/images/Button visual_001.png", TbtnVisual2);
@@ -157,7 +193,8 @@ public class Sesion extends javax.swing.JFrame {
         txtShowUserName = new javax.swing.JLabel();
         BGinicio = new javax.swing.JLabel();
         Vuelos = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblVuelos = new javax.swing.JTable();
         Reservas = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         Config = new javax.swing.JPanel();
@@ -365,8 +402,20 @@ public class Sesion extends javax.swing.JFrame {
 
         Vuelos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setText("Vuelos");
-        Vuelos.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(311, 255, -1, -1));
+        tblVuelos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
+            }
+        ));
+        jScrollPane1.setViewportView(tblVuelos);
+
+        Vuelos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 800, 580));
 
         opciones.addTab("Vuelos", Vuelos);
 
@@ -1090,13 +1139,14 @@ public class Sesion extends javax.swing.JFrame {
     private javax.swing.JLabel imgNombreAgencia;
     private javax.swing.JLabel imgSlogan;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane opciones;
     private javax.swing.JLabel shadowCS;
     private javax.swing.JLabel shadowConfig;
     private javax.swing.JLabel shadowHome;
     private javax.swing.JLabel shadowReservas;
     private javax.swing.JLabel shadowVuelos;
+    private javax.swing.JTable tblVuelos;
     private javax.swing.JToggleButton tbtnConfig;
     private javax.swing.JToggleButton tbtnHome;
     private javax.swing.JToggleButton tbtnReservas;
