@@ -4,17 +4,23 @@
  */
 package Interface;
 
+import AgenciaDeViajes.Vuelo;
 import Tipografias.Fuentes;
 import java.awt.Color;
 import java.awt.Image;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
@@ -32,6 +38,8 @@ public class Sesion extends javax.swing.JFrame {
     //private Fuentes fuente = new Fuentes();
     DefaultTableModel tb = new DefaultTableModel();
     private JButton btnReservar = new JButton("Reservar");
+    //Con el fin de guardar la columna y la fila donde está ubicado el botón de registro
+    private int columna, fila;
     
     public Sesion() {
         initComponents();
@@ -67,35 +75,7 @@ public class Sesion extends javax.swing.JFrame {
         parametroJPassword(txtConfCamContra);
         
         //A partir de aquí se inicia el panel de Vuelos
-        String ids[] ={"Origen", "Destino", "Horario", "Business", "Eco Premium", "Economico", "Estado Vuelo", "¿Reservas?"};
-        tb.setColumnIdentifiers(ids);
-        tblVuelos.setModel(tb);
-        
-        String origen, destino, horario, estadoVuelo;
-        //cambiar en Asientos, el void de calcularTarifa a int
-        int business, ecoPremium, eco;
-        //DEFINIR LAS PROPIEDADES DEL JBUTTON CREADO
-        btnReservar.setText("Reservar");
-        
-        for (int i=0; i< AgenciaDeViajes.Agencia.listaVuelos.size(); i++){
-            origen = AgenciaDeViajes.Agencia.listaVuelos.get(i).getOrigen();
-            destino = AgenciaDeViajes.Agencia.listaVuelos.get(i).getDestino();
-            business = AgenciaDeViajes.Agencia.listaVuelos.get(i).getAsientos()[1].calcularTarifa();
-            ecoPremium = AgenciaDeViajes.Agencia.listaVuelos.get(i).getAsientos()[32].calcularTarifa();
-            eco = AgenciaDeViajes.Agencia.listaVuelos.get(i).getAsientos()[75].calcularTarifa();
-            horario = "h";
-            
-            if (AgenciaDeViajes.Agencia.listaVuelos.get(i).getEstadoVuelo() == true){
-                estadoVuelo = "Vuelo Habilitado";
-            }
-            else{
-                estadoVuelo = "Vuelo No Disponible";
-            }
-            //definir horario;
-            tb.addRow(new Object[]{ origen, destino, horario, business, ecoPremium, eco, estadoVuelo, btnReservar});
-        }
-        
-        this.tblVuelos.setDefaultRenderer(Object.class, new RenderBoton());
+        actualizarTabla(0);
         
         putImageInTButton("/images/Button visual_001.png", TbtnVisual1);
         putImageInTButton("/images/Button visual_001.png", TbtnVisual2);
@@ -195,6 +175,16 @@ public class Sesion extends javax.swing.JFrame {
         Vuelos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVuelos = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        comboOrdenar = new javax.swing.JComboBox<>();
         Reservas = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         Config = new javax.swing.JPanel();
@@ -402,20 +392,130 @@ public class Sesion extends javax.swing.JFrame {
 
         Vuelos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tblVuelos = new javax.swing.JTable(){
+            public boolean isCellEditable(int fila, int colum){
+                return false;
+            }
+        };
         tblVuelos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9"
             }
         ));
+        tblVuelos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblVuelosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblVuelos);
 
-        Vuelos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 800, 580));
+        Vuelos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 800, 360));
+
+        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ordenar Por", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Yu Gothic UI Semibold", 1, 36))); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 10)); // NOI18N
+        jLabel1.setText("Ordenar por: (tamaño 36)");
+
+        jButton1.setText("Horario");
+
+        jButton2.setText("Business");
+
+        jButton3.setText("Estado Vuelo");
+
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        jLabel3.setText("Tarifa Asientos");
+
+        jButton4.setText("Eco Premium");
+
+        jButton5.setText("Economica");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(185, 185, 185)
+                        .addComponent(jButton3))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(75, 75, 75))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton3)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton5)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+
+        Vuelos.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 40));
+
+        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Ordenar por"));
+
+        comboOrdenar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mostrar Todos", "Horario", "Tarifa Business", "Tarifa Eco Premium", "Tarifa Economica", "Estado Vuelo" }));
+        comboOrdenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboOrdenarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(comboOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(67, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(comboOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        Vuelos.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 220, 70));
 
         opciones.addTab("Vuelos", Vuelos);
 
@@ -1076,7 +1176,129 @@ public class Sesion extends javax.swing.JFrame {
             txtConfCamContra.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_txtTarjetaMouseClicked
+
+    private void tblVuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVuelosMouseClicked
+        //Primero, necesito obtener las coordenadas de la columna donde el usuario hace click
+        //para posteriormente calcular cual es la columna a la que se le hace click
+        columna = tblVuelos.getColumnModel().getColumnIndexAtX(evt.getX());
+        //Ya teniendo la columna, necesito las coordenadas de la fila dividiendo la coordenada del click
+        //entre la altura de las filas de la tabla que me da como resultado la fila a la que se le hace click
+        fila = evt.getY()/tblVuelos.getRowHeight();
+        
+        //Aquí se comprueba que el índice de la columna esté entre 0 y el número total de columnas, al igual que pasa con las filas
+        if(columna <= tblVuelos.getColumnCount() && columna >= 0 && fila <= tblVuelos.getRowCount() && fila >= 0){
+            //Aquí obtengo el valor de la celda (por filas y columnas), que obtengo el valor de la celda
+            Object objeto = tblVuelos.getValueAt(fila, columna);
+            // y aquí comparo que si ese objeto que está ubicado en la celda es un botton, se pasa a la pestaña para reservar el asiento
+            if (objeto instanceof JButton){
+                JOptionPane.showMessageDialog(null, "Aquí se abre el avion");
+            }
+        }
+    }//GEN-LAST:event_tblVuelosMouseClicked
+
+    //AQUÍ SE HACE TODO LO CORRESPONDIENTE CUANDO EL USUARIO LE DE CLICK A ALGUNA OPCIÓN EN EL JCOMBOBOX
+    private void comboOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboOrdenarActionPerformed
+        int op = comboOrdenar.getSelectedIndex();
+        actualizarTabla(op);
+    }//GEN-LAST:event_comboOrdenarActionPerformed
     
+    //AQUÍ SE ACTUALIZA LA TABLA AL MOMENTO DE SELECCIONAR UN BOTÓN PARA ORDENARLA SEGUN LAS PREFERENCIAS DLE USUARIO
+    private void actualizarTabla(int op){
+        //Creo una matriz llamada ids que es la que va a tener los encabezados de las columnas de las tablas
+        String ids[] ={"Aereolinea","Origen", "Destino", "Horario", "Business", "Eco Premium", "Economico", "Estado Vuelo", "¿Reservas?"};
+        tb.setColumnIdentifiers(ids); //Aquí se establece los encabezados en la tabla
+        tblVuelos.setModel(tb);//Y por último, como las tablas se basan en modelos, debemos añadir dicho modelo
+        
+        //Estas variables son las que van a almacenar los datos de las tablas
+        String aereolinea, origen, destino, horario, estadoVuelo;
+        int business, ecoPremium, eco;
+        btnReservar.setText("Reservar");
+        //DEFINIR EL HORARIO
+        horario = "h";
+        
+        //Creo este nuevo arrayList que es el que va a tener los filtos que el usuario quiera poner. Este arrayList es clonado del de listaVuelos
+        ArrayList<Vuelo> posBus = new ArrayList<>();
+        posBus = (ArrayList<Vuelo>) AgenciaDeViajes.Agencia.listaVuelos.clone();
+        
+        if (op == 0){
+            //Aquí reinicio la tabla para que pueda volver a dibujarse con datos nuevos
+            eliminarDatosTabla(tblVuelos);
+            
+            actualizarDatosTabla(posBus, op, 0);
+        }
+        else{
+            if (op == 1){
+                //FALTA DEFINIR EL HORARIO
+                actualizarDatosTabla(posBus, op, 0);
+            }
+            else{
+                if (op == 2){
+                    //TARIFA BUSINESS
+                    eliminarDatosTabla(tblVuelos);
+                    actualizarDatosTabla(posBus, op, 1);
+                }
+                else{
+                    if (op == 3){
+                        //TARIFA ECO PREMIUM
+                        eliminarDatosTabla(tblVuelos);
+                        actualizarDatosTabla(posBus, op, 32);
+                    }
+                    else{
+                        if (op == 4){
+                            //TARIFA ECO PREMIUM
+                            eliminarDatosTabla(tblVuelos);
+                            actualizarDatosTabla(posBus, op, 75);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private void eliminarDatosTabla(JTable tabla){
+        DefaultTableModel vacio = (DefaultTableModel) tabla.getModel();
+        vacio.setRowCount(0);
+    }
+    
+    private void actualizarDatosTabla(ArrayList<Vuelo> posBus, int op, int posAsiento){
+        //Estas variables son las que van a almacenar los datos de las tablas
+        String aereolinea, origen, destino, horario, estadoVuelo;
+        int business, ecoPremium, eco;
+        btnReservar.setText("Reservar");
+        //DEFINIR EL HORARIO
+        horario = "h";
+        
+        if (op>= 2){
+            //Aquí lo se que hace es comparar los distintos vuelos dependiendo de la tarifa
+            Collections.sort(posBus, new Comparator<Vuelo>(){
+                @Override
+                public int compare(Vuelo v1, Vuelo v2){
+                    return Integer.compare(v1.getAsientos()[posAsiento].getTarifa(), v2.getAsientos()[posAsiento].getTarifa());
+                }
+            });
+        }
+        
+        //Como es la opción sin filtro, todo se deja igual y se capturan los datos para posteriormente mostrarlos en la interfase
+        for (int i=0; i< AgenciaDeViajes.Agencia.listaVuelos.size(); i++){
+            aereolinea = posBus.get(i).getAereolinea();
+            origen = posBus.get(i).getOrigen();
+            destino = posBus.get(i).getDestino();
+            business = posBus.get(i).getAsientos()[1].getTarifa();
+            ecoPremium = posBus.get(i).getAsientos()[32].getTarifa();
+            eco = posBus.get(i).getAsientos()[75].getTarifa();
+
+            if (posBus.get(i).getEstadoVuelo() == true){
+                estadoVuelo = "Habilitado";
+            }
+            else{
+                estadoVuelo = "No Disponible";
+            }
+            //Aquí añado los elementos a la tabla
+            tb.addRow(new Object[]{ aereolinea, origen, destino, horario, business, ecoPremium, eco, estadoVuelo, btnReservar});
+        }
+        //Aquí estoy renderizando o mostrando el botón para la reserva
+        this.tblVuelos.setDefaultRenderer(Object.class, new RenderBoton());
+    }
     /**
      * @param args the command line arguments
      */
@@ -1128,6 +1350,7 @@ public class Sesion extends javax.swing.JFrame {
     private javax.swing.JButton btnEditAddTarjet;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnSaveChanges;
+    private javax.swing.JComboBox<String> comboOrdenar;
     private javax.swing.JPanel empresaLogo;
     private javax.swing.JLabel encabezado;
     private javax.swing.JLabel iconConfig;
@@ -1138,7 +1361,16 @@ public class Sesion extends javax.swing.JFrame {
     private javax.swing.JLabel imgLogo;
     private javax.swing.JLabel imgNombreAgencia;
     private javax.swing.JLabel imgSlogan;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane opciones;
     private javax.swing.JLabel shadowCS;
