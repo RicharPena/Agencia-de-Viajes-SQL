@@ -40,5 +40,5 @@ public abstract class Asiento {
         return ocupado;
     }
     
-    public abstract void calcularTarifa();
+    public abstract int calcularTarifa();
 }

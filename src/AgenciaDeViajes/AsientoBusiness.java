@@ -15,8 +15,8 @@ public class AsientoBusiness extends Asiento{
     }
 
     @Override
-    public void calcularTarifa() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int calcularTarifa() {
+        return 0;
     }
     
 }
