@@ -23,10 +23,12 @@ public class Vuelo {
     //aquí iria la hora de salida
     //aquí iria la hora de llegada
     private boolean estadoVuelo;
+    private int tarifaGeneral;
     
-    public Vuelo(int idVuelo, String aereolinea, String origen, ArrayList<String> escalas, String destino) {
+    public Vuelo(int idVuelo, String aereolinea, String origen, ArrayList<String> escalas, String destino, int tarifaGeneral) {
         this.idVuelo = idVuelo;
         this.aereolinea = aereolinea;
+        this.tarifaGeneral = tarifaGeneral;
         
         if (aereolinea.equals("Avianca")) {
             //BOEING 737-800
@@ -39,13 +41,13 @@ public class Vuelo {
             
             for (int i = 0; i < 166; i++) {
                 if (i < 16) {
-                    asientos[i] = new AsientoBusiness(i+1, false);
+                    asientos[i] = new AsientoBusiness(i+1, false, tarifaGeneral);
                 } else {
                     if (i >= 16 && i < 64) {
-                        asientos[i] = new AsientoEconomicoPremium(i+1, false);
+                        asientos[i] = new AsientoEconomicoPremium(i+1, false, tarifaGeneral);
                     } else {
                         if (i >= 64 && i < 166) {
-                            asientos[i] = new AsientoEconomico(i+1, false);
+                            asientos[i] = new AsientoEconomico(i+1, false, tarifaGeneral);
                         }
                     }
                 }
@@ -60,23 +62,23 @@ public class Vuelo {
                 //Premium Economy Class: 42
                 //Economy Class: 258
             
-                asientos = new Asiento[332];
+                asientos = new Asiento[330];
             
                 for (int i = 0; i < 332; i++) {
                     if (i < 32) {
-                        asientos[i] = new AsientoBusiness(i+1, false);
+                        asientos[i] = new AsientoBusiness(i+1, false, tarifaGeneral);
                     } else {
-                        if (i >= 32 && i < 74) {
-                            asientos[i] = new AsientoEconomicoPremium(i+1, false);
+                        if (i >= 32 && i < 72) {
+                            asientos[i] = new AsientoEconomicoPremium(i+1, false, tarifaGeneral);
                         } else {
-                            if (i >= 74 && i < 332) {
-                                asientos[i] = new AsientoEconomico(i+1, false);
+                            if (i >= 72 && i < 330) {
+                                asientos[i] = new AsientoEconomico(i+1, false, tarifaGeneral);
                             }
                         }
                     }
                 }
             
-                this.asientosDisponibles = 332;
+                this.asientosDisponibles = 330;
             }
             else{
                 if(aereolinea.equals("Latam Airlanes")){
@@ -86,23 +88,23 @@ public class Vuelo {
                     //Premium Economy Class: 30
                     //Economy Class: 156
                     
-                    asientos = new Asiento[210];
+                    asientos = new Asiento[211];
                     
                     for (int i = 0; i < 210; i++) {
                         if (i < 24) {
-                            asientos[i] = new AsientoBusiness(i+1, false);
+                            asientos[i] = new AsientoBusiness(i+1, false, tarifaGeneral);
                         } else {
                             if (i >= 24 && i < 54) {
-                                asientos[i] = new AsientoEconomicoPremium(i+1, false);
+                                asientos[i] = new AsientoEconomicoPremium(i+1, false, tarifaGeneral);
                             } else {
-                                if (i >= 54 && i < 210) {
-                                    asientos[i] = new AsientoEconomico(i+1, false);
+                                if (i >= 54 && i < 211) {
+                                    asientos[i] = new AsientoEconomico(i+1, false, tarifaGeneral);
                                 }
                             }
                         }
                     }
                     
-                    this.asientosDisponibles = 332;
+                    this.asientosDisponibles = 211;
                 }
             }
         }
@@ -190,6 +192,53 @@ public class Vuelo {
     public boolean getEstadoVuelo() {
         return estadoVuelo;
     }
-    
+
+    public String getAereolinea() {
+        return aereolinea;
+    }
+
+    public int getAsientosDisponibles() {
+        return asientosDisponibles;
+    }
+
+    public ArrayList<String> getEscalas() {
+        return escalas;
+    }
+
+    public int getTarifaGeneral() {
+        return tarifaGeneral;
+    }
+
+    public void setAereolinea(String aereolinea) {
+        this.aereolinea = aereolinea;
+    }
+
+    public void setAsientos(Asiento[] asientos) {
+        this.asientos = asientos;
+    }
+
+    public void setAsientosDisponibles(int asientosDisponibles) {
+        this.asientosDisponibles = asientosDisponibles;
+    }
+
+    public void setOrigen(String origen) {
+        this.origen = origen;
+    }
+
+    public void setEscalas(ArrayList<String> escalas) {
+        this.escalas = escalas;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+
+    public void setEstadoVuelo(boolean estadoVuelo) {
+        this.estadoVuelo = estadoVuelo;
+    }
+
+    public void setTarifaGeneral(int tarifaGeneral) {
+        this.tarifaGeneral = tarifaGeneral;
+    }    
     
 }
