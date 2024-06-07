@@ -27,11 +27,13 @@ public class Agencia {
         ArrayList<String>escalas=new ArrayList<>(Arrays.asList(ciudades));
         
         
-        Vuelo vuelo1 = new Vuelo(1, "Avianca", "Cartagena",escalas,"Boyaca");
+        Vuelo vuelo1 = new Vuelo(1, "Avianca", "Cartagena",escalas,"Boyaca", 650000);
+        Vuelo vuelo2 = new Vuelo(2, "Fly Emirates", "Bogota", escalas, "Munich", 500000);
         Usuario usuario1 = new Usuario("Richar", "Richar", "123", null, null);
         
         listaUsuarios.add(usuario1);
         listaVuelos.add(vuelo1);
+        listaVuelos.add(vuelo2);
         
         Inicio inicio=new Inicio();
         
