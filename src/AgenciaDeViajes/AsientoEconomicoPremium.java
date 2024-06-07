@@ -10,13 +10,15 @@ package AgenciaDeViajes;
  */
 public class AsientoEconomicoPremium extends Asiento{
     
-    public AsientoEconomicoPremium(int idAsiento, boolean estado) {
+    public AsientoEconomicoPremium(int idAsiento, boolean estado, int tarifaGeneral) {
         super(idAsiento, estado);
+        super.setTarifa(calcularTarifa(tarifaGeneral));
     }
 
     @Override
-    public int calcularTarifa() {
-        return 0;
+    public int calcularTarifa(int tarifaGeneral) {
+        //Lo que se hace aquí es hacer un casting de float, que pasa de long a int y redondea dependiendo de los decimales
+        return (int) Math.round(tarifaGeneral*1.18);
     }
     
 }
