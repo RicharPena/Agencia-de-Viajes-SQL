@@ -43,28 +43,43 @@ public class Reserva {
     
     //Con la interfase, se elije el idAsiento
     public void agregarAsientos(ArrayList<Integer>asientos){
-        for(int i=0;i<asientos.size();i++){
-            Agencia.listaVuelos.get(vuelo.getIdVuelo()-1).asignarAsiento(asientos.get(i));
+        if(asientos.isEmpty()){
+            
+        }else{
+            for(int i=0;i<asientos.size();i++){
+                Agencia.listaVuelos.get(vuelo.getIdVuelo()-1).asignarAsiento(asientos.get(i));
+            }
+            this.vuelo=Agencia.listaVuelos.get(vuelo.getIdVuelo()-1);
+            
+            for(int i=0;i<asientos.size();i++){
+                this.asientos.add(asientos.get(i));
+            }
+            Agencia.actualizarVuelos();
         }
-        this.vuelo=Agencia.listaVuelos.get(vuelo.getIdVuelo()-1);
-        
-        for(int i=0;i<asientos.size();i++){
-            this.asientos.add(asientos.get(i));
-        }
-        Agencia.actualizarVuelos();
     }
     
     //Con la interfase, se elije el idAsiento
-    public void eliminarAsientos(ArrayList<Integer>asientos){
-        for(int i=0;i<asientos.size();i++){
-            Agencia.listaVuelos.get(vuelo.getIdVuelo()-1).liberarAsiento(asientos.get(i));
+    public boolean eliminarAsientos(ArrayList<Integer>asientos){
+        if(asientos.isEmpty()){
+            return false;
         }
-        this.vuelo=Agencia.listaVuelos.get(vuelo.getIdVuelo()-1);
-        for(int i=0;i<this.asientos.size();i++){
-            for(int j=0;j<asientos.size();j++){
-                if(this.asientos.get(i).equals(asientos.get(j))){
-                    this.asientos.remove(i);
+        else{
+            for(int i=0;i<asientos.size();i++){
+                Agencia.listaVuelos.get(vuelo.getIdVuelo()-1).liberarAsiento(asientos.get(i));
+            }
+            this.vuelo=Agencia.listaVuelos.get(vuelo.getIdVuelo()-1);
+            for(int i=0;i<this.asientos.size();i++){
+                for(int j=0;j<asientos.size();j++){
+                    if(this.asientos.get(i).equals(asientos.get(j))){
+                        this.asientos.remove(i);
+                    }
                 }
+            }
+            if(this.asientos.isEmpty()){
+                return true;
+            }
+            else{
+                return false;
             }
         }
     }

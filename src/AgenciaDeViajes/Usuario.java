@@ -41,17 +41,6 @@ public class Usuario {
         //return this.userName.equals(userName) && this.password.equals(password);
     }
     
-    //Se modificó los parámetros
-    public void pagoBoleto(String nombreReserva, String tarjeta){
-        Reserva reserva = Agencia.buscarReservas();
-        
-        if (reserva != null){
-            if (tarjeta.length() == 10){
-                reserva.setPago(true);
-            }
-        }
-    }
-    
     /**En la interfase se  hará lo siguiente:
      * El usuario ingresará el idReserva, con el fin de el mismo ingresarlo (como un identificador para el)
      * Luego seleccionará su origen y su destino, el sistema verificará si existe algún vuelo que entre sus escalas se encuentre las ciudades
@@ -72,6 +61,17 @@ public class Usuario {
         listaReserva.remove(idReserva-1);
         
         Agencia.actualizarVuelos();
+        actualizarReservas();
+    }
+    
+    private void actualizarReservas(){
+        if(listaReserva.isEmpty()){
+            
+        }else{
+            for(int i=0;i<listaReserva.size();i++){
+                listaReserva.get(i).setIdReserva(i+1);
+            }
+        }
     }
     
     public String getUserName() {
@@ -104,11 +104,22 @@ public class Usuario {
 
     //Se modificó de void a boolean
     public boolean setTarjeta(String tarjeta) {
-        if (tarjeta.length() == 10){
+        if (tarjeta.length() == 10){//Condicion para que la tarjeta sea valida
             this.tarjeta = tarjeta;
             return true;
         }
         return false;
+    }
+    
+    //Este metodo hace las veces de pagar la reserva
+    public boolean pagarReserva(int idReserva){
+        if(this.tarjeta!=null){
+            listaReserva.get(idReserva-1).setPago(true);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public ArrayList<Reserva> getListaReserva() {

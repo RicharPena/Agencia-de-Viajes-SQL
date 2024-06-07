@@ -38,12 +38,6 @@ public class Agencia {
         inicio.setVisible(true);
     }
     
-    public static Reserva buscarReservas(){
-        //En el main, luego de seleccionar la reserva, se debe guardar el objeto de la reserva
-        //ya que posteriormente se va a pasar a un metodo de usuario y se corroborará
-        return null;
-    }
-    
     public static boolean asientoOcupado(Vuelo vuelo, int asiento) {
         for (Usuario usuario : Agencia.listaUsuarios) {
             for (Reserva reserva : usuario.getListaReserva()) {
