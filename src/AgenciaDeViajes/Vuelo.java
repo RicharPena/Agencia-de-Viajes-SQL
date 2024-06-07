@@ -178,4 +178,18 @@ public class Vuelo {
     public void setIdVuelo(int idVuelo) {
         this.idVuelo = idVuelo;
     }
+
+    public String getOrigen() {
+        return origen;
+    }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public boolean getEstadoVuelo() {
+        return estadoVuelo;
+    }
+    
+    
 }
