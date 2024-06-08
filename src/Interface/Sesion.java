@@ -73,6 +73,9 @@ public class Sesion extends javax.swing.JFrame {
         parametroJPassword(txtCambioContra);
         parametroJPassword(txtConfCamContra);
         
+        //Antes de iniciar todas las tablas, debo comprobar la fecha de los vuelos
+        comprobarFecha();
+        
         //A partir de aquí se inicia el panel de Vuelos
         actualizarTablaVuelos(0);
         
@@ -136,6 +139,23 @@ public class Sesion extends javax.swing.JFrame {
         jpass.setEchoChar('\0');
         jpass.setFont(tipoFuente.fuente(tipoFuente.RIO,0,12));
         jpass.setForeground(Color.GRAY);
+    }
+    
+    private void comprobarFecha(){
+        LocalDate fechaActual = LocalDate.now();
+        for (Vuelo vuelo : AgenciaDeViajes.Agencia.listaVuelos){
+            if (fechaActual.isBefore(vuelo.getFechaSalida())){
+                vuelo.setEstadoVuelo(true);
+            }
+            else{
+                if (fechaActual.isAfter(vuelo.getFechaSalida())){
+                    vuelo.setEstadoVuelo(false);
+                }
+                else{
+                    vuelo.setEstadoVuelo(true);
+                }
+            }
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
