@@ -81,7 +81,7 @@ public class Vuelo {
                 this.asientosDisponibles = 330;
             }
             else{
-                if(aereolinea.equals("Latam Airlanes")){
+                if(aereolinea.equals("Latam Airlines")){
                     //BOEING 767-300ER
                     //Latam Airlanes
                     //Business Class: 24
@@ -134,6 +134,9 @@ public class Vuelo {
                 asientosDisponibles--;
             }
         }
+        if(asientosDisponibles==0){
+            setEstadoVuelo(false);
+        }
     }
 
     //ESTE PUEDE SER UN BOOLEAN y se cambió de String a int
@@ -143,6 +146,9 @@ public class Vuelo {
                 asiento.setOcupado(false); //false para indicar que el asiento ya está libre
                 asientosDisponibles++;
             }
+        }
+        if(asientosDisponibles>0){
+            setEstadoVuelo(true);
         }
     }
 
