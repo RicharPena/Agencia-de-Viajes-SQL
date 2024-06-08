@@ -4,6 +4,7 @@
  */
 package AgenciaDeViajes;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -20,15 +21,15 @@ public class Vuelo {
     private String origen;
     private ArrayList<String> escalas;
     private String destino;
-    //aquí iria la hora de salida
-    //aquí iria la hora de llegada
+    private LocalDate fechaSalida;
     private boolean estadoVuelo;
     private int tarifaGeneral;
     
-    public Vuelo(int idVuelo, String aereolinea, String origen, ArrayList<String> escalas, String destino, int tarifaGeneral) {
+    public Vuelo(int idVuelo, String aereolinea, String origen, ArrayList<String> escalas, String destino, int tarifaGeneral, LocalDate fechaSalida) {
         this.idVuelo = idVuelo;
         this.aereolinea = aereolinea;
         this.tarifaGeneral = tarifaGeneral;
+        this.fechaSalida = fechaSalida;
         
         if (aereolinea.equals("Avianca")) {
             //BOEING 737-800
@@ -115,7 +116,8 @@ public class Vuelo {
         this.estadoVuelo = true;
     }
     
-    public Vuelo(int idVuelo, String aereolinea, Asiento[] asientos, int asientosDisponibles, String origen, ArrayList<String> escalas, String destino, boolean estadoVuelo) {
+    //CONSTRUCTOR PARA CARGARLO DESDE ARCHIVOS
+    public Vuelo(int idVuelo, String aereolinea, Asiento[] asientos, int asientosDisponibles, String origen, ArrayList<String> escalas, String destino, boolean estadoVuelo, LocalDate fechaSalida) {
         this.idVuelo = idVuelo;
         this.aereolinea = aereolinea;
         this.asientos = asientos;
@@ -124,6 +126,7 @@ public class Vuelo {
         this.escalas = escalas;
         this.destino = destino;
         this.estadoVuelo = estadoVuelo;
+        this.fechaSalida = fechaSalida;
     }
 
     //se cambió el tipo de dato de String a int, al igual que lo que va a devolver el metodo
@@ -174,7 +177,7 @@ public class Vuelo {
         }
         return false;
     }
-    
+
     public Asiento[] getAsientos() {
         return asientos;
     }
@@ -245,6 +248,13 @@ public class Vuelo {
 
     public void setTarifaGeneral(int tarifaGeneral) {
         this.tarifaGeneral = tarifaGeneral;
-    }    
+    }
+
+    public LocalDate getFechaSalida() {
+        return fechaSalida;
+    }
     
+    public void setFechaSalida(LocalDate fechaSalida) {
+        this.fechaSalida = fechaSalida;
+    }    
 }
