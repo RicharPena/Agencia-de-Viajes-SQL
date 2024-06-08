@@ -22,7 +22,11 @@ public class LatamAirlanes extends javax.swing.JFrame {
     /**
      * Creates new form Avion
      */
-    public LatamAirlanes() {
+    public LatamAirlanes(){
+        
+    }
+    
+    public LatamAirlanes(int idVuelo) {
         initComponents();
         asIentos1();
         asIentos2();
