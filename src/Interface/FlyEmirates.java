@@ -22,7 +22,11 @@ public class FlyEmirates extends javax.swing.JFrame {
     /**
      * Creates new form Avion
      */
-    public FlyEmirates() {
+    public FlyEmirates(){
+        
+    }
+    
+    public FlyEmirates(int idVuelo) {
         initComponents();
         asIentos1();
         asIentos2();
