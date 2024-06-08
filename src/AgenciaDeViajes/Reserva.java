@@ -16,11 +16,11 @@ import java.util.ArrayList;
  * Se añadió un nuevo método llamado eliminarAsientos
  */
 public class Reserva {
-    private int idReserva; //idReserva va con String porque el usuario le puede dar un nombre
+    private int idReserva;
     private Vuelo vuelo;
     private ArrayList<Integer> asientos = new ArrayList<>();
-    //fecha que deberia ser de tipo date
     private boolean pago;
+    private int valorPagar;
 
     //CONSTRUCTOR DE RESERVA PARA INICIALIZAR RESERVAS QUE YA HAY
     public Reserva(int idReserva, Vuelo vuelo, ArrayList<Integer>asientos, boolean pago){
@@ -115,4 +115,18 @@ public class Reserva {
     public void setPago(boolean pago) {
         this.pago = pago;
     }
+
+    public boolean isPago() {
+        return pago;
+    }
+
+    public int getValorPagar() {
+        return valorPagar;
+    }
+
+    public void setValorPagar(int valorPagar) {
+        this.valorPagar = valorPagar;
+    }
+    
+    
 }
