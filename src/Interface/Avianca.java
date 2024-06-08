@@ -22,7 +22,13 @@ public class Avianca extends javax.swing.JFrame {
     /**
      * Creates new form Avion
      */
-    public Avianca() {
+    
+    //otro consturctor para que no salga error abajo
+    public Avianca(){
+        
+    }
+    
+    public Avianca(int idVuelo) {
         initComponents();
         asIentos1();
         asIentos2();
