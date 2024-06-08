@@ -5,6 +5,8 @@
 package AgenciaDeViajes;
 
 import Interface.Inicio;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -22,13 +24,15 @@ import java.util.Arrays;
 public class Agencia {
     public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     public static ArrayList<Vuelo> listaVuelos = new ArrayList<>();
+    
     public static void main(String [] args){
         String[]ciudades={};
         ArrayList<String>escalas=new ArrayList<>(Arrays.asList(ciudades));
+        LocalDate fecha1 = LocalDate.of(2024, 9, 8), fecha2 = LocalDate.of(2024, 7, 5);
         
         
-        Vuelo vuelo1 = new Vuelo(1, "Avianca", "Cartagena",escalas,"Boyaca", 650000);
-        Vuelo vuelo2 = new Vuelo(2, "Fly Emirates", "Bogota", escalas, "Munich", 500000);
+        Vuelo vuelo1 = new Vuelo(1, "Avianca", "Cartagena",escalas,"Boyaca", 650000, fecha1);
+        Vuelo vuelo2 = new Vuelo(2, "Fly Emirates", "Bogota", escalas, "Munich", 500000, fecha2);
         Usuario usuario1 = new Usuario("Richar", "Richar", "123", null, null);
         
         listaUsuarios.add(usuario1);
