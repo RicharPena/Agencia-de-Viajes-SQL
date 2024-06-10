@@ -4,6 +4,7 @@
  */
 package AgenciaDeViajes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -15,7 +16,9 @@ import java.util.ArrayList;
  * Se añadió un nuevo método llamado agregarAsientos
  * Se añadió un nuevo método llamado eliminarAsientos
  */
-public class Reserva {
+public class Reserva implements Serializable{
+    private static final long serialVersionUID = 1L;
+    
     private int idReserva;
     private Vuelo vuelo;
     private ArrayList<Integer> asientos = new ArrayList<>();
