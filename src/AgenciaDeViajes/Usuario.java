@@ -4,6 +4,7 @@
  */
 package AgenciaDeViajes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +13,9 @@ import java.util.ArrayList;
  * 
  * Se modificó el tipo de retorno al método cancelarReserva y se le añadió un parámetro
  */
-public class Usuario {
+public class Usuario implements Serializable{
+    private static final long serialVersionUID = 1L;
+    
     private String userName;
     private String password;
     private String nombre;
