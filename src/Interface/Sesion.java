@@ -4,6 +4,7 @@
  */
 package Interface;
 
+import AgenciaDeViajes.Agencia;
 import AgenciaDeViajes.Vuelo;
 import Tipografias.Fuentes;
 import java.awt.Color;
@@ -23,6 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -35,24 +37,42 @@ public class Sesion extends javax.swing.JFrame {
      */
     DefaultTableModel tb = new DefaultTableModel();
     DefaultTableModel tbr = new DefaultTableModel();
-    private JButton btnReservar = new JButton("Reservar");
-    private JButton btnPagar = new JButton("Pagar");
     //Con el fin de guardar la columna y la fila donde está ubicado el botón de registro
     private int columna, fila;
     
-    public Sesion() {
+    public Sesion(int op) {
         initComponents();
         setLocationRelativeTo(null);
         putImageInJL("/Images/logo_agencia_002.png", imgLogo);
         putImageInJL("/Images/nombreAgencia_002.png", imgNombreAgencia);
         putImageInJL("/Images/slogan_002.png", imgSlogan);
-        putImageInJL("/Images/Panel Inicio.png", BGinicio);
-        
-        Fuentes tipoFuente = new Fuentes();
-        
-        txtShowUserName.setFont(tipoFuente.fuente(tipoFuente.OSB, 0, 70));
+        titleFont(txtShowUserName);
         txtShowUserName.setText(AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getUserName());
         
+        if(op==0){
+            tbtnHome.setEnabled(false);
+            shadowVuelos.setVisible(false);
+            shadowReservas.setVisible(false);
+            shadowConfig.setVisible(false);
+            shadowCS.setVisible(false);
+            opciones.setSelectedIndex(0);
+        }else{
+            if(op==1){
+                tbtnVuelos.setEnabled(false);
+                shadowHome.setVisible(false);
+                shadowReservas.setVisible(false);
+                shadowConfig.setVisible(false);
+                shadowCS.setVisible(false);
+                opciones.setSelectedIndex(1);
+            }else{
+                tbtnReservas.setEnabled(false);
+                shadowHome.setVisible(false);
+                shadowVuelos.setVisible(false);
+                shadowConfig.setVisible(false);
+                shadowCS.setVisible(false);
+                opciones.setSelectedIndex(2);
+            }
+        }
         shadowVuelos.setVisible(false);
         shadowReservas.setVisible(false);
         shadowConfig.setVisible(false);
@@ -80,7 +100,7 @@ public class Sesion extends javax.swing.JFrame {
         actualizarTablaVuelos(0);
         
         //A partir de aquí se inicia el panel de Reservas
-        //actualizarTablaReservas();
+        actualizarTablaReservas();
         
         putImageInTButton("/images/Button visual_001.png", TbtnVisual1);
         putImageInTButton("/images/Button visual_001.png", TbtnVisual2);
@@ -107,7 +127,7 @@ public class Sesion extends javax.swing.JFrame {
     Fuentes tipoFuente=new Fuentes();
     
     private void titleFont(JLabel jLabel){
-        jLabel.setFont(tipoFuente.fuente(tipoFuente.ITROMATRIC,0,18));
+        jLabel.setFont(tipoFuente.fuente(tipoFuente.ITROMATRIC,0,48));
     }
     
     private void normalFont(JLabel jLabel){
@@ -201,12 +221,15 @@ public class Sesion extends javax.swing.JFrame {
         comboOrdenar = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        btnReservar = new javax.swing.JButton();
         Reservas = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblReservas = new javax.swing.JTable();
+        btnEditarReserva = new javax.swing.JButton();
+        btnPagarReserva = new javax.swing.JButton();
         Config = new javax.swing.JPanel();
         txtCambioNombre = new javax.swing.JTextField();
         txtCambioUserName = new javax.swing.JTextField();
@@ -401,12 +424,15 @@ public class Sesion extends javax.swing.JFrame {
 
         Inicio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txtShowUserName.setBackground(new java.awt.Color(88, 88, 88));
         txtShowUserName.setFont(new java.awt.Font("Maiandra GD", 0, 58)); // NOI18N
-        Inicio.add(txtShowUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, 440, 70));
+        txtShowUserName.setForeground(new java.awt.Color(255, 255, 255));
+        txtShowUserName.setOpaque(true);
+        Inicio.add(txtShowUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 440, 50));
 
-        BGinicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Panel Inicio.png"))); // NOI18N
+        BGinicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Panelnicio2.png"))); // NOI18N
         BGinicio.setToolTipText("");
-        Inicio.add(BGinicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 804, 600));
+        Inicio.add(BGinicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 804, 590));
 
         opciones.addTab("Inicio", Inicio);
 
@@ -435,7 +461,7 @@ public class Sesion extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblVuelos);
 
-        Vuelos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 800, 360));
+        Vuelos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 800, 410));
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Ordenar por"));
@@ -490,6 +516,15 @@ public class Sesion extends javax.swing.JFrame {
 
         Vuelos.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 580, 70));
 
+        btnReservar.setText("Reservar");
+        btnReservar.setToolTipText("");
+        btnReservar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReservarActionPerformed(evt);
+            }
+        });
+        Vuelos.add(btnReservar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 510, 160, 50));
+
         opciones.addTab("Vuelos", Vuelos);
 
         Reservas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -543,9 +578,30 @@ public class Sesion extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
             }
         ));
+        tblReservas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblReservasMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblReservas);
 
         Reservas.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 800, -1));
+
+        btnEditarReserva.setText("Editar");
+        btnEditarReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarReservaActionPerformed(evt);
+            }
+        });
+        Reservas.add(btnEditarReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 520, 140, 50));
+
+        btnPagarReserva.setText("Pagar");
+        btnPagarReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagarReservaActionPerformed(evt);
+            }
+        });
+        Reservas.add(btnPagarReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 520, 120, 50));
 
         opciones.addTab("Reservas", Reservas);
 
@@ -1201,43 +1257,7 @@ public class Sesion extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTarjetaMouseClicked
 
     private void tblVuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVuelosMouseClicked
-        //Primero, necesito obtener las coordenadas de la columna donde el usuario hace click
-        //para posteriormente calcular cual es la columna a la que se le hace click
-        columna = tblVuelos.getColumnModel().getColumnIndexAtX(evt.getX());
-        //Ya teniendo la columna, necesito las coordenadas de la fila dividiendo la coordenada del click
-        //entre la altura de las filas de la tabla que me da como resultado la fila a la que se le hace click
-        fila = evt.getY()/tblVuelos.getRowHeight();
-        
-        //Aquí se comprueba que el índice de la columna esté entre 0 y el número total de columnas, al igual que pasa con las filas
-        if(columna <= tblVuelos.getColumnCount() && columna >= 0 && fila <= tblVuelos.getRowCount() && fila >= 0){
-            //Aquí obtengo el valor de la celda (por filas y columnas), que obtengo el valor de la celda
-            Object objeto = tblVuelos.getValueAt(fila, columna);
-            // y aquí comparo que si ese objeto que está ubicado en la celda es un botton, se pasa a la pestaña para reservar el asiento
-            if (objeto instanceof JButton){
-                //aquí obtengo el valor del idVuelo dependiendo de la fila y la columna(la columna 0)
-                int idVuelo = (int) tblVuelos.getValueAt(fila, 0);
-                String aereolinea = (String) tblVuelos.getValueAt(fila, 1);
-                
-                if (aereolinea.equals("Avianca")){
-                    this.dispose();
-                    Avianca aereo = new Avianca(idVuelo);
-                    aereo.setVisible(true);
-                }
-                else{
-                    if (aereolinea.equals("Fly Emirates")){
-                        this.dispose();
-                        FlyEmirates aereo = new FlyEmirates(idVuelo);
-                        aereo.setVisible(true);
-                    }
-                    else{
-                        this.dispose();
-                        LatamAirlanes aereo = new LatamAirlanes(idVuelo);
-                        aereo.setVisible(true);
-                    }
-                }
-                JOptionPane.showMessageDialog(null, "Aquí se abre el avion");
-            }
-        }
+        //NADA
     }//GEN-LAST:event_tblVuelosMouseClicked
 
     //AQUÍ SE HACE TODO LO CORRESPONDIENTE CUANDO EL USUARIO LE DE CLICK A ALGUNA OPCIÓN EN EL JCOMBOBOX
@@ -1245,12 +1265,121 @@ public class Sesion extends javax.swing.JFrame {
         int op = comboOrdenar.getSelectedIndex();
         actualizarTablaVuelos(op);
     }//GEN-LAST:event_comboOrdenarActionPerformed
+
+    private void tblReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblReservasMouseClicked
+        //NADA
+    }//GEN-LAST:event_tblReservasMouseClicked
+
+    private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
+        // Obtener el número de filas seleccionadas
+        int selectedRowCount = tblVuelos.getSelectedRowCount();
+    
+        if (selectedRowCount == 1) {
+            // Obtener la fila seleccionada
+            int selectedRow = tblVuelos.getSelectedRow();
+        
+            // Obtener el valor de la primera columna como String y luego convertirlo a Integer
+            int idVuelo = (int)tblVuelos.getValueAt(selectedRow,0);
+        
+            // Verificar si el vuelo ya está reservado
+            if (Agencia.vueloRepetido(Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario), Agencia.listaVuelos.get(idVuelo - 1))) {
+                JOptionPane.showMessageDialog(null, "El vuelo ya está reservado", "VUELO REPETIDO", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // Obtener el nombre de la aerolínea de la segunda columna
+                String aerolinea = (String) tblVuelos.getValueAt(selectedRow, 1);
+                
+                // Cerrar la ventana actual
+                this.dispose();
+                
+                // Abrir la ventana correspondiente según la aerolínea
+                if (aerolinea.equals("Avianca")){
+                    Avianca aereo = new Avianca(idVuelo-1,-1);
+                    aereo.setVisible(true);
+                }else{
+                    if (aerolinea.equals("Fly Emirates")){
+                        FlyEmirates aereo = new FlyEmirates(idVuelo-1,-1);
+                        aereo.setVisible(true);
+                    }else{
+                        LatamAirlanes aereo = new LatamAirlanes(idVuelo-1,-1);
+                        aereo.setVisible(true);
+                    }
+                }
+            }
+        } else {
+            // Mostrar un mensaje si no hay ninguna fila seleccionada o si hay más de una fila seleccionada
+            if (selectedRowCount == 0) {
+                JOptionPane.showMessageDialog(null, "Por favor, seleccione un vuelo de la tabla", "SELECCIÓN REQUERIDA", JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, seleccione solo un vuelo", "MULTIPLE SELECCIÓN", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnReservarActionPerformed
+
+    private void btnEditarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarReservaActionPerformed
+        // Obtener el número de filas seleccionadas
+        int selectedRowCount = tblReservas.getSelectedRowCount();
+    
+        if (selectedRowCount == 1) {
+            // Obtener la fila seleccionada
+            int selectedRow = tblReservas.getSelectedRow();
+            // Obtener el valor del idReserva de la primera columna
+            int idReserva = (int) tblReservas.getValueAt(selectedRow, 0);
+            // Obtener el valor del idVuelo de la segunda columna
+            int idVuelo = (int)tblReservas.getValueAt(selectedRow,1);
+            // Obtener el nombre de la aerolínea de la tercera columna
+            String aerolinea = (String) tblVuelos.getValueAt(selectedRow, 2);
+            
+            // Cerrar la ventana actual
+            this.dispose();
+                
+            // Abrir la ventana correspondiente según la aerolínea
+            if (aerolinea.equals("Avianca")){
+                Avianca aereo = new Avianca(idVuelo-1,idReserva-1);
+                aereo.setVisible(true);
+            }else{
+                if (aerolinea.equals("Fly Emirates")){
+                    FlyEmirates aereo = new FlyEmirates(idVuelo-1,idReserva-1);
+                    aereo.setVisible(true);
+                }else{
+                    LatamAirlanes aereo = new LatamAirlanes(idVuelo-1,idReserva-1);
+                    aereo.setVisible(true);
+                }
+            }
+        } else {
+            // Mostrar un mensaje si no hay ninguna fila seleccionada o si hay más de una fila seleccionada
+            if (selectedRowCount == 0) {
+                JOptionPane.showMessageDialog(null, "Por favor, seleccione una reserva de la tabla", "SELECCIÓN REQUERIDA", JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, seleccione solo una reserva", "MULTIPLE SELECCIÓN", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnEditarReservaActionPerformed
+
+    private void btnPagarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarReservaActionPerformed
+        // TODO add your handling code here:
+        int [] selectedRows = tblReservas.getSelectedRows();
+        
+        ArrayList <Integer> selectedFilas = new ArrayList <>();
+        
+        for(int selectedRow:selectedRows){
+            selectedFilas.add(selectedRow);
+        }
+        
+        if(selectedFilas.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione una reserva de la tabla", "SELECCIÓN REQUERIDA", JOptionPane.WARNING_MESSAGE);
+        }else{
+            for(int selectedRow:selectedFilas){
+                int idReserva=(int)tblReservas.getValueAt(selectedRow,0);
+                Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).pagarReserva(idReserva);
+            }
+        }
+    }//GEN-LAST:event_btnPagarReservaActionPerformed
     
     //**************************************************************************************************************************************************************************
     //AQUÍ SE ACTUALIZA LA TABLA DE VUELOS AL MOMENTO DE SELECCIONAR UN BOTÓN PARA ORDENARLA SEGUN LAS PREFERENCIAS DLE USUARIO
     private void actualizarTablaVuelos(int op){
         //Creo una matriz llamada ids que es la que va a tener los encabezados de las columnas de las tablas
-        String ids[] ={"ID","Aereolinea","Origen", "Destino", "Fecha Salida", "Business", "Eco Premium", "Economico", "Estado Vuelo", "¿Reservas?"};
+        String ids[] ={"ID","Aereolinea","Origen", "Escalas", "Destino", "Fecha Salida", "Business", "Eco Premium", "Economico", "Estado Vuelo"};
         tb.setColumnIdentifiers(ids); //Aquí se establece los encabezados en la tabla
         tblVuelos.setModel(tb);//Y por último, como las tablas se basan en modelos, debemos añadir dicho modelo
         
@@ -1300,9 +1429,8 @@ public class Sesion extends javax.swing.JFrame {
     
     private void actualizarDatosTabla(ArrayList<Vuelo> posBus, int op, int posAsiento){
         //Estas variables son las que van a almacenar los datos de las tablas
-        String aereolinea, origen, destino, estadoVuelo;
+        String aereolinea, origen,escalas, destino, estadoVuelo;
         int idVuelo, business, ecoPremium, eco;
-        btnReservar.setText("Reservar");
         LocalDate horario;
         
         if (op>= 2 && op<5){
@@ -1311,7 +1439,7 @@ public class Sesion extends javax.swing.JFrame {
                 @Override
                 public int compare(Vuelo v1, Vuelo v2){
                     // el Integer.compare compara dos enteros que dependiendo de cual es mayor o menor, lo pondrá primero en el vector
-                    return Integer.compare(v1.getAsientos()[posAsiento].getTarifa(), v2.getAsientos()[posAsiento].getTarifa());
+                    return Integer.compare(v1.getAsientos()[posAsiento].calcularTarifa(v1.getTarifaGeneral()), v2.getAsientos()[posAsiento].calcularTarifa(v2.getTarifaGeneral()));
                 }
             });
         }
@@ -1356,11 +1484,12 @@ public class Sesion extends javax.swing.JFrame {
         for (int i=0; i< AgenciaDeViajes.Agencia.listaVuelos.size(); i++){
             idVuelo = posBus.get(i).getIdVuelo();
             aereolinea = posBus.get(i).getAereolinea();
+            escalas = posBus.get(i).toStringescalas();
             origen = posBus.get(i).getOrigen();
             destino = posBus.get(i).getDestino();
-            business = posBus.get(i).getAsientos()[1].getTarifa();//Saco la tarifa para el asiento en la posición 1 (business)
-            ecoPremium = posBus.get(i).getAsientos()[32].getTarifa();//Saco la tarifa para el asiento en la posición 32 (economico premium)
-            eco = posBus.get(i).getAsientos()[75].getTarifa();//Saco la tarifa para el asiento en la posición 75 (economico)
+            business = posBus.get(i).getAsientos()[1].calcularTarifa(posBus.get(i).getTarifaGeneral());//Saco la tarifa para el asiento en la posición 1 (business)
+            ecoPremium = posBus.get(i).getAsientos()[32].calcularTarifa(posBus.get(i).getTarifaGeneral());//Saco la tarifa para el asiento en la posición 32 (economico premium)
+            eco = posBus.get(i).getAsientos()[75].calcularTarifa(posBus.get(i).getTarifaGeneral());//Saco la tarifa para el asiento en la posición 75 (economico)
             horario = posBus.get(i).getFechaSalida();//Extraigo la fecha de salida del vuelo
             
             if (posBus.get(i).getEstadoVuelo() == true){
@@ -1370,39 +1499,60 @@ public class Sesion extends javax.swing.JFrame {
                 estadoVuelo = "No Disponible";
             }
             //Aquí añado los elementos a la tabla
-            tb.addRow(new Object[]{ idVuelo, aereolinea, origen, destino, horario, business, ecoPremium, eco, estadoVuelo, btnReservar});
+            tb.addRow(new Object[]{ idVuelo, aereolinea, origen, escalas, destino, horario, business, ecoPremium, eco, estadoVuelo});
         }
-        
-        //Aquí estoy renderizando o mostrando el botón para la reserva
-        this.tblVuelos.setDefaultRenderer(Object.class, new RenderBoton());
         //Aquí lo que se hace es cambiar el tamaño de las filas
         this.tblVuelos.setRowHeight(30);
+        //Ocultar columna de idVuelo
+        ocultarColumna(tblVuelos,0);
     }
     
     //***********************************************************************************************************************************************************
     //AQUÍ SE EMPIEZA A TRABAJAR CON LA TABLA DE RESERVAS
-    /*
+    
     private void actualizarTablaReservas(){
         //Creo una matriz llamada ids que es la que va a tener los encabezados de las columnas de las tablas
-        String ids[] ={"ID Reserva", "ID Vuelo", "Aereolinea", "Fecha Salida", "PagoTotal", "¿Pagar?"};
+        String ids[] ={"ID Reserva","ID Vuelo","Aereolinea", "Origen","Escalas","Destino","Fecha Salida", "PagoTotal","Asientos"};
         tbr.setColumnIdentifiers(ids); //Aquí se establece los encabezados en la tabla
         tblReservas.setModel(tbr);//Y por último, como las tablas se basan en modelos, debemos añadir dicho modelo
         
-        int idReserva, idVuelo, pagoTotal;
+        int idReserva,idVuelo,pagoTotal;
         String aereolinea;
+        String origen;
+        String escalas;
+        String destino;
+        String asientos;
         LocalDate fechaSalida;
+        
         
         for (int i=0; i < AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().size(); i++){
             idReserva = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getIdReserva();
             idVuelo = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getVuelo().getIdVuelo();
             aereolinea = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getVuelo().getAereolinea();
+            origen = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getVuelo().getOrigen();
+            escalas = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getVuelo().toStringescalas();
+            destino = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getVuelo().getDestino();
             fechaSalida = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getVuelo().getFechaSalida();
-            
+            pagoTotal = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getPagoTotal();
+            asientos = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).toStringAsientos();
+            tbr.addRow(new Object[]{idReserva,idVuelo,aereolinea,origen,escalas,destino,fechaSalida,pagoTotal,asientos});
         }
+        //Aquí lo que se hace es cambiar el tamaño de las filas
+        this.tblReservas.setRowHeight(30);
+        //Ocultar columna de idReserva
+        ocultarColumna(tblReservas,0);
+        //Ocultar columna de idVuelo
+        ocultarColumna(tblReservas,1);
     }
-    /*
     
-    */
+    public void ocultarColumna(JTable table, int columnIndex) {
+        table.getColumnModel().getColumn(columnIndex).setMinWidth(0);
+        table.getColumnModel().getColumn(columnIndex).setMaxWidth(0);
+        table.getColumnModel().getColumn(columnIndex).setWidth(0);
+        table.getColumnModel().getColumn(columnIndex).setPreferredWidth(0);
+        table.getColumnModel().getColumn(columnIndex).setResizable(false);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -1433,7 +1583,7 @@ public class Sesion extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Sesion().setVisible(true);
+                new Sesion(0).setVisible(true);
             }
         });
     }
@@ -1452,7 +1602,10 @@ public class Sesion extends javax.swing.JFrame {
     private javax.swing.JLabel backgraund;
     private javax.swing.JPanel barraButtons;
     private javax.swing.JButton btnEditAddTarjet;
+    private javax.swing.JButton btnEditarReserva;
     private javax.swing.JButton btnLogOut;
+    private javax.swing.JButton btnPagarReserva;
+    private javax.swing.JButton btnReservar;
     private javax.swing.JButton btnSaveChanges;
     private javax.swing.JComboBox<String> comboOrdenar;
     private javax.swing.JPanel empresaLogo;

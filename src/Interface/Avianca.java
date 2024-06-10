@@ -4,6 +4,9 @@
  */
 package Interface;
 
+import AgenciaDeViajes.Agencia;
+import AgenciaDeViajes.AsientoBusiness;
+import AgenciaDeViajes.AsientoEconomicoPremium;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.Icon;
@@ -23,12 +26,17 @@ public class Avianca extends javax.swing.JFrame {
      * Creates new form Avion
      */
     
+    private int posVuelo;
+    private int posReserva;
+    
     //otro consturctor para que no salga error abajo
     public Avianca(){
         
     }
     
-    public Avianca(int idVuelo) {
+    public Avianca(int posVuelo,int posReserva) {
+        this.posVuelo=posVuelo;
+        this.posReserva=posReserva;//si es -1 es una creacion de reserva
         initComponents();
         asIentos1();
         asIentos2();
@@ -58,7 +66,8 @@ public class Avianca extends javax.swing.JFrame {
         txtOcupado = new javax.swing.JLabel();
         txtReservado = new javax.swing.JLabel();
         AviancaLogo = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         avionModel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -82,6 +91,7 @@ public class Avianca extends javax.swing.JFrame {
 
         absolutePanel.add(panelAsientos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 171, 160, 149));
 
+        panelAsientos2.setBackground(new java.awt.Color(184, 207, 229));
         panelAsientos2.setOpaque(false);
 
         javax.swing.GroupLayout panelAsientos2Layout = new javax.swing.GroupLayout(panelAsientos2);
@@ -98,87 +108,82 @@ public class Avianca extends javax.swing.JFrame {
         absolutePanel.add(panelAsientos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 171, 710, 149));
 
         colorPremium.setBackground(new java.awt.Color(255, 204, 0));
-        colorPremium.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout colorPremiumLayout = new javax.swing.GroupLayout(colorPremium);
         colorPremium.setLayout(colorPremiumLayout);
         colorPremiumLayout.setHorizontalGroup(
             colorPremiumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
         colorPremiumLayout.setVerticalGroup(
             colorPremiumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
 
         absolutePanel.add(colorPremium, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 40, 40));
 
         colorEconomicopremium.setBackground(new java.awt.Color(51, 153, 255));
-        colorEconomicopremium.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout colorEconomicopremiumLayout = new javax.swing.GroupLayout(colorEconomicopremium);
         colorEconomicopremium.setLayout(colorEconomicopremiumLayout);
         colorEconomicopremiumLayout.setHorizontalGroup(
             colorEconomicopremiumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
         colorEconomicopremiumLayout.setVerticalGroup(
             colorEconomicopremiumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
 
         absolutePanel.add(colorEconomicopremium, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 490, 40, 40));
 
-        colorEconomico.setBackground(new java.awt.Color(204, 204, 204));
-        colorEconomico.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        colorEconomico.setBackground(new java.awt.Color(0, 153, 0));
 
         javax.swing.GroupLayout colorEconomicoLayout = new javax.swing.GroupLayout(colorEconomico);
         colorEconomico.setLayout(colorEconomicoLayout);
         colorEconomicoLayout.setHorizontalGroup(
             colorEconomicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
         colorEconomicoLayout.setVerticalGroup(
             colorEconomicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
 
         absolutePanel.add(colorEconomico, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 420, 40, 40));
 
         colorOcupado.setBackground(new java.awt.Color(255, 0, 0));
-        colorOcupado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout colorOcupadoLayout = new javax.swing.GroupLayout(colorOcupado);
         colorOcupado.setLayout(colorOcupadoLayout);
         colorOcupadoLayout.setHorizontalGroup(
             colorOcupadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
         colorOcupadoLayout.setVerticalGroup(
             colorOcupadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
 
         absolutePanel.add(colorOcupado, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 420, 40, 40));
 
-        colorReservado.setBackground(new java.awt.Color(0, 255, 0));
-        colorReservado.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        colorReservado.setBackground(new java.awt.Color(184, 207, 229));
 
         javax.swing.GroupLayout colorReservadoLayout = new javax.swing.GroupLayout(colorReservado);
         colorReservado.setLayout(colorReservadoLayout);
         colorReservadoLayout.setHorizontalGroup(
             colorReservadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
         colorReservadoLayout.setVerticalGroup(
             colorReservadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
 
         absolutePanel.add(colorReservado, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 490, 40, 40));
 
         txtPremium.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
-        txtPremium.setText("Premium");
+        txtPremium.setText("Business");
         absolutePanel.add(txtPremium, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, -1, 40));
 
         txtEconoPremium.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
@@ -203,13 +208,21 @@ public class Avianca extends javax.swing.JFrame {
         AviancaLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/avianca.png"))); // NOI18N
         absolutePanel.add(AviancaLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 440, 100));
 
-        jButton1.setText("Reservar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
-        absolutePanel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 450, 130, 40));
+        absolutePanel.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 450, 130, 40));
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+        absolutePanel.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 450, 130, 40));
 
         avionModel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/AviancaAvionModel.png"))); // NOI18N
         absolutePanel.add(avionModel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 546));
@@ -228,9 +241,21 @@ public class Avianca extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        if(posReserva==-1){
+            Sesion sesion = new Sesion(1);
+            sesion.setVisible(true);
+        }else{
+            Sesion sesion = new Sesion(2);
+            sesion.setVisible(true);
+        }
+    }//GEN-LAST:event_btnCancelarActionPerformed
     
     int ancho1=34;
     int altura1=34;
@@ -248,8 +273,9 @@ public class Avianca extends javax.swing.JFrame {
                 asientos1[i][j].setText(""+count);//enumera los asientos
                 asientos1[i][j].setBounds(x1,y1,ancho1,altura1);//se les da posicion y tamaño
                 panelAsientos1.add(asientos1[i][j]);//se añaden al jPanel
-                initAsientos(Integer.parseInt(asientos1[i][j].getText()));
-                asientos1[i][j].addActionListener(action1);//se le añade la accion a cada JTougleButton
+                initAsientos1(i,j,Integer.parseInt(asientos1[i][j].getText())-1);
+                Accion1 action = new Accion1();
+                asientos1[i][j].addActionListener(action);//se le añade la accion a cada JTougleButton
                 y1+=altura1;//el proximo boton estará abajo de este, pero pegado
                 count++;//aumento para enumerar los botones
                 if(((filas1/2)-1)==i){//cuando las filas van por la mitad
@@ -261,24 +287,36 @@ public class Avianca extends javax.swing.JFrame {
         }
     }
     
-    ActionListener action1 = new ActionListener() {//Esta es la accion que harán los botones
+    public class Accion1 implements ActionListener{
+
         @Override
         public void actionPerformed(ActionEvent e) {
             for(int i=0;i<filas1;i++){
                 for(int j=0;j<columnas1;j++){
                     if(e.getSource().equals(asientos1[i][j])){
                         if(asientos1[i][j].isSelected()){
-                            
+                            asientos1[i][j].setBackground(reserva);
+                            asientos1[i][j].setForeground(reserva);
                         }
                         else{
-                            
+                            if(Agencia.listaVuelos.get(posVuelo).getAsientos()[Integer.parseInt(asientos1[i][j].getText())-1] instanceof AsientoBusiness){
+                                asientos1[i][j].setBackground(business);
+                                asientos1[i][j].setForeground(business);
+                            }else{
+                                if(Agencia.listaVuelos.get(posVuelo).getAsientos()[Integer.parseInt(asientos1[i][j].getText())-1] instanceof AsientoEconomicoPremium){
+                                    asientos1[i][j].setBackground(econopremium);
+                                    asientos1[i][j].setForeground(econopremium);
+                                }else{
+                                    asientos1[i][j].setBackground(econo);
+                                    asientos1[i][j].setForeground(econo);
+                                }
+                            }
                         }
                     }
                 }
             }
-            
         }
-    };
+    }
     
     int ancho2=28;
     int altura2=24;
@@ -295,8 +333,9 @@ public class Avianca extends javax.swing.JFrame {
                 asientos2[i][j].setText(""+count);//enumera los asientos
                 asientos2[i][j].setBounds(x2,y2,ancho2,altura2);//se les da posicion y tamaño
                 panelAsientos2.add(asientos2[i][j]);//se añaden al jPanel
-                initAsientos(Integer.parseInt(asientos2[i][j].getText()));
-                asientos2[i][j].addActionListener(action2);//se le añade la accion a cada JTougleButton
+                initAsientos2(i,j,Integer.parseInt(asientos2[i][j].getText())-1);
+                Accion2 action = new Accion2();
+                asientos2[i][j].addActionListener(action);//se le añade la accion a cada JTougleButton
                 y2+=altura2;//el proximo boton estará abajo de este, pero pegado
                 count++;//aumento para enumerar los botones
                 if(((filas2/2)-1)==i){//cuando las filas van por la mitad
@@ -308,27 +347,92 @@ public class Avianca extends javax.swing.JFrame {
         }
     }
     
-    ActionListener action2 = new ActionListener() {//Esta es la accion que harán los botones
+    public class Accion2 implements ActionListener{
+
         @Override
         public void actionPerformed(ActionEvent e) {
             for(int i=0;i<filas2;i++){
                 for(int j=0;j<columnas2;j++){
                     if(e.getSource().equals(asientos2[i][j])){
                         if(asientos2[i][j].isSelected()){
-                            
+                            asientos2[i][j].setBackground(reserva);
+                            asientos2[i][j].setForeground(reserva);
                         }
                         else{
-                            
+                            if(Agencia.listaVuelos.get(posVuelo).getAsientos()[Integer.parseInt(asientos2[i][j].getText())-1] instanceof AsientoBusiness){
+                                asientos2[i][j].setBackground(business);
+                                asientos2[i][j].setForeground(business);
+                            }else{
+                                if(Agencia.listaVuelos.get(posVuelo).getAsientos()[Integer.parseInt(asientos2[i][j].getText())-1] instanceof AsientoEconomicoPremium){
+                                    asientos2[i][j].setBackground(econopremium);
+                                    asientos2[i][j].setForeground(econopremium);
+                                }else{
+                                    asientos2[i][j].setBackground(econo);
+                                    asientos2[i][j].setForeground(econo);
+                                }
+                            }
                         }
                     }
                 }
             }
-            
         }
-    };
-    
-    public void initAsientos(int idAsiento){
         
+    }
+    
+    Color business=new Color(255,204,0),econopremium=new Color(51,153,255),econo=new Color(0,153,0),ocupado=new Color(255,0,0),reserva=new Color(184,207,229);
+    
+    public void initAsientos1(int i,int j,int posAsiento){
+        if(Agencia.listaVuelos.get(posVuelo).getAsientos()[posAsiento].isOcupado()){
+            if(Agencia.asientoOcupadoPorOtroUsuario(Agencia.listaVuelos.get(posVuelo),(posAsiento+1), Agencia.listaUsuarios.get(Inicio.posicionUsuario))){
+                asientos1[i][j].setBackground(ocupado);
+                asientos1[i][j].setForeground(ocupado);
+                asientos1[i][j].setEnabled(false);
+            }else{
+                asientos1[i][j].setBackground(reserva);
+                asientos1[i][j].setForeground(reserva);
+                asientos1[i][j].setSelected(true);
+            }
+        }else{
+            if(Agencia.listaVuelos.get(posVuelo).getAsientos()[posAsiento] instanceof AsientoBusiness){
+                asientos1[i][j].setBackground(business);
+                asientos1[i][j].setForeground(business);
+            }else{
+                if(Agencia.listaVuelos.get(posVuelo).getAsientos()[posAsiento] instanceof AsientoEconomicoPremium){
+                    asientos1[i][j].setBackground(econopremium);
+                    asientos1[i][j].setForeground(econopremium);
+                }else{
+                    asientos1[i][j].setBackground(econo);
+                    asientos1[i][j].setForeground(econo);
+                }
+            }
+        }
+    }
+    
+    public void initAsientos2(int i,int j,int posAsiento){
+        if(Agencia.listaVuelos.get(posVuelo).getAsientos()[posAsiento].isOcupado()){
+            if(Agencia.asientoOcupadoPorOtroUsuario(Agencia.listaVuelos.get(posVuelo),(posAsiento+1), Agencia.listaUsuarios.get(Inicio.posicionUsuario))){
+                asientos2[i][j].setBackground(ocupado);
+                asientos2[i][j].setForeground(ocupado);
+                asientos2[i][j].setEnabled(false);
+            }else{
+                asientos2[i][j].setBackground(reserva);
+                asientos2[i][j].setForeground(reserva);
+                asientos2[i][j].setSelected(true);
+            }
+        }else{
+            if(Agencia.listaVuelos.get(posVuelo).getAsientos()[posAsiento] instanceof AsientoBusiness){
+                asientos2[i][j].setBackground(business);
+                asientos2[i][j].setForeground(business);
+            }else{
+                if(Agencia.listaVuelos.get(posVuelo).getAsientos()[posAsiento] instanceof AsientoEconomicoPremium){
+                    asientos2[i][j].setBackground(econopremium);
+                    asientos2[i][j].setForeground(econopremium);
+                }else{
+                    asientos2[i][j].setBackground(econo);
+                    asientos2[i][j].setForeground(econo);
+                }
+            }
+        }
     }
     
     
@@ -378,12 +482,13 @@ public class Avianca extends javax.swing.JFrame {
     private javax.swing.JLabel AviancaLogo;
     private javax.swing.JPanel absolutePanel;
     private javax.swing.JLabel avionModel;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JPanel colorEconomico;
     private javax.swing.JPanel colorEconomicopremium;
     private javax.swing.JPanel colorOcupado;
     private javax.swing.JPanel colorPremium;
     private javax.swing.JPanel colorReservado;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel panelAsientos1;
     private javax.swing.JPanel panelAsientos2;
     private javax.swing.JLabel txtEcono;

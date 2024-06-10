@@ -329,7 +329,7 @@ public class Inicio extends javax.swing.JFrame {
                         if (AgenciaDeViajes.Agencia.listaUsuarios.get(i).login(u, c)==true){
                             posicionUsuario=i;
                             dispose();
-                            Sesion sesion = new Sesion();
+                            Sesion sesion = new Sesion(0);
                             sesion.setVisible(true);
                             break;
                         }
