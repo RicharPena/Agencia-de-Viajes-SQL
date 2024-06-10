@@ -4,6 +4,7 @@
  */
 package AgenciaDeViajes;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -12,7 +13,9 @@ import java.util.ArrayList;
  * @author Systema
  */
 
-public class Vuelo {
+public class Vuelo implements Serializable{
+    //
+    private static final long serialVersionUID = 1L;
 
     private int idVuelo;
     private String aereolinea;
