@@ -5,6 +5,12 @@
 package AgenciaDeViajes;
 
 import Interface.Inicio;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,6 +32,7 @@ public class Agencia {
     public static ArrayList<Vuelo> listaVuelos = new ArrayList<>();
     
     public static void main(String [] args){
+        /* ESTO SOLO ES PARA CARGAR POR PRIMERA VEZ LOS ARCHIVOS
         String[]ciudades1={""};
         ArrayList<String>escalas1=new ArrayList<>(Arrays.asList(ciudades1));
         String[]ciudades2={"Madrid","Paris"};
@@ -40,7 +47,23 @@ public class Agencia {
         listaUsuarios.add(usuario1);
         listaVuelos.add(vuelo1);
         listaVuelos.add(vuelo2);
+        */
+        String archivoVuelos = "Vuelos.dat", archivoUsuarios = "Usuarios.dat";
+        File fileVuelos  = new File(archivoVuelos);
+        File fileUsuarios = new File(archivoUsuarios);
+        if (fileVuelos.exists()){
+            cargarDesdeArchivoVuelos(archivoVuelos);
+        }
+        else{
+            guardarEnArchivos(listaVuelos, archivoVuelos);
+        }
         
+        if (fileUsuarios.exists()){
+            cargarDesdeArchivoUsuarios(archivoUsuarios);
+        }
+        else{
+            guardarEnArchivos(listaUsuarios, archivoUsuarios);
+        }
         Inicio inicio=new Inicio();
         
         inicio.setVisible(true);
@@ -85,5 +108,45 @@ public class Agencia {
                 }
             }
         }
+    }
+    
+    public static void guardarEnArchivos(ArrayList guardarLista, String nombre){
+        try (FileOutputStream fileOut = new FileOutputStream(nombre);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+
+           out.writeObject(guardarLista);
+           System.out.println("Guardado de archivos hecho correctamente.");
+
+       } catch (IOException i) {
+           i.printStackTrace();
+       }
+    }
+    
+    public static void cargarDesdeArchivoVuelos(String nombre){
+        try (FileInputStream fileIn = new FileInputStream(nombre);
+            ObjectInputStream in = new ObjectInputStream(fileIn)) {
+
+           ArrayList<Vuelo> listaVuelosLeida = (ArrayList<Vuelo>) in.readObject();
+           listaVuelos = listaVuelosLeida;
+           System.out.println("Archivo Vuelos cargado correctamente.");
+           // Aquí puedes usar el objeto listaVuelosLeida
+
+       } catch (IOException | ClassNotFoundException i) {
+           i.printStackTrace();
+       }
+    }
+    
+    public static void cargarDesdeArchivoUsuarios(String nombre){
+        try (FileInputStream fileIn = new FileInputStream(nombre);
+            ObjectInputStream in = new ObjectInputStream(fileIn)) {
+
+           ArrayList<Usuario> listaUsuarioLeida = (ArrayList<Usuario>) in.readObject();
+           listaUsuarios = listaUsuarioLeida;
+           System.out.println("Archivo Usuario cargado correctamente.");
+           // Aquí puedes usar el objeto listaVuelosLeida
+
+       } catch (IOException | ClassNotFoundException i) {
+           i.printStackTrace();
+       }
     }
 }
