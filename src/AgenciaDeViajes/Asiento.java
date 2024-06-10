@@ -4,16 +4,20 @@
  */
 package AgenciaDeViajes;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Systema
  */
-public abstract class Asiento {
+public abstract class Asiento implements Serializable{
     /*Para la categoría se tiene lo siguiente:
     1. Business
     2. Premium Economic Class
     3. Economic Class
     */
+    //Este nuevo atributo me permite al momento de crear el archivo, leer el arrayList
+    private static final long serialVersionUID = 1L;
     private int idAsiento; //Se cambió de String a int
     private boolean ocupado;//para estado
     
