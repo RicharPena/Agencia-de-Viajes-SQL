@@ -42,13 +42,13 @@ public class Vuelo {
             
             for (int i = 0; i < 166; i++) {
                 if (i < 16) {
-                    asientos[i] = new AsientoBusiness(i+1, false, tarifaGeneral);
+                    asientos[i] = new AsientoBusiness(i+1, false);
                 } else {
                     if (i >= 16 && i < 64) {
-                        asientos[i] = new AsientoEconomicoPremium(i+1, false, tarifaGeneral);
+                        asientos[i] = new AsientoEconomicoPremium(i+1, false);
                     } else {
                         if (i >= 64 && i < 166) {
-                            asientos[i] = new AsientoEconomico(i+1, false, tarifaGeneral);
+                            asientos[i] = new AsientoEconomico(i+1, false);
                         }
                     }
                 }
@@ -63,23 +63,23 @@ public class Vuelo {
                 //Premium Economy Class: 42
                 //Economy Class: 258
             
-                asientos = new Asiento[330];
+                asientos = new Asiento[332];
             
                 for (int i = 0; i < 332; i++) {
                     if (i < 32) {
-                        asientos[i] = new AsientoBusiness(i+1, false, tarifaGeneral);
+                        asientos[i] = new AsientoBusiness(i+1, false);
                     } else {
-                        if (i >= 32 && i < 72) {
-                            asientos[i] = new AsientoEconomicoPremium(i+1, false, tarifaGeneral);
+                        if (i >= 32 && i < 74) {
+                            asientos[i] = new AsientoEconomicoPremium(i+1, false);
                         } else {
-                            if (i >= 72 && i < 330) {
-                                asientos[i] = new AsientoEconomico(i+1, false, tarifaGeneral);
+                            if (i >= 74 && i < 332) {
+                                asientos[i] = new AsientoEconomico(i+1, false);
                             }
                         }
                     }
                 }
             
-                this.asientosDisponibles = 330;
+                this.asientosDisponibles = 332;
             }
             else{
                 if(aereolinea.equals("Latam Airlines")){
@@ -89,23 +89,23 @@ public class Vuelo {
                     //Premium Economy Class: 30
                     //Economy Class: 156
                     
-                    asientos = new Asiento[211];
+                    asientos = new Asiento[210];
                     
                     for (int i = 0; i < 210; i++) {
                         if (i < 24) {
-                            asientos[i] = new AsientoBusiness(i+1, false, tarifaGeneral);
+                            asientos[i] = new AsientoBusiness(i+1, false);
                         } else {
                             if (i >= 24 && i < 54) {
-                                asientos[i] = new AsientoEconomicoPremium(i+1, false, tarifaGeneral);
+                                asientos[i] = new AsientoEconomicoPremium(i+1, false);
                             } else {
-                                if (i >= 54 && i < 211) {
-                                    asientos[i] = new AsientoEconomico(i+1, false, tarifaGeneral);
+                                if (i >= 54 && i < 210) {
+                                    asientos[i] = new AsientoEconomico(i+1, false);
                                 }
                             }
                         }
                     }
                     
-                    this.asientosDisponibles = 211;
+                    this.asientosDisponibles = 210;
                 }
             }
         }
@@ -165,18 +165,6 @@ public class Vuelo {
     el vector de izquierda a derecha (de 0 a 4) por lo que la ciudad de origen debe estar antes
     que la ciudad de destino
      */
-    public boolean verificarEscalas(String origen, String destino) {
-        for (int i = 0; i < 5; i++) {
-            if (escalas.get(i).equals(origen)) {
-                for (int j = i; j < 5; j++) {
-                    if (escalas.get(j).equals(destino)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
 
     public Asiento[] getAsientos() {
         return asientos;
@@ -256,5 +244,19 @@ public class Vuelo {
     
     public void setFechaSalida(LocalDate fechaSalida) {
         this.fechaSalida = fechaSalida;
-    }    
+    }
+
+    public String toStringescalas(){
+        String scales="";
+        
+        for(int i=0;i<this.escalas.size();i++){
+            if(i==this.escalas.size()-1){
+                scales+=escalas.get(i);
+            }else{
+                scales+=escalas.get(i)+", ";
+            }
+        }
+        
+        return scales;
+    }
 }

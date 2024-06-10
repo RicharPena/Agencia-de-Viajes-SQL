@@ -10,9 +10,8 @@ package AgenciaDeViajes;
  */
 public class AsientoBusiness extends Asiento{
     
-    public AsientoBusiness(int idAsiento, boolean estado, int tarifaGeneral) {
+    public AsientoBusiness(int idAsiento, boolean estado) {
         super(idAsiento, estado);
-        super.setTarifa(calcularTarifa(tarifaGeneral));
     }
 
     @Override

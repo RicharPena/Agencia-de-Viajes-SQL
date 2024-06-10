@@ -26,14 +26,16 @@ public class Agencia {
     public static ArrayList<Vuelo> listaVuelos = new ArrayList<>();
     
     public static void main(String [] args){
-        String[]ciudades={};
-        ArrayList<String>escalas=new ArrayList<>(Arrays.asList(ciudades));
+        String[]ciudades1={""};
+        ArrayList<String>escalas1=new ArrayList<>(Arrays.asList(ciudades1));
+        String[]ciudades2={"Madrid","Paris"};
+        ArrayList<String>escalas2=new ArrayList<>(Arrays.asList(ciudades2));
         LocalDate fecha1 = LocalDate.of(2024, 9, 8), fecha2 = LocalDate.of(2024, 7, 5);
         
         
-        Vuelo vuelo1 = new Vuelo(1, "Avianca", "Cartagena",escalas,"Boyaca", 650000, fecha1);
-        Vuelo vuelo2 = new Vuelo(2, "Fly Emirates", "Bogota", escalas, "Munich", 500000, fecha2);
-        Usuario usuario1 = new Usuario("Richar", "Richar", "123", null, null);
+        Vuelo vuelo1 = new Vuelo(1, "Avianca", "Cartagena",escalas1,"Boyaca", 650000, fecha1);
+        Vuelo vuelo2 = new Vuelo(2, "Fly Emirates", "Bogota", escalas2, "Munich", 500000, fecha2);
+        Usuario usuario1 = new Usuario("Richar", "Richar", "123");
         
         listaUsuarios.add(usuario1);
         listaVuelos.add(vuelo1);
@@ -42,21 +44,6 @@ public class Agencia {
         Inicio inicio=new Inicio();
         
         inicio.setVisible(true);
-    }
-    
-    public static boolean asientoOcupado(Vuelo vuelo, int asiento) {
-        for (Usuario usuario : Agencia.listaUsuarios) {
-            for (Reserva reserva : usuario.getListaReserva()) {
-                if (reserva.getVuelo().equals(vuelo)) {
-                    for (int as : reserva.getAsientos()) {
-                        if (as == asiento) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
     }
     
     public static boolean vueloRepetido(Usuario user,Vuelo vuelo){

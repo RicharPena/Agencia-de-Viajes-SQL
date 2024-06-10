@@ -20,7 +20,6 @@ public class Reserva {
     private Vuelo vuelo;
     private ArrayList<Integer> asientos = new ArrayList<>();
     private boolean pago;
-    private int valorPagar;
 
     //CONSTRUCTOR DE RESERVA PARA INICIALIZAR RESERVAS QUE YA HAY
     public Reserva(int idReserva, Vuelo vuelo, ArrayList<Integer>asientos, boolean pago){
@@ -75,15 +74,34 @@ public class Reserva {
                     }
                 }
             }
-            if(this.asientos.isEmpty()){
-                return true;
-            }
-            else{
-                return false;
-            }
+            Agencia.actualizarVuelos();
+            return this.asientos.isEmpty();
         }
     }
     
+    public int getPagoTotal(){
+        int pagoTotal=0;
+        
+        for(Integer asiento : this.asientos){
+            pagoTotal+=vuelo.getAsientos()[asiento-1].calcularTarifa(vuelo.getTarifaGeneral());
+        }
+        
+        return pagoTotal;
+    }
+    
+    public String toStringAsientos(){
+        String sits="";
+        
+        for(int i=0;i<asientos.size();i++){
+            if(i==asientos.size()-1){
+                sits+=Integer.toString(asientos.get(i));
+            }else{
+                sits+=Integer.toString(asientos.get(i))+", ";
+            }
+        }
+        
+        return sits;
+    }
     public int getIdReserva() {
         return idReserva;
     }
@@ -119,14 +137,4 @@ public class Reserva {
     public boolean isPago() {
         return pago;
     }
-
-    public int getValorPagar() {
-        return valorPagar;
-    }
-
-    public void setValorPagar(int valorPagar) {
-        this.valorPagar = valorPagar;
-    }
-    
-    
 }

@@ -17,18 +17,24 @@ public class Usuario {
     private String password;
     private String nombre;
     private ArrayList<Reserva> listaReserva = new ArrayList<>();
-    private String tarjeta;
+    private String tarjeta=null;
     //no existe lista boletos porque ya tenemos la reserva que actua como la de boletos
     
     //INSERT CONSTRUCTOR HERE
     
-    //PARA CUANDO DECIDE AÑADIR LA TARJETA
+    //PARA CUANDO SE LEAN LOS ARCHIVOS
     public Usuario(String nombre, String userName, String password, String tarjeta, ArrayList<Reserva> listaReserva) {
         this.userName = userName;
         this.password = password;
         this.nombre = nombre;
         this.tarjeta = tarjeta;
         this.listaReserva = listaReserva;
+    }
+    
+    public Usuario(String nombre,String userName,String password){
+        this.userName=userName;
+        this.password=password;
+        this.nombre=nombre;
     }
     
     public boolean login(String userName, String password){
@@ -41,18 +47,9 @@ public class Usuario {
         //return this.userName.equals(userName) && this.password.equals(password);
     }
     
-    /**En la interfase se  hará lo siguiente:
-     * El usuario ingresará el idReserva, con el fin de el mismo ingresarlo (como un identificador para el)
-     * Luego seleccionará su origen y su destino, el sistema verificará si existe algún vuelo que entre sus escalas se encuentre las ciudades
-     * Si lo encuentra, el usuario escojerá con que aereolínea se querrá ir (con que vuelo), que será el idVuelo
-     * Escojerá su asiento, que devolverá el idAsiento
-     * @param idReserva
-     * @param vuelo 
-     * @param asientos 
-    */
-    
-    public void crearReserva(int idReserva,Vuelo vuelo, ArrayList<Integer>asientos){
-        listaReserva.add(new Reserva(idReserva,vuelo,asientos));
+    public void crearReserva(Vuelo vuelo, ArrayList<Integer>asientos){
+        int id=listaReserva.size();
+        listaReserva.add(new Reserva(id+1,vuelo,asientos));
     }
     
     public void cancelarReserva(int idReserva){

@@ -15,12 +15,11 @@ public abstract class Asiento {
     3. Economic Class
     */
     private int idAsiento; //Se cambió de String a int
-    private boolean ocupado;//para estado 
-    private int tarifa; //lo que vale el asiento
+    private boolean ocupado;//para estado
     
-    public Asiento(int idAsiento, boolean estado) {
+    public Asiento(int idAsiento, boolean ocupado) {
         this.idAsiento = idAsiento;
-        this.ocupado = estado;
+        this.ocupado = ocupado;
     }
     
     //Este es el mismo setEstado
@@ -44,16 +43,6 @@ public abstract class Asiento {
     public boolean isOcupado() {
         return ocupado;
     }
-
-    public int getTarifa() {
-        return tarifa;
-    }
-
-    public void setTarifa(int tarifa) {
-        this.tarifa = tarifa;
-    }
-
-    
     
     public abstract int calcularTarifa(int tarifaGeneral);
 }
