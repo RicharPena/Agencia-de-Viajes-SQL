@@ -43,8 +43,10 @@ public class Agencia {
         Vuelo vuelo1 = new Vuelo("Avianca", "Cartagena",escalas1,"Boyaca", 650000, fecha1);
         Vuelo vuelo2 = new Vuelo("Fly Emirates", "Bogota", escalas2, "Munich", 500000, fecha2);
         Usuario usuario1 = new Usuario("Richar", "Richar", "123");
+        Usuario usuario2 = new Usuario("ADMIN", "ADMIN", "ADMIN");
         
         listaUsuarios.add(usuario1);
+        listaUsuarios.add(usuario2);
         listaVuelos.add(vuelo1);
         listaVuelos.add(vuelo2);
         
