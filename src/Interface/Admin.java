@@ -4,6 +4,16 @@
  */
 package Interface;
 
+import AgenciaDeViajes.Agencia;
+import AgenciaDeViajes.Vuelo;
+import java.awt.Image;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.Timer;
+
 /**
  *
  * @author Dr.Fate_9
@@ -13,8 +23,17 @@ public class Admin extends javax.swing.JFrame {
     /**
      * Creates new form Admin
      */
+    private ArrayList<String> escalas = new ArrayList<>();
     public Admin() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        putImageinButton("/images/Back_Button_01.png",btnDevolver);
+    }
+    
+    private void putImageinButton(String ruta, JButton btn){
+        ImageIcon image = new ImageIcon(getClass().getResource(ruta));
+        Icon imageIcon = new ImageIcon(image.getImage().getScaledInstance(btn.getWidth(), btn.getHeight(), Image.SCALE_SMOOTH));
+        btn.setIcon(imageIcon);
     }
 
     /**
@@ -26,22 +45,228 @@ public class Admin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        btnDevolver = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        comboAereo = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        txtOrigen = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtDestino = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtYear = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtMes = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtDia = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        txtTarifa = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtEscalas = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        btnAnadir = new javax.swing.JButton();
+        txtMensaje = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 670, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 36)); // NOI18N
+        jLabel1.setText("ADMINISTRADOR DE VUELOS");
+
+        btnDevolver.setBorder(null);
+        btnDevolver.setBorderPainted(false);
+        btnDevolver.setContentAreaFilled(false);
+        btnDevolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDevolverActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(btnDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(238, 238, 238))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 620, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)))
+                .addGap(23, 23, 23))
         );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, -1));
+
+        jLabel2.setText("Aereolínea: ");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 147, 80, 20));
+
+        comboAereo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Avianca", "Fly Emirates", "Latam Airlines" }));
+        comboAereo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboAereoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(comboAereo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 147, -1, -1));
+
+        jLabel3.setText("Origen:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 207, 74, -1));
+        getContentPane().add(txtOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 204, 109, -1));
+
+        jLabel4.setText("Destino: ");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 267, -1, -1));
+        getContentPane().add(txtDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 264, 109, -1));
+
+        jLabel5.setText("Fecha Salida: ");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 140, -1, -1));
+
+        jLabel7.setText("Año:");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, 46, -1));
+        getContentPane().add(txtYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(434, 170, 70, -1));
+
+        jLabel8.setText("Mes:");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 210, 46, -1));
+        getContentPane().add(txtMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(434, 210, 70, -1));
+
+        jLabel6.setText("Día: ");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, 46, -1));
+        getContentPane().add(txtDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(434, 250, 70, -1));
+
+        jLabel9.setText("Por ejemplo: 2024");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 170, 126, -1));
+
+        jLabel10.setText("Por ejemplo: 6 (Junio)");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, 126, -1));
+
+        jLabel11.setText("Por ejemplo: 10");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, 126, -1));
+
+        jLabel12.setText("Opcional:");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 220, -1, -1));
+        getContentPane().add(txtTarifa, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 160, 110, -1));
+
+        jLabel13.setText("Tarifa General");
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 170, -1, -1));
+
+        txtEscalas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEscalasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtEscalas, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 260, 140, -1));
+
+        jLabel14.setText("Escalas: ");
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 260, 60, -1));
+
+        jLabel15.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel15.setText("Si no necesita, dejar en blanco");
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 290, -1, -1));
+
+        jButton1.setText("Añadir Escala");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 320, -1, -1));
+
+        btnAnadir.setText("AÑADIR VUELO");
+        btnAnadir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAnadirMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnAnadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, -1, -1));
+
+        txtMensaje.setForeground(new java.awt.Color(255, 0, 0));
+        getContentPane().add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 300, 270, 20));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtEscalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEscalasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEscalasActionPerformed
+        // TODO add your handling code here:
+    private void comboAereoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboAereoActionPerformed
+        
+    }//GEN-LAST:event_comboAereoActionPerformed
+
+    private void btnAnadirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnadirMouseClicked
+        Timer timer = new Timer(2000, (e) -> {txtMensaje.setText("");});
+        
+        timer.setRepeats(false);
+        //verifico que no haya campos vacios y si los hay, no se crea el avión
+        if (txtOrigen.getText().equals("") || txtDestino.getText().equals("") || txtYear.getText().equals("") || txtMes.getText().equals("") || txtDia.getText().equals("") || txtTarifa.getText().equals("")){
+            txtMensaje.setText("FALTAN CAMPOS POR LLENAR!!!");
+            timer.start();
+        }
+        else{
+            int dia, mes, year, tarifa;
+            String opAereo, origen, destino;
+            
+            //Se toman todos los campos escritos y se inicializan en sus respectivas variables
+            opAereo = (String) comboAereo.getSelectedItem();
+            origen = txtOrigen.getText();
+            destino = txtDestino.getText();
+            year = Integer.parseInt(txtYear.getText());
+            mes = Integer.parseInt(txtMes.getText());
+            dia = Integer.parseInt(txtDia.getText());
+            tarifa = Integer.parseInt(txtTarifa.getText());
+            LocalDate fechaSalida = LocalDate.of(year, mes, dia);
+            
+            //Se crea el vuelo en una variable aparte para posteriormente ser añadido al vector principal de vuelos
+            Vuelo vuelo = new Vuelo(opAereo, origen, this.escalas, destino, tarifa, fechaSalida);
+            AgenciaDeViajes.Agencia.listaVuelos.add(vuelo);
+            
+            //Se actualiza el idVuelo del nuevo avión (es decir, se inicializa debido a que antes no tenía valor) con respecto a la posición de los demás aviones
+            Agencia.actualizarIDVuelo();
+            
+            txtMensaje.setText("VUELO AÑADIDO CON ÉXITO!!!");
+            timer.start();
+        }
+    }//GEN-LAST:event_btnAnadirMouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        Timer timer = new Timer(2000, (e) -> {txtMensaje.setText("");});
+        
+        timer.setRepeats(false);
+        if (txtEscalas.getText().equals("")){
+            txtMensaje.setText("No se ha añadido ninguna escala");
+            timer.start();
+        }
+        else{
+            //Si el administrador tipea cualquier escala, este se guardará en el arrayList universal para esta clase
+            escalas.add(txtEscalas.getText());
+            txtEscalas.setText("");
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void btnDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolverActionPerformed
+        //Si el administrador desea devolverse, se devolverá al inicio
+        dispose();
+        Inicio inicio = new Inicio();
+        inicio.setVisible(true);
+    }//GEN-LAST:event_btnDevolverActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -78,5 +303,33 @@ public class Admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnadir;
+    private javax.swing.JButton btnDevolver;
+    private javax.swing.JComboBox<String> comboAereo;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField txtDestino;
+    private javax.swing.JTextField txtDia;
+    private javax.swing.JTextField txtEscalas;
+    private javax.swing.JLabel txtMensaje;
+    private javax.swing.JTextField txtMes;
+    private javax.swing.JTextField txtOrigen;
+    private javax.swing.JTextField txtTarifa;
+    private javax.swing.JTextField txtYear;
     // End of variables declaration//GEN-END:variables
 }
