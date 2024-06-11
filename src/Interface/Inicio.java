@@ -331,11 +331,19 @@ public class Inicio extends javax.swing.JFrame {
                 else{
                     for (int i=0 ;i < AgenciaDeViajes.Agencia.listaUsuarios.size(); i++){
                         if (AgenciaDeViajes.Agencia.listaUsuarios.get(i).login(u, c)==true){
-                            posicionUsuario=i;
-                            dispose();
-                            Sesion sesion = new Sesion(0);
-                            sesion.setVisible(true);
-                            break;
+                            if (AgenciaDeViajes.Agencia.listaUsuarios.get(i).getUserName().equals("ADMIN")){
+                                dispose();
+                                Admin admin = new Admin();
+                                admin.setVisible(true);
+                                break;
+                            }
+                            else{
+                                posicionUsuario=i;
+                                dispose();
+                                Sesion sesion = new Sesion(0);
+                                sesion.setVisible(true);
+                                break;
+                            }
                         }
                     }
                     txtMensaje.setText("Usuario/Contraseña incorrectas");
