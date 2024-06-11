@@ -11,7 +11,6 @@ import java.util.ArrayList;
  *
  * @author Systema
  * 
- * Se modificó el tipo de retorno al método cancelarReserva y se le añadió un parámetro
  */
 public class Usuario implements Serializable{
     private static final long serialVersionUID = 1L;
@@ -21,11 +20,8 @@ public class Usuario implements Serializable{
     private String nombre;
     private ArrayList<Reserva> listaReserva = new ArrayList<>();
     private String tarjeta=null;
-    //no existe lista boletos porque ya tenemos la reserva que actua como la de boletos
     
-    //INSERT CONSTRUCTOR HERE
-    
-    //PARA CUANDO SE LEAN LOS ARCHIVOS
+    //Este constructor es alternativo
     public Usuario(String nombre, String userName, String password, String tarjeta, ArrayList<Reserva> listaReserva) {
         this.userName = userName;
         this.password = password;
@@ -34,12 +30,14 @@ public class Usuario implements Serializable{
         this.listaReserva = listaReserva;
     }
     
+    //Este constructor crea como tal a todos los usuarios
     public Usuario(String nombre,String userName,String password){
         this.userName=userName;
         this.password=password;
         this.nombre=nombre;
     }
     
+    //Este método verifica que el userName coincida con su respectiva contraseña
     public boolean login(String userName, String password){
         if (this.userName.equals(userName)){
             if (this.password.equals(password)){
@@ -50,6 +48,7 @@ public class Usuario implements Serializable{
         //return this.userName.equals(userName) && this.password.equals(password);
     }
     
+    //Aquí se crean las reservas dependiendo del vuelo y de la lista de asientos que el usuario haya escogido en el panel de Vuelos
     public void crearReserva(Vuelo vuelo, ArrayList<Integer>asientos){
         int id;
         if(listaReserva.isEmpty()){
@@ -65,6 +64,7 @@ public class Usuario implements Serializable{
         }
     }
     
+    //Aquí se cancela la reserva dependiendo del id que se escoja en la interfase
     public void cancelarReserva(int idReserva){
         listaReserva.get(idReserva-1).eliminarAsientos(listaReserva.get(idReserva-1).getAsientos());
         
@@ -73,6 +73,7 @@ public class Usuario implements Serializable{
         actualizarReservas();
     }
     
+    //cada vez que se realice un cambio en la reserva, debe ser cambiado
     private void actualizarReservas(){
         if(listaReserva.isEmpty()){
             

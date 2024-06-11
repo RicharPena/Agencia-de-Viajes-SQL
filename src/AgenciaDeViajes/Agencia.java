@@ -50,11 +50,20 @@ public class Agencia {
         listaVuelos.add(vuelo1);
         listaVuelos.add(vuelo2);
         
+        //Añade los idVuelo dependiendo de su posición en el vector
         actualizarIDVuelo();
         
+        //Aquí se determinan los archivos que se van a utilizar dentro del programa
         String archivoVuelos = "Vuelos.dat", archivoUsuarios = "Usuarios.dat";
         File fileVuelos  = new File(archivoVuelos);
         File fileUsuarios = new File(archivoUsuarios);
+        
+        /*Aquí, se determina que si el vuelo existe, este mismo cargará desde los archivos
+        a los vectores correspondientes. Si no existen, se crearán los archivos con algunos vuelos y Usuarios ya por predeterminados
+        
+        Además de todo esto, las clases que deben ser guardadas en los archivos (Vuelo, Reserva, Usuario y Asiento), debieron modificarse colocandoles el
+        "implements" Serializable, debido a que para formar los archivos, se requiere que se utilice
+        */
         if (fileVuelos.exists()){
             cargarDesdeArchivoVuelos(archivoVuelos);
         }
@@ -68,6 +77,8 @@ public class Agencia {
         else{
             guardarEnArchivos(listaUsuarios, archivoUsuarios);
         }
+        
+        //Aquí ya se abre la pestaña de Inicio
         Inicio inicio=new Inicio();
         
         inicio.setVisible(true);
@@ -79,6 +90,8 @@ public class Agencia {
         }
     }
     
+    //Esta función nos ayuda a determinar si al momento de seleccionar un vuelo para reservar, si ya tenemos reserva, no nos dejará volver a reservar
+    //tendremos que editar en la pestaña de Reservas
     public static boolean vueloRepetido(Usuario user,Vuelo vuelo){
         boolean repetido=false;
         
@@ -91,6 +104,7 @@ public class Agencia {
         return repetido;
     }
     
+    //Esta función determina si ya hay un asiento que está siendo ocupado por otro usuario
     public static boolean asientoOcupadoPorOtroUsuario(int posVuelo, int posAsiento, Usuario usuarioActual) {
         Vuelo vuelo = listaVuelos.get(posVuelo);
         
@@ -109,6 +123,7 @@ public class Agencia {
         return false;
     }
     
+    //Esta función, dependiendo de los cambios realizados, se actualizará el vuelo
     public static void actualizarVuelos(){
         for(Vuelo vuelo:listaVuelos){
             for(Usuario usuario:listaUsuarios){
@@ -124,14 +139,18 @@ public class Agencia {
     public static void guardarEnArchivos(ArrayList guardarLista, String nombre){
         try (FileOutputStream fileOut = new FileOutputStream(nombre);
             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-
+            
+            //Aquí escribimos los archivos
            out.writeObject(guardarLista);
            System.out.println("Guardado de archivos hecho correctamente.");
 
        } catch (IOException i) {
+           //Si no se pudo escribir el archivo por x o y motivo, saltará esta excepción
            i.printStackTrace();
        }
     }
+    
+    //Ya para las demás funciones localizadas abajo, pasa lo mismo que lo anterior.
     
     public static void cargarDesdeArchivoVuelos(String nombre){
         try (FileInputStream fileIn = new FileInputStream(nombre);

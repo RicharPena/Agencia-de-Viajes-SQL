@@ -16,7 +16,7 @@ public class AsientoEconomico extends Asiento{
 
     @Override
     public int calcularTarifa(int tarifaGeneral) {
-        //este si queda igual
+        //Este si queda igual, ya que esta es la base para los demás
         return tarifaGeneral;
     }
     

@@ -118,7 +118,7 @@ public class Vuelo implements Serializable{
         this.estadoVuelo = true;
     }
     
-    //CONSTRUCTOR PARA CARGARLO DESDE ARCHIVOS
+    //CONSTRUCTOR ALTERNATIVO
     public Vuelo(int idVuelo, String aereolinea, Asiento[] asientos, int asientosDisponibles, String origen, ArrayList<String> escalas, String destino, boolean estadoVuelo, LocalDate fechaSalida) {
         this.idVuelo = idVuelo;
         this.aereolinea = aereolinea;
@@ -131,7 +131,7 @@ public class Vuelo implements Serializable{
         this.fechaSalida = fechaSalida;
     }
 
-    //se cambió el tipo de dato de String a int, al igual que lo que va a devolver el metodo
+    //Esta función nos ayuda a asignar los asientos en el vuelo
     public void asignarAsiento(int idAsiento) {
         for (Asiento asiento : asientos) {
             if (asiento.getIdAsiento() == idAsiento) {
@@ -144,7 +144,7 @@ public class Vuelo implements Serializable{
         }
     }
 
-    //ESTE PUEDE SER UN BOOLEAN y se cambió de String a int
+    //Esta función nos ayuda a que si se deja de seleccionar un asiento, al momento de tomar la reserva, queda libre para que otro usuario pueda utilizarlo
     public void liberarAsiento(int idAsiento) {
         for (Asiento asiento : asientos) {
             if (asiento.getIdAsiento() == idAsiento) {
@@ -156,17 +156,8 @@ public class Vuelo implements Serializable{
             setEstadoVuelo(true);
         }
     }
-
-    /*Esta función verifica la distancia que hay entre la ciudad de origen y el destino
-    tomando como referencia el vector (después en LA INTERFASE, SE VERIFICA QUE SI ES 0,
-    SIGNIFICA QUE NO SE PUEDE TOMAR LA MISMA CIUDAD DE ORIGEN Y DESTINO) 
-     */
-    //funcion aquí si se le ve utilidad
-    /*Esta función verificará si existe en un determinado vuelo, las ciudades de origen y destino
-    que el usuario ha ingresado. La cuestión es que los vuelos son en 1 solo sentido, recorriendo
-    el vector de izquierda a derecha (de 0 a 4) por lo que la ciudad de origen debe estar antes
-    que la ciudad de destino
-     */
+    
+    //Métodos getter y setter de todos los atributos
 
     public Asiento[] getAsientos() {
         return asientos;

@@ -18,15 +18,13 @@ public abstract class Asiento implements Serializable{
     */
     //Este nuevo atributo me permite al momento de crear el archivo, leer el arrayList
     private static final long serialVersionUID = 1L;
-    private int idAsiento; //Se cambió de String a int
+    private int idAsiento;
     private boolean ocupado;//para estado
     
     public Asiento(int idAsiento, boolean ocupado) {
         this.idAsiento = idAsiento;
         this.ocupado = ocupado;
     }
-    
-    //Este es el mismo setEstado
     
     public void setIdAsiento(int idAsiento) {
         this.idAsiento = idAsiento;
@@ -48,5 +46,6 @@ public abstract class Asiento implements Serializable{
         return ocupado;
     }
     
+    //método abstracto ya que cada asiento tiene una tarifa distinta
     public abstract int calcularTarifa(int tarifaGeneral);
 }

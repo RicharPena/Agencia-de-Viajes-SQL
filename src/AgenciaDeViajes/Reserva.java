@@ -11,10 +11,7 @@ import java.util.ArrayList;
  *
  * @author Systema
  * 
- * Se modificó la relación de los asientos en la Reserva, debido a que puede un usuario tener varios asientos
- * Se eliminó los métodos setAsiento y getAsiento
- * Se añadió un nuevo método llamado agregarAsientos
- * Se añadió un nuevo método llamado eliminarAsientos
+ * 
  */
 public class Reserva implements Serializable{
     private static final long serialVersionUID = 1L;
@@ -43,7 +40,7 @@ public class Reserva implements Serializable{
         Agencia.actualizarVuelos();
     }
     
-    //Con la interfase, se elije el idAsiento
+    //Con la interfase, se elije el idAsiento y se agrega directamente a los vuelos y también a la lista de asientos que tiene el usuario en la reserva
     public void agregarAsientos(ArrayList<Integer>asientos){
         if(asientos.isEmpty()){
             
@@ -60,7 +57,7 @@ public class Reserva implements Serializable{
         }
     }
     
-    //Con la interfase, se elije el idAsiento
+    //Con la interfase, se elimina que el usuario escogió ese asiento en la reserva y  en la lista de vuelos general, además de que se actualiza los vuelos.
     public void eliminarAsientos(ArrayList<Integer>asientos){
         if(asientos.isEmpty()){
             
@@ -81,6 +78,7 @@ public class Reserva implements Serializable{
         }
     }
     
+    //Aquí se verifica cuanto dinero se debe por la cantidad de asientos reservados
     public int getPagoTotal(){
         int pagoTotal=0;
         
@@ -104,6 +102,8 @@ public class Reserva implements Serializable{
         
         return sits;
     }
+    
+    //MÉTODOS GETTER Y SETTER
     public int getIdReserva() {
         return idReserva;
     }
