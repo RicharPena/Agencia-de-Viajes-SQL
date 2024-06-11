@@ -35,6 +35,10 @@ public class LatamAirlanes extends javax.swing.JFrame {
         
     }
     
+    /*Para tener en cuenta, tanto Avianca como FlyEmirates o LatamAirlanes utilizan los mismos métodos o similares
+    debido a que su estructura es la misma (todo el código explicado en la clase Avianca)
+    */
+    
     public LatamAirlanes(int posVuelo,int posReserva) {
         this.posVuelo=posVuelo;
         this.posReserva=posReserva;//Si es -1 entonces va a crear una reserva

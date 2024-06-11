@@ -34,6 +34,9 @@ public class FlyEmirates extends javax.swing.JFrame {
     public FlyEmirates(){
         
     }
+    /*Para tener en cuenta, tanto Avianca como FlyEmirates o LatamAirlanes utilizan los mismos métodos o similares
+    debido a que su estructura es la misma (todo el código explicado en la clase Avianca)
+    */
     
     public FlyEmirates(int posVuelo,int posReserva) {
         this.posVuelo=posVuelo;

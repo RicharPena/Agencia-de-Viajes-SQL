@@ -47,6 +47,7 @@ public class Registro extends javax.swing.JFrame {
         txtConfirContra.setForeground(Color.GRAY);
     }
     
+    //Se añaden las imágenes al jframe mediante esta función
     private void putImageinButton(String ruta, JButton btn){
         ImageIcon image = new ImageIcon(getClass().getResource(ruta));
         Icon imageIcon = new ImageIcon(image.getImage().getScaledInstance(btn.getWidth(), btn.getHeight(), Image.SCALE_SMOOTH));
@@ -79,6 +80,7 @@ public class Registro extends javax.swing.JFrame {
         jpass.setFont(tipoFuente.fuente(tipoFuente.BPR,0,18));
     }
     
+    //se añaden imágenes a los toggleButton mediante esta función
     private void putImageinTButton(String ruta, JToggleButton Tbtn){
         ImageIcon image = new ImageIcon(getClass().getResource(ruta));
         Icon imageIcon = new ImageIcon(image.getImage().getScaledInstance(Tbtn.getWidth(), Tbtn.getHeight(), Image.SCALE_SMOOTH));
@@ -243,6 +245,8 @@ public class Registro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        /*Aquí se verifican todos los campos y guarda en los vectores el nuevo usuario creado
+        */
         String n = txtName.getText();
         String u = txtUserName.getText();
         String c1 = new String(txtContra.getPassword());
@@ -279,12 +283,16 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
+        // Si el usuario quiere salir de registro, podrá utilizar el botón y se le devolverá a la pestaña de inicio
         dispose();
         Inicio inicio=new Inicio();
         inicio.setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
+    /*A partir de aquí, se verifican que todos los campos, al momento de darle click en alguno, se elimine lo que tenga
+    escrito para que la persona pueda escribir y dependiendo si es passwordField, se programan los botones para ver lo
+    escrito dependiendo de las acciones del usuario
+    */
     private void txtNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNameMouseClicked
         String ps1 = new String(txtContra.getPassword());
         String ps2 = new String(txtConfirContra.getPassword());
@@ -418,7 +426,9 @@ public class Registro extends javax.swing.JFrame {
     private void btnRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterMouseClicked
         //No va nada
     }//GEN-LAST:event_btnRegisterMouseClicked
-
+    
+    
+    //A partir de aqui se declaran las acciones de los botones para que se pueda ver la contraseña de la contraseña y confirmar contraseña
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         if(jToggleButton1.isSelected()){
             putImageinTButton("/Images/Button visual_002.png", jToggleButton1);

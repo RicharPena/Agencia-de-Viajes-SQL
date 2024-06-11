@@ -247,7 +247,10 @@ public class Avianca extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
+        /*Aquí dependiendo si ya existen personas con reserva, se mostrará en pantalla para el usuario los asientos tomados
+        o si le da click en alguno, se tomará la posición de ese botón para posteriormente tomar la posición del asiento y así
+        guardarlo en un vector provicional para posteriormente guardarlo en el vector de registros
+        */
         this.dispose();
         if(posReserva==-1){
             ArrayList <Integer> asientos = new ArrayList<>();
@@ -265,11 +268,13 @@ public class Avianca extends javax.swing.JFrame {
                     }
                 }
             }
+            //aquí se crea la reserva del usuario dependiendo de si tiene o no (definido anteriormente)s
             Agencia.listaUsuarios.get(Inicio.posicionUsuario).crearReserva(Agencia.listaVuelos.get(posVuelo),asientos);
             
             Sesion sesion = new Sesion(1);
             sesion.setVisible(true);
         }else{
+            //Si ya existe la reserva, se determina si ya tiene reserva en ese mismo avión o si desea modificarla
             ArrayList <Integer> actual = Agencia.listaUsuarios.get(Inicio.posicionUsuario).getListaReserva().get(posReserva).getAsientos();
             ArrayList <Integer> nuevo = new ArrayList<>();
             

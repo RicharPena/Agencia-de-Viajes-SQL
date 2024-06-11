@@ -219,13 +219,16 @@ public class Inicio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    
+    //Este método nos ayuda a añadirle imágenes a un botón dependiendo del tamaño que tenga al momento de modificarlo en "Design"
     private void putImageinButton(String ruta, JButton btn){
         ImageIcon image = new ImageIcon(getClass().getResource(ruta));
         Icon imageIcon = new ImageIcon(image.getImage().getScaledInstance(btn.getWidth(), btn.getHeight(), Image.SCALE_SMOOTH));
         btn.setIcon(imageIcon);
     }
     
+    //Similar al método de arriba, nos permite agregar imágenes a un ToggleButton
     private void putImageinTButton(String ruta, JToggleButton Tbtn){
         ImageIcon image = new ImageIcon(getClass().getResource(ruta));
         Icon imageIcon = new ImageIcon(image.getImage().getScaledInstance(Tbtn.getWidth(), Tbtn.getHeight(), Image.SCALE_SMOOTH));
@@ -233,6 +236,8 @@ public class Inicio extends javax.swing.JFrame {
     }
     
     Fuentes tipoFuente = new Fuentes();
+    
+    //Todos estos métodos nos sirven para cambiar la fuente de todos los textField
     
     private void cursiveFontinTF(JTextField jtext){
         jtext.setFont(tipoFuente.fuente(tipoFuente.RIO,0,18));
@@ -262,6 +267,9 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void txtUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMouseClicked
+        /*Aquí cuando le damos click al textField de usuario, se elimina su contenido y se pone en blanco
+        para que la persona pueda introducir su nombre de Usuario
+        */
         String ps =new String(txtPassword.getPassword());
         if (txtUsuario.getText().equals("Usuario")){
             txtUsuario.setText("");
@@ -275,13 +283,14 @@ public class Inicio extends javax.swing.JFrame {
             txtPassword.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_txtUsuarioMouseClicked
-    //Este otro método podría ir, funciona cuando sale el mouse de la caja que contiene el textfield
-    //Mejor es si clickea en el otro txt y si no hay nada la cambia, ya que si sale de la caja y se cambia se siente extraño
+    
     private void txtUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMouseExited
         
     }//GEN-LAST:event_txtUsuarioMouseExited
 
     private void txtPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMouseClicked
+        //Lo mismo que con el evento anterior cuando se le da click al txtUsuario, solamente que este es para la contraseña
+        //Además de que se introdujo para que se viera la contraseña si el usuario quiere
         String ps =new String(txtPassword.getPassword());
         if (ps.equals("Contraseña")){
             txtPassword.setText("");
@@ -308,6 +317,10 @@ public class Inicio extends javax.swing.JFrame {
     
     //BOTÓN DE LOGIN
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        /*Aquí se verifica todas las posibilidades por si algún campo queda vacío
+        y se muestra un mensaje dependiendo de lo que faltó por un determinado tiempo
+        */
+        
         String u = txtUsuario.getText();
         String c = new String(txtPassword.getPassword());
         
@@ -332,6 +345,7 @@ public class Inicio extends javax.swing.JFrame {
                     for (int i=0 ;i < AgenciaDeViajes.Agencia.listaUsuarios.size(); i++){
                         if (AgenciaDeViajes.Agencia.listaUsuarios.get(i).login(u, c)==true){
                             if (AgenciaDeViajes.Agencia.listaUsuarios.get(i).getUserName().equals("ADMIN")){
+                                //Aquí si corresponde a Admin, se procede a pasar a la pestaña administradora
                                 dispose();
                                 Admin admin = new Admin();
                                 admin.setVisible(true);
@@ -359,7 +373,7 @@ public class Inicio extends javax.swing.JFrame {
     
     
     private void TbtnVisualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TbtnVisualActionPerformed
-        // TODO add your handling code here:
+        // Este botón corresponde a cuando se le de click para que se vea la contraseña
         
         if(TbtnVisual.isSelected()){
             putImageinTButton("/Images/Button visual_002.png", TbtnVisual);
@@ -378,7 +392,7 @@ public class Inicio extends javax.swing.JFrame {
     
     int xMouse,yMouse;
     private void BarraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraMousePressed
-        // TODO add your handling code here:
+        // Esta función permite ajustar en tiempo real la pestaña de inicio a la posición que el usuario quiera
         xMouse=evt.getX();
         yMouse=evt.getY();
     }//GEN-LAST:event_BarraMousePressed
@@ -388,14 +402,14 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPasswordActionPerformed
 
     private void BarraMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarraMouseDragged
-        // TODO add your handling code here:
+        // Aquí se complementa lo que dije con respecto al evento llamado BarraMousePressed
         int x=evt.getXOnScreen();
         int y=evt.getYOnScreen();
         setLocation(x-xMouse, y-yMouse);
     }//GEN-LAST:event_BarraMouseDragged
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
+        // Si queremos salir, existe un botón para cerrar que automáticamente guarda toda la información de los vectores en los archivos
         String archivoVuelos = "Vuelos.dat", archivoUsuarios = "Usuarios.dat";
         guardarEnArchivos(listaUsuarios, archivoUsuarios);
         guardarEnArchivos(listaVuelos, archivoVuelos);
@@ -403,12 +417,12 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
-        // TODO add your handling code here:
+        //Este método corresponde a cuando entramos en los límites del botón de cerrar, que permite cambiar la imágen
         putImageinButton("/images/Close_Button_02.png", btnExit);
     }//GEN-LAST:event_btnExitMouseEntered
 
     private void btnExitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseExited
-        // TODO add your handling code here:
+        // Similar al evento anterior, solo que este devuelve la imágen antes de entrar
         putImageinButton("/images/Close_Button_01.png", btnExit);
     }//GEN-LAST:event_btnExitMouseExited
 

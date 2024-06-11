@@ -533,41 +533,42 @@ public class Sesion extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setText("Reservas");
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        jLabel2.setText("Todas sus Reservas se encuentran aquí: ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel2)
-                .addContainerGap(497, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(19, 19, 19)
                 .addComponent(jLabel2)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         Reservas.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 580, 70));
 
-        jPanel4.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel4.setBackground(new java.awt.Color(124, 0, 255));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 220, Short.MAX_VALUE)
+            .addGap(0, 230, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 70, Short.MAX_VALUE)
         );
 
-        Reservas.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 220, 70));
+        Reservas.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 230, 70));
 
         tblReservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1023,6 +1024,9 @@ public class Sesion extends javax.swing.JFrame {
         //NADA
     }//GEN-LAST:event_txtCambioNombreActionPerformed
 
+    
+    //EL BLOQUE DE CÓDIGO SIGUIENTE TIENE COMO PROPOSITO CAMBIAR LAS LETRAS Y PONERLAS DEPENDIENDO DE SI EL USUARIO SALE DE UN TEXTFIELD E INGRESA A OTRO.
+    //EN TOTAL SON 8 FUNCIONES DE AQUÍ PARA ABAJO
     private void txtCambioNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCambioNombreMouseClicked
         String c1 = new String(txtCambioContra.getPassword());
         String c2 = new String(txtConfCamContra.getPassword());
@@ -1355,7 +1359,8 @@ public class Sesion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarReservaActionPerformed
 
     private void btnPagarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarReservaActionPerformed
-        // TODO add your handling code here:
+        // Este método corresponde a cuando queremos pagar, básicamente debemos seleccionar una fila y después darle al botón de pagar
+        //Y dependiendo de si el usuario tiene registrada una targeta o no, se tomarán las debidas acciones
         int [] selectedRows = tblReservas.getSelectedRows();
         
         ArrayList <Integer> selectedFilas = new ArrayList <>();
@@ -1495,7 +1500,8 @@ public class Sesion extends javax.swing.JFrame {
             eco = posBus.get(i).getAsientos()[75].calcularTarifa(posBus.get(i).getTarifaGeneral());//Saco la tarifa para el asiento en la posición 75 (economico)
             horario = posBus.get(i).getFechaSalida();//Extraigo la fecha de salida del vuelo
             
-            if (posBus.get(i).getEstadoVuelo() == true){
+            //Aquí verifico si el estadoVuelo es true o si todavía hay asientos disponibles para reservar
+            if (posBus.get(i).getEstadoVuelo() == true || posBus.get(i).getAsientosDisponibles()>0){
                 estadoVuelo = "Habilitado";
             }
             else{
@@ -1506,7 +1512,7 @@ public class Sesion extends javax.swing.JFrame {
         }
         //Aquí lo que se hace es cambiar el tamaño de las filas
         this.tblVuelos.setRowHeight(30);
-        //Ocultar columna de idVuelo
+        //Ocultar columna de idVuelo para que el usuario no lo vea
         ocultarColumna(tblVuelos,0);
     }
     
@@ -1530,7 +1536,7 @@ public class Sesion extends javax.swing.JFrame {
         String asientos;
         LocalDate fechaSalida;
         
-        
+        //Aquí se carga toda la información de las reservas para posteriormente mostrarlas
         for (int i=0; i < AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().size(); i++){
             idReserva = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getIdReserva();
             idVuelo = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getVuelo().getIdVuelo();
@@ -1541,6 +1547,7 @@ public class Sesion extends javax.swing.JFrame {
             fechaSalida = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getVuelo().getFechaSalida();
             pagoTotal = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getPagoTotal();
             asientos = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).toStringAsientos();
+            
             if(Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getPago()){
                 estadoPago="Pagado";
             }else{
@@ -1556,6 +1563,8 @@ public class Sesion extends javax.swing.JFrame {
         ocultarColumna(tblReservas,1);
     }
     
+    //esta función nos permite ocultar la columna de idReserva o de idVuelo, debido a que se necesita trabajar con la misma pero que el usuario
+    //no vea su existencia
     public void ocultarColumna(JTable table, int columnIndex) {
         table.getColumnModel().getColumn(columnIndex).setMinWidth(0);
         table.getColumnModel().getColumn(columnIndex).setMaxWidth(0);
