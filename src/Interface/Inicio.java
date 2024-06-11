@@ -4,6 +4,10 @@
  */
 package Interface;
 
+import AgenciaDeViajes.Agencia;
+import static AgenciaDeViajes.Agencia.guardarEnArchivos;
+import static AgenciaDeViajes.Agencia.listaUsuarios;
+import static AgenciaDeViajes.Agencia.listaVuelos;
 import AgenciaDeViajes.Usuario;
 import javax.swing.Timer;
 
@@ -384,6 +388,9 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
+        String archivoVuelos = "Vuelos.dat", archivoUsuarios = "Usuarios.dat";
+        guardarEnArchivos(listaUsuarios, archivoUsuarios);
+        guardarEnArchivos(listaVuelos, archivoVuelos);
         System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
 

@@ -24,7 +24,6 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 /**
  *
@@ -47,10 +46,11 @@ public class Sesion extends javax.swing.JFrame {
         putImageInJL("/Images/nombreAgencia_002.png", imgNombreAgencia);
         putImageInJL("/Images/slogan_002.png", imgSlogan);
         titleFont(txtShowUserName);
-        txtShowUserName.setText(AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getUserName());
+        txtShowUserName.setText(AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getNombre());
         
         if(op==0){
             tbtnHome.setEnabled(false);
+            shadowHome.setVisible(true);
             shadowVuelos.setVisible(false);
             shadowReservas.setVisible(false);
             shadowConfig.setVisible(false);
@@ -59,6 +59,7 @@ public class Sesion extends javax.swing.JFrame {
         }else{
             if(op==1){
                 tbtnVuelos.setEnabled(false);
+                shadowVuelos.setVisible(true);
                 shadowHome.setVisible(false);
                 shadowReservas.setVisible(false);
                 shadowConfig.setVisible(false);
@@ -66,6 +67,7 @@ public class Sesion extends javax.swing.JFrame {
                 opciones.setSelectedIndex(1);
             }else{
                 tbtnReservas.setEnabled(false);
+                shadowReservas.setVisible(true);
                 shadowHome.setVisible(false);
                 shadowVuelos.setVisible(false);
                 shadowConfig.setVisible(false);
@@ -741,10 +743,7 @@ public class Sesion extends javax.swing.JFrame {
     //Comenté esta parte porque hay como un error ahí en jCalendar1
     /*
     private void jCalendar1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendar1PropertyChange
-        if(evt.getOldValue()!= null){
-            SimpleDateFormat ff = new SimpleDateFormat("dd/MM/yyyy");
-            txtFechaSalida.setText(ff.format(jCalendar1.getCalendar().getTime()));
-        }
+        //NADA
     }//GEN-LAST:event_jCalendar1PropertyChange
     */
     
@@ -1327,7 +1326,7 @@ public class Sesion extends javax.swing.JFrame {
             // Obtener el valor del idVuelo de la segunda columna
             int idVuelo = (int)tblReservas.getValueAt(selectedRow,1);
             // Obtener el nombre de la aerolínea de la tercera columna
-            String aerolinea = (String) tblVuelos.getValueAt(selectedRow, 2);
+            String aerolinea = (String) tblReservas.getValueAt(selectedRow, 2);
             
             // Cerrar la ventana actual
             this.dispose();
@@ -1364,14 +1363,18 @@ public class Sesion extends javax.swing.JFrame {
         for(int selectedRow:selectedRows){
             selectedFilas.add(selectedRow);
         }
-        
         if(selectedFilas.isEmpty()){
             JOptionPane.showMessageDialog(null, "Por favor, seleccione una reserva de la tabla", "SELECCIÓN REQUERIDA", JOptionPane.WARNING_MESSAGE);
         }else{
             for(int selectedRow:selectedFilas){
                 int idReserva=(int)tblReservas.getValueAt(selectedRow,0);
-                Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).pagarReserva(idReserva);
+                if(Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).pagarReserva(idReserva)){
+                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "Por favor, agregue una tarjeta de crédito válida", "TARJETA REQUERIDA", JOptionPane.WARNING_MESSAGE);
+                }
             }
+            actualizarTablaReservas();
         }
     }//GEN-LAST:event_btnPagarReservaActionPerformed
     
@@ -1511,13 +1514,16 @@ public class Sesion extends javax.swing.JFrame {
     //AQUÍ SE EMPIEZA A TRABAJAR CON LA TABLA DE RESERVAS
     
     private void actualizarTablaReservas(){
+        
+        eliminarDatosTabla(tblReservas);
         //Creo una matriz llamada ids que es la que va a tener los encabezados de las columnas de las tablas
-        String ids[] ={"ID Reserva","ID Vuelo","Aereolinea", "Origen","Escalas","Destino","Fecha Salida", "PagoTotal","Asientos"};
+        String ids[] ={"ID Reserva","ID Vuelo","Aereolinea", "Origen","Escalas","Destino","Fecha Salida", "PagoTotal","Asientos","Estado"};
         tbr.setColumnIdentifiers(ids); //Aquí se establece los encabezados en la tabla
         tblReservas.setModel(tbr);//Y por último, como las tablas se basan en modelos, debemos añadir dicho modelo
         
         int idReserva,idVuelo,pagoTotal;
-        String aereolinea;
+        String estadoPago;
+        String aerolinea;
         String origen;
         String escalas;
         String destino;
@@ -1528,14 +1534,19 @@ public class Sesion extends javax.swing.JFrame {
         for (int i=0; i < AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().size(); i++){
             idReserva = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getIdReserva();
             idVuelo = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getVuelo().getIdVuelo();
-            aereolinea = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getVuelo().getAereolinea();
+            aerolinea = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getVuelo().getAereolinea();
             origen = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getVuelo().getOrigen();
             escalas = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getVuelo().toStringescalas();
             destino = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getVuelo().getDestino();
             fechaSalida = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getVuelo().getFechaSalida();
             pagoTotal = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getPagoTotal();
             asientos = AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).toStringAsientos();
-            tbr.addRow(new Object[]{idReserva,idVuelo,aereolinea,origen,escalas,destino,fechaSalida,pagoTotal,asientos});
+            if(Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getListaReserva().get(i).getPago()){
+                estadoPago="Pagado";
+            }else{
+                estadoPago="No Pagado";
+            }
+            tbr.addRow(new Object[]{idReserva,idVuelo,aerolinea,origen,escalas,destino,fechaSalida,pagoTotal,asientos,estadoPago});
         }
         //Aquí lo que se hace es cambiar el tamaño de las filas
         this.tblReservas.setRowHeight(30);

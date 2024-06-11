@@ -5,8 +5,11 @@
 package Interface;
 
 import AgenciaDeViajes.Agencia;
+import AgenciaDeViajes.Asiento;
 import AgenciaDeViajes.AsientoBusiness;
 import AgenciaDeViajes.AsientoEconomicoPremium;
+import AgenciaDeViajes.Usuario;
+import AgenciaDeViajes.Vuelo;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.Icon;
@@ -14,6 +17,7 @@ import javax.swing.ImageIcon;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JToggleButton;
 
 /**
@@ -68,6 +72,7 @@ public class FlyEmirates extends javax.swing.JFrame {
         avionModel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         setResizable(false);
 
         absolutePanel.setPreferredSize(new java.awt.Dimension(1280, 546));
@@ -251,6 +256,76 @@ public class FlyEmirates extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        if(posReserva==-1){
+            ArrayList <Integer> asientos = new ArrayList<>();
+            for(int j=0;j<columnas1;j++){
+                for(int i=0;i<filas1;i++){
+                    if(asientos1[i][j].isSelected()){
+                        asientos.add(Integer.valueOf(asientos1[i][j].getText()));
+                    }
+                }
+            }
+            for(int j=0;j<columnas2;j++){
+                for(int i=0;i<filas2;i++){
+                    if(asientos2[i][j].isSelected()){
+                        asientos.add(Integer.valueOf(asientos2[i][j].getText()));
+                    }
+                }
+            }
+            Agencia.listaUsuarios.get(Inicio.posicionUsuario).crearReserva(Agencia.listaVuelos.get(posVuelo),asientos);
+            
+            Sesion sesion = new Sesion(1);
+            sesion.setVisible(true);
+        }else{
+            ArrayList <Integer> actual = Agencia.listaUsuarios.get(Inicio.posicionUsuario).getListaReserva().get(posReserva).getAsientos();
+            ArrayList <Integer> nuevo = new ArrayList<>();
+            
+            for(int j=0;j<columnas1;j++){
+                for(int i=0;i<filas1;i++){
+                    if(asientos1[i][j].isSelected()){
+                        nuevo.add(Integer.valueOf(asientos1[i][j].getText()));
+                    }
+                }
+            }
+            for(int j=0;j<columnas2;j++){
+                for(int i=0;i<filas2;i++){
+                    if(asientos2[i][j].isSelected()){
+                        nuevo.add(Integer.valueOf(asientos2[i][j].getText()));
+                    }
+                }
+            }
+            
+            if(nuevo.equals(actual)){
+                
+            }else{
+                if(nuevo.isEmpty()){
+                    Agencia.listaUsuarios.get(Inicio.posicionUsuario).cancelarReserva(posReserva+1);
+                }else{
+                    ArrayList <Integer> agregar = new ArrayList<>();
+                    ArrayList <Integer> quitar = new ArrayList<>();
+                    
+                    Agencia.listaUsuarios.get(Inicio.posicionUsuario).getListaReserva().get(posReserva).setPago(false);
+                    
+                    for (Integer num : nuevo) {
+                        if (!actual.contains(num)) {
+                            agregar.add(num);
+                        }
+                    }
+
+                    for (Integer num : actual) {
+                        if (!nuevo.contains(num)) {
+                            quitar.add(num);
+                        }
+                    }
+                    
+                    Agencia.listaUsuarios.get(Inicio.posicionUsuario).getListaReserva().get(posReserva).agregarAsientos(agregar);
+                    Agencia.listaUsuarios.get(Inicio.posicionUsuario).getListaReserva().get(posReserva).eliminarAsientos(quitar);
+                }
+            }
+            Sesion sesion = new Sesion(2);
+            sesion.setVisible(true);
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
     
     int ancho1=20;
@@ -269,9 +344,9 @@ public class FlyEmirates extends javax.swing.JFrame {
                 asientos1[i][j].setText(""+count);//enumera los asientos
                 asientos1[i][j].setBounds(x1,y1,ancho1,altura1);//se les da posicion y tamaño
                 panelAsientos1.add(asientos1[i][j]);//se añaden al jPanel
-                initAsientos1(i,j,Integer.parseInt(asientos1[i][j].getText())-1);
                 Accion1 action = new Accion1();
                 asientos1[i][j].addActionListener(action);//se le añade la accion a cada JTougleButton
+                initAsientos1(i,j,Integer.parseInt(asientos1[i][j].getText())-1);
                 y1+=altura1;//el proximo boton estará abajo de este, pero pegado
                 count++;//aumento para enumerar los botones
                 if(((filas1/2)-1)==i){//cuando las filas van por la mitad
@@ -291,8 +366,15 @@ public class FlyEmirates extends javax.swing.JFrame {
                 for(int j=0;j<columnas1;j++){
                     if(e.getSource().equals(asientos1[i][j])){
                         if(asientos1[i][j].isSelected()){
-                            asientos1[i][j].setBackground(reserva);
-                            asientos1[i][j].setForeground(reserva);
+                            if (Agencia.asientoOcupadoPorOtroUsuario(posVuelo, Integer.parseInt(asientos1[i][j].getText())-1,Agencia.listaUsuarios.get(Inicio.posicionUsuario))) {
+                                asientos1[i][j].setBackground(ocupado);
+                                asientos1[i][j].setForeground(ocupado);
+                                asientos1[i][j].setEnabled(false);
+                                asientos1[i][j].setSelected(false);
+                            } else {
+                                asientos1[i][j].setBackground(reserva);
+                                asientos1[i][j].setForeground(reserva);
+                            }
                         }
                         else{
                             if(Agencia.listaVuelos.get(posVuelo).getAsientos()[Integer.parseInt(asientos1[i][j].getText())-1] instanceof AsientoBusiness){
@@ -329,9 +411,9 @@ public class FlyEmirates extends javax.swing.JFrame {
                 asientos2[i][j].setText(""+count);//enumera los asientos
                 asientos2[i][j].setBounds(x2,y2,ancho2,altura2);//se les da posicion y tamaño
                 panelAsientos2.add(asientos2[i][j]);//se añaden al jPanel
-                initAsientos2(i,j,Integer.parseInt(asientos2[i][j].getText())-1);
                 Accion2 action = new Accion2();
                 asientos2[i][j].addActionListener(action);//se le añade la accion a cada JTougleButton
+                initAsientos2(i,j,Integer.parseInt(asientos2[i][j].getText())-1);
                 y2+=altura2;//el proximo boton estará abajo de este, pero pegado
                 count++;//aumento para enumerar los botones
                 if(((filas2/2)-1)==i){//cuando las filas van por la mitad
@@ -351,8 +433,15 @@ public class FlyEmirates extends javax.swing.JFrame {
                 for(int j=0;j<columnas2;j++){
                     if(e.getSource().equals(asientos2[i][j])){
                         if(asientos2[i][j].isSelected()){
-                            asientos2[i][j].setBackground(reserva);
-                            asientos2[i][j].setForeground(reserva);
+                            if (Agencia.asientoOcupadoPorOtroUsuario(posVuelo, Integer.parseInt(asientos1[i][j].getText())-1,Agencia.listaUsuarios.get(Inicio.posicionUsuario))) {
+                                asientos2[i][j].setBackground(ocupado);
+                                asientos2[i][j].setForeground(ocupado);
+                                asientos2[i][j].setEnabled(false);
+                                asientos2[i][j].setSelected(false);
+                            } else {
+                                asientos2[i][j].setBackground(reserva);
+                                asientos2[i][j].setForeground(reserva);
+                            }
                         }
                         else{
                             if(Agencia.listaVuelos.get(posVuelo).getAsientos()[Integer.parseInt(asientos2[i][j].getText())-1] instanceof AsientoBusiness){
@@ -378,54 +467,78 @@ public class FlyEmirates extends javax.swing.JFrame {
     Color business=new Color(255,204,0),econopremium=new Color(51,153,255),econo=new Color(0,153,0),ocupado=new Color(255,0,0),reserva=new Color(184,207,229);
     
     public void initAsientos1(int i,int j,int posAsiento){
-        if(Agencia.listaVuelos.get(posVuelo).getAsientos()[posAsiento].isOcupado()){
-            if(Agencia.asientoOcupadoPorOtroUsuario(Agencia.listaVuelos.get(posVuelo),(posAsiento+1), Agencia.listaUsuarios.get(Inicio.posicionUsuario))){
-                asientos1[i][j].setBackground(ocupado);
-                asientos1[i][j].setForeground(ocupado);
-                asientos1[i][j].setEnabled(false);
-            }else{
-                asientos1[i][j].setBackground(reserva);
-                asientos1[i][j].setForeground(reserva);
-                asientos1[i][j].setSelected(true);
-            }
-        }else{
-            if(Agencia.listaVuelos.get(posVuelo).getAsientos()[posAsiento] instanceof AsientoBusiness){
-                asientos1[i][j].setBackground(business);
-                asientos1[i][j].setForeground(business);
-            }else{
-                if(Agencia.listaVuelos.get(posVuelo).getAsientos()[posAsiento] instanceof AsientoEconomicoPremium){
-                    asientos1[i][j].setBackground(econopremium);
-                    asientos1[i][j].setForeground(econopremium);
-                }else{
-                    asientos1[i][j].setBackground(econo);
-                    asientos1[i][j].setForeground(econo);
+        Vuelo vuelo = Agencia.listaVuelos.get(posVuelo);
+        Asiento asiento = vuelo.getAsientos()[posAsiento];
+        Usuario usuarioActual = Agencia.listaUsuarios.get(Inicio.posicionUsuario);
+
+        if (Agencia.asientoOcupadoPorOtroUsuario(posVuelo, posAsiento, usuarioActual)) {
+            asientos1[i][j].setBackground(ocupado);
+            asientos1[i][j].setForeground(ocupado);
+            asientos1[i][j].setEnabled(false);
+        } else {
+            if (asiento.isOcupado()) {
+                if (usuarioActual.tieneReservaEnAsiento(vuelo, posAsiento + 1)) {
+                    asientos1[i][j].setBackground(reserva);
+                    asientos1[i][j].setForeground(reserva);
+                    asientos1[i][j].setSelected(true);
+                } else {
+                    // Asiento ocupado por otro usuario
+                    asientos1[i][j].setBackground(ocupado);
+                    asientos1[i][j].setForeground(ocupado);
+                    asientos1[i][j].setEnabled(false);
+                }
+            } else {
+                // Asiento libre
+                if (asiento instanceof AsientoBusiness) {
+                    asientos1[i][j].setBackground(business);
+                    asientos1[i][j].setForeground(business);
+                } else{ 
+                    if (asiento instanceof AsientoEconomicoPremium) {
+                        asientos1[i][j].setBackground(econopremium);
+                        asientos1[i][j].setForeground(econopremium);
+                    } else {
+                        asientos1[i][j].setBackground(econo);
+                        asientos1[i][j].setForeground(econo);
+                    }
                 }
             }
         }
     }
     
     public void initAsientos2(int i,int j,int posAsiento){
-        if(Agencia.listaVuelos.get(posVuelo).getAsientos()[posAsiento].isOcupado()){
-            if(Agencia.asientoOcupadoPorOtroUsuario(Agencia.listaVuelos.get(posVuelo),(posAsiento+1), Agencia.listaUsuarios.get(Inicio.posicionUsuario))){
-                asientos2[i][j].setBackground(ocupado);
-                asientos2[i][j].setForeground(ocupado);
-                asientos2[i][j].setEnabled(false);
-            }else{
-                asientos2[i][j].setBackground(reserva);
-                asientos2[i][j].setForeground(reserva);
-                asientos2[i][j].setSelected(true);
-            }
-        }else{
-            if(Agencia.listaVuelos.get(posVuelo).getAsientos()[posAsiento] instanceof AsientoBusiness){
-                asientos2[i][j].setBackground(business);
-                asientos2[i][j].setForeground(business);
-            }else{
-                if(Agencia.listaVuelos.get(posVuelo).getAsientos()[posAsiento] instanceof AsientoEconomicoPremium){
-                    asientos2[i][j].setBackground(econopremium);
-                    asientos2[i][j].setForeground(econopremium);
-                }else{
-                    asientos2[i][j].setBackground(econo);
-                    asientos2[i][j].setForeground(econo);
+        Vuelo vuelo = Agencia.listaVuelos.get(posVuelo);
+        Asiento asiento = vuelo.getAsientos()[posAsiento];
+        Usuario usuarioActual = Agencia.listaUsuarios.get(Inicio.posicionUsuario);
+
+        if (Agencia.asientoOcupadoPorOtroUsuario(posVuelo, posAsiento, usuarioActual)) {
+            asientos2[i][j].setBackground(ocupado);
+            asientos2[i][j].setForeground(ocupado);
+            asientos2[i][j].setEnabled(false);
+        } else {
+            if (asiento.isOcupado()) {
+                if (usuarioActual.tieneReservaEnAsiento(vuelo, posAsiento + 1)) {
+                    asientos2[i][j].setBackground(reserva);
+                    asientos2[i][j].setForeground(reserva);
+                    asientos2[i][j].setSelected(true);
+                } else {
+                    // Asiento ocupado por otro usuario
+                    asientos2[i][j].setBackground(ocupado);
+                    asientos2[i][j].setForeground(ocupado);
+                    asientos2[i][j].setEnabled(false);
+                }
+            } else {
+                // Asiento libre
+                if (asiento instanceof AsientoBusiness) {
+                    asientos2[i][j].setBackground(business);
+                    asientos2[i][j].setForeground(business);
+                } else{ 
+                    if (asiento instanceof AsientoEconomicoPremium) {
+                        asientos2[i][j].setBackground(econopremium);
+                        asientos2[i][j].setForeground(econopremium);
+                    } else {
+                        asientos2[i][j].setBackground(econo);
+                        asientos2[i][j].setForeground(econo);
+                    }
                 }
             }
         }

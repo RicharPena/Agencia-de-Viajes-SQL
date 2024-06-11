@@ -250,49 +250,29 @@ public class Registro extends javax.swing.JFrame {
         
         Timer timer = new Timer(2000, (e) -> {txtMensaje.setText("");});
         
-        timer.setRepeats(false);        
-        if (u.equals("User Name") && n.equals("Nombre") && c1.equals("Contraseña") && c2.equals("Confirmar Contraseña")){
+        timer.setRepeats(false);
+        
+        if(u.equals("User Name") || n.equals("Nombre") || c1.equals("Contraseña") || c2.equals("Confirmar Contraseña")){
             txtMensaje.setText("Hacen falta campos por llenar!!!");
             timer.start();
-            return;
-        }
-        if (n.equals("Nombre")){
-            txtMensaje.setText("No se ha digitado ningún usuario!!!");
-            timer.start();
-            return;
-        }
-        if (u.equals("User Name")){
-            txtMensaje.setText("No se ha escrito el usuario!!!");
-            timer.start();
-            return;
-        }
-        if(c1.equals("Contraseña")){
-            txtMensaje.setText("No se ha escrito ninguna contraseña!!!");
-            timer.start();
-            return;
-        }
-        if(c2.equals("Confirmar Contraseña")){
-            txtMensaje.setText("Falta verificar la contraseña!!!");
-            timer.start();
-        }
-        
-        if (u.equals("User Name") && n.equals("Nombre") && c1.equals("Contraseña") && c2.equals("Confirmar Contraseña")){
-            //nada
-        }
-        else{
+        }else{
+            
+            boolean aux=false;
             for (Usuario usuario : AgenciaDeViajes.Agencia.listaUsuarios){
                 if (usuario.getUserName().equals(u)){
                     txtMensaje.setText("Nombre de Usuario ya Registrado");
                     timer.start();
-                    break;
+                    aux=true;
                 }
-                else{
-                    ArrayList<Reserva> listaReservaDefecto = new ArrayList<>();
-                    AgenciaDeViajes.Agencia.listaUsuarios.add(new Usuario(n, u, c1, null, listaReservaDefecto));
-                    dispose();
+            }
+            if(aux){
+                
+            }else{
+                if(c1.equals(c2)){
+                   AgenciaDeViajes.Agencia.listaUsuarios.add(new Usuario(n, u, c1));
+                    this.dispose();
                     Inicio inicio=new Inicio();
-                    inicio.setVisible(true);
-                    break;
+                    inicio.setVisible(true); 
                 }
             }
         }
