@@ -433,7 +433,7 @@ public class FlyEmirates extends javax.swing.JFrame {
                 for(int j=0;j<columnas2;j++){
                     if(e.getSource().equals(asientos2[i][j])){
                         if(asientos2[i][j].isSelected()){
-                            if (Agencia.asientoOcupadoPorOtroUsuario(posVuelo, Integer.parseInt(asientos1[i][j].getText())-1,Agencia.listaUsuarios.get(Inicio.posicionUsuario))) {
+                            if (Agencia.asientoOcupadoPorOtroUsuario(posVuelo, Integer.parseInt(asientos2[i][j].getText())-1,Agencia.listaUsuarios.get(Inicio.posicionUsuario))) {
                                 asientos2[i][j].setBackground(ocupado);
                                 asientos2[i][j].setForeground(ocupado);
                                 asientos2[i][j].setEnabled(false);
