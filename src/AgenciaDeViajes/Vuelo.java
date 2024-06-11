@@ -28,8 +28,7 @@ public class Vuelo implements Serializable{
     private boolean estadoVuelo;
     private int tarifaGeneral;
     
-    public Vuelo(int idVuelo, String aereolinea, String origen, ArrayList<String> escalas, String destino, int tarifaGeneral, LocalDate fechaSalida) {
-        this.idVuelo = idVuelo;
+    public Vuelo(String aereolinea, String origen, ArrayList<String> escalas, String destino, int tarifaGeneral, LocalDate fechaSalida) {
         this.aereolinea = aereolinea;
         this.tarifaGeneral = tarifaGeneral;
         this.fechaSalida = fechaSalida;

@@ -51,8 +51,18 @@ public class Usuario implements Serializable{
     }
     
     public void crearReserva(Vuelo vuelo, ArrayList<Integer>asientos){
-        int id=listaReserva.size();
-        listaReserva.add(new Reserva(id+1,vuelo,asientos));
+        int id;
+        if(listaReserva.isEmpty()){
+            id=0;
+        }else{
+            id=listaReserva.size();
+        }
+        
+        if(asientos.isEmpty()){
+            
+        }else{
+            listaReserva.add(new Reserva(id+1,vuelo,asientos));
+        }
     }
     
     public void cancelarReserva(int idReserva){
@@ -60,7 +70,6 @@ public class Usuario implements Serializable{
         
         listaReserva.remove(idReserva-1);
         
-        Agencia.actualizarVuelos();
         actualizarReservas();
     }
     
@@ -120,6 +129,15 @@ public class Usuario implements Serializable{
         else{
             return false;
         }
+    }
+    
+    public boolean tieneReservaEnAsiento(Vuelo vuelo, int numeroAsiento) {
+        for (Reserva reserva : listaReserva) {
+            if (reserva.getVuelo().equals(vuelo) && reserva.getAsientos().contains(numeroAsiento)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<Reserva> getListaReserva() {

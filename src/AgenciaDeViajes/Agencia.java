@@ -32,7 +32,7 @@ public class Agencia {
     public static ArrayList<Vuelo> listaVuelos = new ArrayList<>();
     
     public static void main(String [] args){
-        /* ESTO SOLO ES PARA CARGAR POR PRIMERA VEZ LOS ARCHIVOS
+        //ESTO SOLO ES PARA CREAR VUELOS Y CUENTAS DE PRUEBA
         String[]ciudades1={""};
         ArrayList<String>escalas1=new ArrayList<>(Arrays.asList(ciudades1));
         String[]ciudades2={"Madrid","Paris"};
@@ -40,14 +40,16 @@ public class Agencia {
         LocalDate fecha1 = LocalDate.of(2024, 9, 8), fecha2 = LocalDate.of(2024, 7, 5);
         
         
-        Vuelo vuelo1 = new Vuelo(1, "Avianca", "Cartagena",escalas1,"Boyaca", 650000, fecha1);
-        Vuelo vuelo2 = new Vuelo(2, "Fly Emirates", "Bogota", escalas2, "Munich", 500000, fecha2);
+        Vuelo vuelo1 = new Vuelo("Avianca", "Cartagena",escalas1,"Boyaca", 650000, fecha1);
+        Vuelo vuelo2 = new Vuelo("Fly Emirates", "Bogota", escalas2, "Munich", 500000, fecha2);
         Usuario usuario1 = new Usuario("Richar", "Richar", "123");
         
         listaUsuarios.add(usuario1);
         listaVuelos.add(vuelo1);
         listaVuelos.add(vuelo2);
-        */
+        
+        actualizarIDVuelo();
+        
         String archivoVuelos = "Vuelos.dat", archivoUsuarios = "Usuarios.dat";
         File fileVuelos  = new File(archivoVuelos);
         File fileUsuarios = new File(archivoUsuarios);
@@ -69,6 +71,12 @@ public class Agencia {
         inicio.setVisible(true);
     }
     
+    public static void actualizarIDVuelo(){
+        for(int i=0;i<listaVuelos.size();i++){
+            listaVuelos.get(i).setIdVuelo(i+1);
+        }
+    }
+    
     public static boolean vueloRepetido(Usuario user,Vuelo vuelo){
         boolean repetido=false;
         
@@ -81,20 +89,21 @@ public class Agencia {
         return repetido;
     }
     
-    public static boolean asientoOcupadoPorOtroUsuario(Vuelo vuelo, int asiento, Usuario usuario) {
-        for(Usuario u : listaUsuarios){
-            if(!u.equals(usuario)){
-                for(Reserva reserva : u.getListaReserva()){
-                    if(reserva.getVuelo().equals(vuelo)){
-                        for(int as : reserva.getAsientos()){
-                            if (as == asiento && vuelo.getAsientos()[asiento-1].getOcupado()){
-                                return true;
-                            }
+    public static boolean asientoOcupadoPorOtroUsuario(int posVuelo, int posAsiento, Usuario usuarioActual) {
+        Vuelo vuelo = listaVuelos.get(posVuelo);
+        
+        for (Usuario usuario : listaUsuarios) {
+            if (!usuario.equals(usuarioActual)) {
+                for (Reserva reserva : usuario.getListaReserva()) {
+                    if (reserva.getVuelo().equals(vuelo)) {
+                        if (reserva.getAsientos().contains(posAsiento + 1)) {
+                            return true;
                         }
                     }
                 }
             }
         }
+
         return false;
     }
     

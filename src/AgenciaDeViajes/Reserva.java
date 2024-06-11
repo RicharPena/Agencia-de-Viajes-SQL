@@ -61,9 +61,9 @@ public class Reserva implements Serializable{
     }
     
     //Con la interfase, se elije el idAsiento
-    public boolean eliminarAsientos(ArrayList<Integer>asientos){
+    public void eliminarAsientos(ArrayList<Integer>asientos){
         if(asientos.isEmpty()){
-            return false;
+            
         }
         else{
             for(int i=0;i<asientos.size();i++){
@@ -78,7 +78,6 @@ public class Reserva implements Serializable{
                 }
             }
             Agencia.actualizarVuelos();
-            return this.asientos.isEmpty();
         }
     }
     
@@ -135,9 +134,5 @@ public class Reserva implements Serializable{
     
     public void setPago(boolean pago) {
         this.pago = pago;
-    }
-
-    public boolean isPago() {
-        return pago;
     }
 }
