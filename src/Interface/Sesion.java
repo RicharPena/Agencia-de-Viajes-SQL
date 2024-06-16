@@ -75,10 +75,6 @@ public class Sesion extends javax.swing.JFrame {
                 opciones.setSelectedIndex(2);
             }
         }
-        shadowVuelos.setVisible(false);
-        shadowReservas.setVisible(false);
-        shadowConfig.setVisible(false);
-        shadowCS.setVisible(false);
         
         //A partir de aquí se inicia el panel de configuración
         parametroJTextFiel(txtCambioNombre);
@@ -167,7 +163,11 @@ public class Sesion extends javax.swing.JFrame {
         LocalDate fechaActual = LocalDate.now();
         for (Vuelo vuelo : AgenciaDeViajes.Agencia.listaVuelos){
             if (fechaActual.isBefore(vuelo.getFechaSalida())){
-                vuelo.setEstadoVuelo(true);
+                if(vuelo.getAsientosDisponibles()==0){
+                    
+                }else{
+                    vuelo.setEstadoVuelo(true);
+                }
             }
             else{
                 if (fechaActual.isAfter(vuelo.getFechaSalida())){
@@ -221,6 +221,7 @@ public class Sesion extends javax.swing.JFrame {
         tblVuelos = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         comboOrdenar = new javax.swing.JComboBox<>();
+        jTextField1 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnReservar = new javax.swing.JButton();
@@ -405,7 +406,6 @@ public class Sesion extends javax.swing.JFrame {
         shadowVuelos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/shadow.png"))); // NOI18N
         shadowVuelos.setToolTipText("");
         barraButtons.add(shadowVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 240, 60));
-        shadowVuelos.getAccessibleContext().setAccessibleName("");
 
         shadowReservas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/shadow.png"))); // NOI18N
         shadowReservas.setToolTipText("");
@@ -475,21 +475,25 @@ public class Sesion extends javax.swing.JFrame {
             }
         });
 
+        jTextField1.setText("Destino");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(comboOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(comboOrdenar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField1))
                 .addContainerGap(67, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(comboOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         Vuelos.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 220, 70));
@@ -1288,23 +1292,27 @@ public class Sesion extends javax.swing.JFrame {
             if (Agencia.vueloRepetido(Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario), Agencia.listaVuelos.get(idVuelo - 1))) {
                 JOptionPane.showMessageDialog(null, "El vuelo ya está reservado", "VUELO REPETIDO", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                // Obtener el nombre de la aerolínea de la segunda columna
-                String aerolinea = (String) tblVuelos.getValueAt(selectedRow, 1);
-                
-                // Cerrar la ventana actual
-                this.dispose();
-                
-                // Abrir la ventana correspondiente según la aerolínea
-                if (aerolinea.equals("Avianca")){
-                    Avianca aereo = new Avianca(idVuelo-1,-1);
-                    aereo.setVisible(true);
+                if(!Agencia.listaVuelos.get(idVuelo-1).getEstadoVuelo()){
+                    JOptionPane.showMessageDialog(null, "Por favor, seleccione un vuelo disponible", "VUELO NO DISPONIBLE", JOptionPane.WARNING_MESSAGE);
                 }else{
-                    if (aerolinea.equals("Fly Emirates")){
-                        FlyEmirates aereo = new FlyEmirates(idVuelo-1,-1);
+                    // Obtener el nombre de la aerolínea de la segunda columna
+                    String aerolinea = (String) tblVuelos.getValueAt(selectedRow, 1);
+
+                    // Cerrar la ventana actual
+                    this.dispose();
+
+                    // Abrir la ventana correspondiente según la aerolínea
+                    if (aerolinea.equals("Avianca")){
+                        Avianca aereo = new Avianca(idVuelo-1,-1);
                         aereo.setVisible(true);
                     }else{
-                        LatamAirlanes aereo = new LatamAirlanes(idVuelo-1,-1);
-                        aereo.setVisible(true);
+                        if (aerolinea.equals("Fly Emirates")){
+                            FlyEmirates aereo = new FlyEmirates(idVuelo-1,-1);
+                            aereo.setVisible(true);
+                        }else{
+                            LatamAirlanes aereo = new LatamAirlanes(idVuelo-1,-1);
+                            aereo.setVisible(true);
+                        }
                     }
                 }
             }
@@ -1501,7 +1509,7 @@ public class Sesion extends javax.swing.JFrame {
             horario = posBus.get(i).getFechaSalida();//Extraigo la fecha de salida del vuelo
             
             //Aquí verifico si el estadoVuelo es true o si todavía hay asientos disponibles para reservar
-            if (posBus.get(i).getEstadoVuelo() == true || posBus.get(i).getAsientosDisponibles()>0){
+            if (posBus.get(i).getEstadoVuelo()){
                 estadoVuelo = "Habilitado";
             }
             else{
@@ -1646,6 +1654,7 @@ public class Sesion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTabbedPane opciones;
     private javax.swing.JLabel shadowCS;
     private javax.swing.JLabel shadowConfig;
