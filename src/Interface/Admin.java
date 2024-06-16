@@ -73,6 +73,7 @@ public class Admin extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         btnAnadir = new javax.swing.JButton();
         txtMensaje = new javax.swing.JLabel();
+        eliminarVuelo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -195,10 +196,18 @@ public class Admin extends javax.swing.JFrame {
                 btnAnadirMouseClicked(evt);
             }
         });
-        getContentPane().add(btnAnadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, -1, -1));
+        getContentPane().add(btnAnadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 320, -1, -1));
 
         txtMensaje.setForeground(new java.awt.Color(255, 0, 0));
         getContentPane().add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 300, 270, 20));
+
+        eliminarVuelo.setText("ELIMINAR VUELOS");
+        eliminarVuelo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eliminarVueloMouseClicked(evt);
+            }
+        });
+        getContentPane().add(eliminarVuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -267,6 +276,12 @@ public class Admin extends javax.swing.JFrame {
         Inicio inicio = new Inicio();
         inicio.setVisible(true);
     }//GEN-LAST:event_btnDevolverActionPerformed
+
+    private void eliminarVueloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarVueloMouseClicked
+        dispose();
+        DisposeVuelos eVuelos = new DisposeVuelos();
+        eVuelos.setVisible(true);
+    }//GEN-LAST:event_eliminarVueloMouseClicked
     /**
      * @param args the command line arguments
      */
@@ -306,6 +321,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton btnAnadir;
     private javax.swing.JButton btnDevolver;
     private javax.swing.JComboBox<String> comboAereo;
+    private javax.swing.JButton eliminarVuelo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
