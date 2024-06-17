@@ -437,7 +437,7 @@ public class Sesion extends javax.swing.JFrame {
         txtShowUserName.setFont(new java.awt.Font("Maiandra GD", 0, 58)); // NOI18N
         txtShowUserName.setForeground(new java.awt.Color(255, 255, 255));
         txtShowUserName.setOpaque(true);
-        Inicio.add(txtShowUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 440, 50));
+        Inicio.add(txtShowUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 440, 60));
 
         BGinicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Panelnicio2.png"))); // NOI18N
         BGinicio.setToolTipText("");

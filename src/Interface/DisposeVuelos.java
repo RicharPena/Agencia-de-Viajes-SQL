@@ -157,6 +157,7 @@ public class DisposeVuelos extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblVuelos);
 
         btnEliminarVuelo.setText("ELIMINAR VUELO");
+        btnEliminarVuelo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminarVuelo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnEliminarVueloMouseClicked(evt);
