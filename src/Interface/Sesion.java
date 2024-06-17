@@ -9,6 +9,7 @@ import AgenciaDeViajes.Vuelo;
 import Tipografias.Fuentes;
 import java.awt.Color;
 import java.awt.Image;
+import java.text.Normalizer;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -219,11 +220,16 @@ public class Sesion extends javax.swing.JFrame {
         Vuelos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVuelos = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
+        jpanelFiltro = new javax.swing.JPanel();
         comboOrdenar = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        destinotxt = new javax.swing.JTextField();
+        origentxt = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        txtOrigin = new javax.swing.JLabel();
+        txtDestino = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         btnReservar = new javax.swing.JButton();
         Reservas = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -438,6 +444,7 @@ public class Sesion extends javax.swing.JFrame {
 
         opciones.addTab("Inicio", Inicio);
 
+        Vuelos.setBackground(new java.awt.Color(255, 255, 255));
         Vuelos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblVuelos = new javax.swing.JTable(){
@@ -463,10 +470,11 @@ public class Sesion extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblVuelos);
 
-        Vuelos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 800, 410));
+        Vuelos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 800, 420));
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Ordenar por"));
+        jpanelFiltro.setBackground(new java.awt.Color(153, 153, 255));
+        jpanelFiltro.setBorder(javax.swing.BorderFactory.createTitledBorder("Ordenar por"));
+        jpanelFiltro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         comboOrdenar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mostrar Todos", "Horario", "Tarifa Business", "Tarifa Eco Premium", "Tarifa Economica", "Estado Vuelo" }));
         comboOrdenar.addActionListener(new java.awt.event.ActionListener() {
@@ -474,34 +482,49 @@ public class Sesion extends javax.swing.JFrame {
                 comboOrdenarActionPerformed(evt);
             }
         });
+        jpanelFiltro.add(comboOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 220, 20));
 
-        jTextField1.setText("Destino");
+        destinotxt.setToolTipText("");
+        destinotxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                destinotxtActionPerformed(evt);
+            }
+        });
+        jpanelFiltro.add(destinotxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 190, 30));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(comboOrdenar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
-                .addContainerGap(67, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(comboOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        origentxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                origentxtActionPerformed(evt);
+            }
+        });
+        jpanelFiltro.add(origentxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 190, 30));
 
-        Vuelos.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 220, 70));
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        jpanelFiltro.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, 85, 30));
+
+        txtOrigin.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        txtOrigin.setText("Origen");
+        jpanelFiltro.add(txtOrigin, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 77, 28));
+
+        txtDestino.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        txtDestino.setText("Destino");
+        jpanelFiltro.add(txtDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 77, 28));
+
+        Vuelos.add(jpanelFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 540, 110));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
-        jLabel1.setText("Todos nuestros vuelos se encuentran aquí:");
+        jLabel1.setText("Todos nuestros vuelos");
+
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        jLabel3.setText("se encuentran aquí:");
+        jLabel3.setToolTipText("");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -509,18 +532,22 @@ public class Sesion extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        Vuelos.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 580, 70));
+        Vuelos.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 120));
 
         btnReservar.setText("Reservar");
         btnReservar.setToolTipText("");
@@ -529,7 +556,7 @@ public class Sesion extends javax.swing.JFrame {
                 btnReservarActionPerformed(evt);
             }
         });
-        Vuelos.add(btnReservar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 510, 160, 50));
+        Vuelos.add(btnReservar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 550, 120, 30));
 
         opciones.addTab("Vuelos", Vuelos);
 
@@ -1390,6 +1417,19 @@ public class Sesion extends javax.swing.JFrame {
             actualizarTablaReservas();
         }
     }//GEN-LAST:event_btnPagarReservaActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        actualizarTablaVuelos(6);
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void origentxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_origentxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_origentxtActionPerformed
+
+    private void destinotxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destinotxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_destinotxtActionPerformed
     
     //**************************************************************************************************************************************************************************
     //AQUÍ SE ACTUALIZA LA TABLA DE VUELOS AL MOMENTO DE SELECCIONAR UN BOTÓN PARA ORDENARLA SEGUN LAS PREFERENCIAS DLE USUARIO
@@ -1429,8 +1469,12 @@ public class Sesion extends javax.swing.JFrame {
                             actualizarDatosTabla(posBus, op, 75);
                         }
                         else{
-                            //ORGANIZACIÓN POR ESTADO VUELO
-                            actualizarDatosTabla(posBus, op, 0);
+                            if(op == 5){
+                                //ORGANIZACIÓN POR ESTADO VUELO
+                                actualizarDatosTabla(posBus, op, 0);
+                            }else{
+                                actualizarDatosTabla(posBus,op,0);
+                            }
                         }
                     }
                 }
@@ -1492,31 +1536,69 @@ public class Sesion extends javax.swing.JFrame {
                             return v1.getEstadoVuelo() ? 0: 0;
                         }
                     });
+                }else{
+                    if(op==6){
+                        //Aquí se filtra por origen y destino
+                        String origin = origentxt.getText();
+                        String destiny = destinotxt.getText();
+                        if(origin.equals("")){
+                            if(destiny.equals("")){
+                                
+                            }else{
+                                posBus.clear();
+                                for(Vuelo vuelo : Agencia.listaVuelos){
+                                    if(normalizeString(vuelo.getDestino()).contains(normalizeString(destiny))){
+                                        posBus.add(vuelo);
+                                    }
+                                }
+                            }
+                        }else{
+                            posBus.clear();
+                            if(destiny.equals("")){
+                                for(Vuelo vuelo : Agencia.listaVuelos){
+                                    if(normalizeString(vuelo.getOrigen()).contains(normalizeString(origin))){
+                                        posBus.add(vuelo);
+                                    }
+                                }
+                            }else{
+                                for(Vuelo vuelo : Agencia.listaVuelos){
+                                    if(normalizeString(vuelo.getOrigen()).contains(normalizeString(origin)) && normalizeString(vuelo.getDestino()).contains(normalizeString(destiny))){
+                                        posBus.add(vuelo);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
         
         //Como es la opción sin filtro, todo se deja igual y se capturan los datos para posteriormente mostrarlos en la interfase
-        for (int i=0; i< AgenciaDeViajes.Agencia.listaVuelos.size(); i++){
-            idVuelo = posBus.get(i).getIdVuelo();
-            aereolinea = posBus.get(i).getAereolinea();
-            escalas = posBus.get(i).toStringescalas();
-            origen = posBus.get(i).getOrigen();
-            destino = posBus.get(i).getDestino();
-            business = posBus.get(i).getAsientos()[1].calcularTarifa(posBus.get(i).getTarifaGeneral());//Saco la tarifa para el asiento en la posición 1 (business)
-            ecoPremium = posBus.get(i).getAsientos()[32].calcularTarifa(posBus.get(i).getTarifaGeneral());//Saco la tarifa para el asiento en la posición 32 (economico premium)
-            eco = posBus.get(i).getAsientos()[75].calcularTarifa(posBus.get(i).getTarifaGeneral());//Saco la tarifa para el asiento en la posición 75 (economico)
-            horario = posBus.get(i).getFechaSalida();//Extraigo la fecha de salida del vuelo
+        
+        if(posBus.isEmpty()){
             
-            //Aquí verifico si el estadoVuelo es true o si todavía hay asientos disponibles para reservar
-            if (posBus.get(i).getEstadoVuelo()){
-                estadoVuelo = "Habilitado";
+        }else{
+            for (int i=0; i< posBus.size(); i++){
+                idVuelo = posBus.get(i).getIdVuelo();
+                aereolinea = posBus.get(i).getAereolinea();
+                escalas = posBus.get(i).toStringescalas();
+                origen = posBus.get(i).getOrigen();
+                destino = posBus.get(i).getDestino();
+                business = posBus.get(i).getAsientos()[1].calcularTarifa(posBus.get(i).getTarifaGeneral());//Saco la tarifa para el asiento en la posición 1 (business)
+                ecoPremium = posBus.get(i).getAsientos()[32].calcularTarifa(posBus.get(i).getTarifaGeneral());//Saco la tarifa para el asiento en la posición 32 (economico premium)
+                eco = posBus.get(i).getAsientos()[75].calcularTarifa(posBus.get(i).getTarifaGeneral());//Saco la tarifa para el asiento en la posición 75 (economico)
+                horario = posBus.get(i).getFechaSalida();//Extraigo la fecha de salida del vuelo
+                
+                //Aquí verifico si el estadoVuelo es true o si todavía hay asientos disponibles para reservar
+                if (posBus.get(i).getEstadoVuelo()){
+                    estadoVuelo = "Habilitado";
+                }
+                else{
+                    estadoVuelo = "No Disponible";
+                }
+                //Aquí añado los elementos a la tabla
+                tb.addRow(new Object[]{ idVuelo, aereolinea, origen, escalas, destino, horario, business, ecoPremium, eco, estadoVuelo});
             }
-            else{
-                estadoVuelo = "No Disponible";
-            }
-            //Aquí añado los elementos a la tabla
-            tb.addRow(new Object[]{ idVuelo, aereolinea, origen, escalas, destino, horario, business, ecoPremium, eco, estadoVuelo});
         }
         //Aquí lo que se hace es cambiar el tamaño de las filas
         this.tblVuelos.setRowHeight(30);
@@ -1569,6 +1651,19 @@ public class Sesion extends javax.swing.JFrame {
         ocultarColumna(tblReservas,0);
         //Ocultar columna de idVuelo
         ocultarColumna(tblReservas,1);
+    }
+    
+    //Esta funcion normaliza los string
+    public static String normalizeString(String chain) {
+        // Convertir a minúsculas
+        String normalized = chain.toLowerCase();
+
+        // Eliminar caracteres especiales usando expresión regular
+        
+        // Aquí se reemplazan á, é, etc. por a, e, respectivamente
+        normalized = Normalizer.normalize(normalized, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").replaceAll("[^a-zA-Z0-9 ]", ""); // eliminar caracteres especiales como $/%7&
+
+        return normalized;
     }
     
     //esta función nos permite ocultar la columna de idReserva o de idVuelo, debido a que se necesita trabajar con la misma pero que el usuario
@@ -1629,6 +1724,7 @@ public class Sesion extends javax.swing.JFrame {
     private javax.swing.JPanel absolutePanel;
     private javax.swing.JLabel backgraund;
     private javax.swing.JPanel barraButtons;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditAddTarjet;
     private javax.swing.JButton btnEditarReserva;
     private javax.swing.JButton btnLogOut;
@@ -1636,6 +1732,7 @@ public class Sesion extends javax.swing.JFrame {
     private javax.swing.JButton btnReservar;
     private javax.swing.JButton btnSaveChanges;
     private javax.swing.JComboBox<String> comboOrdenar;
+    private javax.swing.JTextField destinotxt;
     private javax.swing.JPanel empresaLogo;
     private javax.swing.JLabel encabezado;
     private javax.swing.JLabel iconConfig;
@@ -1648,14 +1745,15 @@ public class Sesion extends javax.swing.JFrame {
     private javax.swing.JLabel imgSlogan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel jpanelFiltro;
     private javax.swing.JTabbedPane opciones;
+    private javax.swing.JTextField origentxt;
     private javax.swing.JLabel shadowCS;
     private javax.swing.JLabel shadowConfig;
     private javax.swing.JLabel shadowHome;
@@ -1672,7 +1770,9 @@ public class Sesion extends javax.swing.JFrame {
     private javax.swing.JTextField txtCambioNombre;
     private javax.swing.JTextField txtCambioUserName;
     private javax.swing.JPasswordField txtConfCamContra;
+    private javax.swing.JLabel txtDestino;
     private javax.swing.JLabel txtMensaje;
+    private javax.swing.JLabel txtOrigin;
     private javax.swing.JLabel txtShowUserName;
     private javax.swing.JTextField txtTarjeta;
     // End of variables declaration//GEN-END:variables

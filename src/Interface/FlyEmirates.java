@@ -7,6 +7,7 @@ package Interface;
 import AgenciaDeViajes.Agencia;
 import AgenciaDeViajes.Asiento;
 import AgenciaDeViajes.AsientoBusiness;
+import AgenciaDeViajes.AsientoEconomico;
 import AgenciaDeViajes.AsientoEconomicoPremium;
 import AgenciaDeViajes.Usuario;
 import AgenciaDeViajes.Vuelo;
@@ -346,10 +347,8 @@ public class FlyEmirates extends javax.swing.JFrame {
                 asientos1[i][j] = new JToggleButton();//instancio cada boton
                 asientos1[i][j].setText(""+count);//enumera los asientos
                 asientos1[i][j].setBounds(x1,y1,ancho1,altura1);//se les da posicion y tamaño
+                initAsientos1(i,j,count-1);
                 panelAsientos1.add(asientos1[i][j]);//se añaden al jPanel
-                Accion1 action = new Accion1();
-                asientos1[i][j].addActionListener(action);//se le añade la accion a cada JTougleButton
-                initAsientos1(i,j,Integer.parseInt(asientos1[i][j].getText())-1);
                 y1+=altura1;//el proximo boton estará abajo de este, pero pegado
                 count++;//aumento para enumerar los botones
                 if(((filas1/2)-1)==i){//cuando las filas van por la mitad
@@ -369,15 +368,8 @@ public class FlyEmirates extends javax.swing.JFrame {
                 for(int j=0;j<columnas1;j++){
                     if(e.getSource().equals(asientos1[i][j])){
                         if(asientos1[i][j].isSelected()){
-                            if (Agencia.asientoOcupadoPorOtroUsuario(posVuelo, Integer.parseInt(asientos1[i][j].getText())-1,Agencia.listaUsuarios.get(Inicio.posicionUsuario))) {
-                                asientos1[i][j].setBackground(ocupado);
-                                asientos1[i][j].setForeground(ocupado);
-                                asientos1[i][j].setEnabled(false);
-                                asientos1[i][j].setSelected(false);
-                            } else {
-                                asientos1[i][j].setBackground(reserva);
-                                asientos1[i][j].setForeground(reserva);
-                            }
+                            asientos1[i][j].setBackground(reserva);
+                            asientos1[i][j].setForeground(reserva);
                         }
                         else{
                             if(Agencia.listaVuelos.get(posVuelo).getAsientos()[Integer.parseInt(asientos1[i][j].getText())-1] instanceof AsientoBusiness){
@@ -413,10 +405,8 @@ public class FlyEmirates extends javax.swing.JFrame {
                 asientos2[i][j] = new JToggleButton();//instancio cada boton
                 asientos2[i][j].setText(""+count);//enumera los asientos
                 asientos2[i][j].setBounds(x2,y2,ancho2,altura2);//se les da posicion y tamaño
+                initAsientos2(i,j,count-1);
                 panelAsientos2.add(asientos2[i][j]);//se añaden al jPanel
-                Accion2 action = new Accion2();
-                asientos2[i][j].addActionListener(action);//se le añade la accion a cada JTougleButton
-                initAsientos2(i,j,Integer.parseInt(asientos2[i][j].getText())-1);
                 y2+=altura2;//el proximo boton estará abajo de este, pero pegado
                 count++;//aumento para enumerar los botones
                 if(((filas2/2)-1)==i){//cuando las filas van por la mitad
@@ -436,15 +426,8 @@ public class FlyEmirates extends javax.swing.JFrame {
                 for(int j=0;j<columnas2;j++){
                     if(e.getSource().equals(asientos2[i][j])){
                         if(asientos2[i][j].isSelected()){
-                            if (Agencia.asientoOcupadoPorOtroUsuario(posVuelo, Integer.parseInt(asientos2[i][j].getText())-1,Agencia.listaUsuarios.get(Inicio.posicionUsuario))) {
-                                asientos2[i][j].setBackground(ocupado);
-                                asientos2[i][j].setForeground(ocupado);
-                                asientos2[i][j].setEnabled(false);
-                                asientos2[i][j].setSelected(false);
-                            } else {
-                                asientos2[i][j].setBackground(reserva);
-                                asientos2[i][j].setForeground(reserva);
-                            }
+                            asientos2[i][j].setBackground(reserva);
+                            asientos2[i][j].setForeground(reserva);
                         }
                         else{
                             if(Agencia.listaVuelos.get(posVuelo).getAsientos()[Integer.parseInt(asientos2[i][j].getText())-1] instanceof AsientoBusiness){
@@ -473,35 +456,34 @@ public class FlyEmirates extends javax.swing.JFrame {
         Vuelo vuelo = Agencia.listaVuelos.get(posVuelo);
         Asiento asiento = vuelo.getAsientos()[posAsiento];
         Usuario usuarioActual = Agencia.listaUsuarios.get(Inicio.posicionUsuario);
+        Accion1 action = new Accion1();
 
-        if (Agencia.asientoOcupadoPorOtroUsuario(posVuelo, posAsiento, usuarioActual)) {
+        if(Agencia.asientoOcupadoPorOtroUsuario(posVuelo, posAsiento, usuarioActual)){
             asientos1[i][j].setBackground(ocupado);
             asientos1[i][j].setForeground(ocupado);
             asientos1[i][j].setEnabled(false);
-        } else {
-            if (asiento.isOcupado()) {
-                if (usuarioActual.tieneReservaEnAsiento(vuelo, posAsiento + 1)) {
-                    asientos1[i][j].setBackground(reserva);
-                    asientos1[i][j].setForeground(reserva);
-                    asientos1[i][j].setSelected(true);
-                } else {
-                    // Asiento ocupado por otro usuario
-                    asientos1[i][j].setBackground(ocupado);
-                    asientos1[i][j].setForeground(ocupado);
-                    asientos1[i][j].setEnabled(false);
-                }
-            } else {
-                // Asiento libre
-                if (asiento instanceof AsientoBusiness) {
+        }else{
+            if(asiento.getOcupado()){
+                asientos1[i][j].setBackground(reserva);
+                asientos1[i][j].setForeground(reserva);
+                asientos1[i][j].setSelected(true);
+                asientos1[i][j].addActionListener(action);
+            }else{
+                if(asiento instanceof AsientoBusiness){
                     asientos1[i][j].setBackground(business);
                     asientos1[i][j].setForeground(business);
-                } else{ 
-                    if (asiento instanceof AsientoEconomicoPremium) {
+                    asientos1[i][j].addActionListener(action);
+                }else{
+                    if(asiento instanceof AsientoEconomicoPremium){
                         asientos1[i][j].setBackground(econopremium);
                         asientos1[i][j].setForeground(econopremium);
-                    } else {
-                        asientos1[i][j].setBackground(econo);
-                        asientos1[i][j].setForeground(econo);
+                        asientos1[i][j].addActionListener(action);
+                    }else{
+                        if(asiento instanceof AsientoEconomico){
+                            asientos1[i][j].setBackground(econo);
+                            asientos1[i][j].setForeground(econo);
+                            asientos1[i][j].addActionListener(action);
+                        }
                     }
                 }
             }
@@ -512,35 +494,34 @@ public class FlyEmirates extends javax.swing.JFrame {
         Vuelo vuelo = Agencia.listaVuelos.get(posVuelo);
         Asiento asiento = vuelo.getAsientos()[posAsiento];
         Usuario usuarioActual = Agencia.listaUsuarios.get(Inicio.posicionUsuario);
+        Accion2 action = new Accion2();
 
-        if (Agencia.asientoOcupadoPorOtroUsuario(posVuelo, posAsiento, usuarioActual)) {
+        if(Agencia.asientoOcupadoPorOtroUsuario(posVuelo, posAsiento, usuarioActual)){
             asientos2[i][j].setBackground(ocupado);
             asientos2[i][j].setForeground(ocupado);
             asientos2[i][j].setEnabled(false);
-        } else {
-            if (asiento.isOcupado()) {
-                if (usuarioActual.tieneReservaEnAsiento(vuelo, posAsiento + 1)) {
-                    asientos2[i][j].setBackground(reserva);
-                    asientos2[i][j].setForeground(reserva);
-                    asientos2[i][j].setSelected(true);
-                } else {
-                    // Asiento ocupado por otro usuario
-                    asientos2[i][j].setBackground(ocupado);
-                    asientos2[i][j].setForeground(ocupado);
-                    asientos2[i][j].setEnabled(false);
-                }
-            } else {
-                // Asiento libre
-                if (asiento instanceof AsientoBusiness) {
+        }else{
+            if(asiento.getOcupado()){
+                asientos2[i][j].setBackground(reserva);
+                asientos2[i][j].setForeground(reserva);
+                asientos2[i][j].setSelected(true);
+                asientos2[i][j].addActionListener(action);
+            }else{
+                if(asiento instanceof AsientoBusiness){
                     asientos2[i][j].setBackground(business);
                     asientos2[i][j].setForeground(business);
-                } else{ 
-                    if (asiento instanceof AsientoEconomicoPremium) {
+                    asientos2[i][j].addActionListener(action);
+                }else{
+                    if(asiento instanceof AsientoEconomicoPremium){
                         asientos2[i][j].setBackground(econopremium);
                         asientos2[i][j].setForeground(econopremium);
-                    } else {
-                        asientos2[i][j].setBackground(econo);
-                        asientos2[i][j].setForeground(econo);
+                        asientos2[i][j].addActionListener(action);
+                    }else{
+                        if(asiento instanceof AsientoEconomico){
+                            asientos2[i][j].setBackground(econo);
+                            asientos2[i][j].setForeground(econo);
+                            asientos2[i][j].addActionListener(action);
+                        }
                     }
                 }
             }
