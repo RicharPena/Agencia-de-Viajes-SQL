@@ -41,10 +41,6 @@ public abstract class Asiento implements Serializable{
     public boolean getOcupado() {
         return ocupado;
     }
-
-    public boolean isOcupado() {
-        return ocupado;
-    }
     
     //método abstracto ya que cada asiento tiene una tarifa distinta
     public abstract int calcularTarifa(int tarifaGeneral);

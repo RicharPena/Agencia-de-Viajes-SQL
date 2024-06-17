@@ -131,15 +131,6 @@ public class Usuario implements Serializable{
             return false;
         }
     }
-    
-    public boolean tieneReservaEnAsiento(Vuelo vuelo, int numeroAsiento) {
-        for (Reserva reserva : listaReserva) {
-            if (reserva.getVuelo().equals(vuelo) && reserva.getAsientos().contains(numeroAsiento)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     public ArrayList<Reserva> getListaReserva() {
         return listaReserva;
