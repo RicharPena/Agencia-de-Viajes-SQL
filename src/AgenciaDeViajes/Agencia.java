@@ -41,7 +41,7 @@ public class Agencia {
         
         
         Vuelo vuelo1 = new Vuelo("Avianca", "Cartagena",escalas1,"Boyaca", 650000, fecha1);
-        Vuelo vuelo2 = new Vuelo("Fly Emirates", "Bogota", escalas2, "Munich", 500000, fecha2);
+        Vuelo vuelo2 = new Vuelo("Fly Emirates", "Bogota", escalas2, "Munich", 1000000, fecha2);
         Usuario usuario1 = new Usuario("Richar", "Richar", "123");
         Usuario usuario2 = new Usuario("ADMIN", "ADMIN", "ADMIN");
         
@@ -87,6 +87,20 @@ public class Agencia {
     public static void actualizarIDVuelo(){
         for(int i=0;i<listaVuelos.size();i++){
             listaVuelos.get(i).setIdVuelo(i+1);
+        }
+    }
+    
+    public static void eliminarVuelo(int idVuelo,int op){
+        for(Usuario usuario : listaUsuarios){
+            for(Reserva reserva : usuario.getListaReserva()){
+                if(reserva.getVuelo().getIdVuelo()==idVuelo){
+                    usuario.cancelarReserva(reserva.getIdReserva());
+                }
+            }
+        }
+        if(op==0){
+            listaVuelos.remove(idVuelo-1);
+            actualizarIDVuelo();
         }
     }
     
