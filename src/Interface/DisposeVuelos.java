@@ -41,11 +41,18 @@ public class DisposeVuelos extends javax.swing.JFrame {
         btn.setIcon(imageIcon);
     }
     
+    private void eliminarDatosTabla(JTable tabla){
+        DefaultTableModel vacio = (DefaultTableModel) tabla.getModel();
+        vacio.setRowCount(0);
+    }
+    
     private void actualizarDatosTabla(ArrayList<Vuelo> posBus){
         //Creo una matriz llamada ids que es la que va a tener los encabezados de las columnas de las tablas
         String ids[] ={"ID","Aereolinea","Origen", "Escalas", "Destino", "Fecha Salida", "Business", "Eco Premium", "Economico", "Estado Vuelo"};
         tb.setColumnIdentifiers(ids); //Aquí se establece los encabezados en la tabla
         tblVuelos.setModel(tb);//Y por último, como las tablas se basan en modelos, debemos añadir dicho modelo
+        
+        eliminarDatosTabla(tblVuelos);
         
         //Estas variables son las que van a almacenar los datos de las tablas
         String aereolinea, origen,escalas, destino, estadoVuelo;
@@ -213,23 +220,25 @@ public class DisposeVuelos extends javax.swing.JFrame {
 
     private void btnEliminarVueloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarVueloActionPerformed
         // TODO add your handling code here:
-        // Este método corresponde a cuando queremos pagar, básicamente debemos seleccionar una fila y después darle al botón de pagar
-        //Y dependiendo de si el usuario tiene registrada una targeta o no, se tomarán las debidas acciones
-        int [] selectedRows = tblVuelos.getSelectedRows();
-        
-        ArrayList <Integer> selectedFilas = new ArrayList <>();
-        
-        for(int selectedRow:selectedRows){
-            selectedFilas.add(selectedRow);
-        }
-        if(selectedFilas.isEmpty()){
+        // Obtener el número de filas seleccionadas
+        int selectedRowCount = tblVuelos.getSelectedRowCount();
+    
+        if (selectedRowCount == 1) {
+            // Obtener la fila seleccionada
+            int selectedRow = tblVuelos.getSelectedRow();
+            // Obtener el valor del idVuelo
+            int idVuelo = (int)tblVuelos.getValueAt(selectedRow,0);
             
-        }else{
-            for(int selectedRow:selectedFilas){
-                int idVuelo=(int)tblVuelos.getValueAt(selectedRow,0);
-                Agencia.eliminarVuelo(idVuelo,0);
-            }
+            Agencia.eliminarVuelo(idVuelo,0);
+            
             actualizarDatosTabla(AgenciaDeViajes.Agencia.listaVuelos);
+        } else {
+            // Mostrar un mensaje si no hay ninguna fila seleccionada o si hay más de una fila seleccionada
+            if (selectedRowCount == 0) {
+                JOptionPane.showMessageDialog(null, "Por favor, seleccione un vuelo de la tabla", "SELECCIÓN REQUERIDA", JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, seleccione solo un vuelo", "MULTIPLE SELECCIÓN", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnEliminarVueloActionPerformed
 
