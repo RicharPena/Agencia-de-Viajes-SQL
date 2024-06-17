@@ -184,18 +184,18 @@ public class DisposeVuelos extends javax.swing.JFrame {
             .addComponent(jScrollPane1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnEliminarVuelo)
-                .addGap(429, 429, 429))
+                .addComponent(btnEliminarVuelo, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(405, 405, 405))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(btnEliminarVuelo)
-                .addGap(32, 32, 32))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEliminarVuelo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -221,24 +221,27 @@ public class DisposeVuelos extends javax.swing.JFrame {
     private void btnEliminarVueloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarVueloActionPerformed
         // TODO add your handling code here:
         // Obtener el número de filas seleccionadas
-        int selectedRowCount = tblVuelos.getSelectedRowCount();
-    
-        if (selectedRowCount == 1) {
-            // Obtener la fila seleccionada
-            int selectedRow = tblVuelos.getSelectedRow();
-            // Obtener el valor del idVuelo
-            int idVuelo = (int)tblVuelos.getValueAt(selectedRow,0);
-            
-            Agencia.eliminarVuelo(idVuelo,0);
-            
-            actualizarDatosTabla(AgenciaDeViajes.Agencia.listaVuelos);
-        } else {
-            // Mostrar un mensaje si no hay ninguna fila seleccionada o si hay más de una fila seleccionada
-            if (selectedRowCount == 0) {
-                JOptionPane.showMessageDialog(null, "Por favor, seleccione un vuelo de la tabla", "SELECCIÓN REQUERIDA", JOptionPane.WARNING_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "Por favor, seleccione solo un vuelo", "MULTIPLE SELECCIÓN", JOptionPane.WARNING_MESSAGE);
+        int [] selectedRows = tblVuelos.getSelectedRows();
+        
+        ArrayList <Integer> selectedFilas = new ArrayList <>();
+        
+        for(int selectedRow:selectedRows){
+            selectedFilas.add(selectedRow);
+        }
+        
+        if(selectedFilas.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione un vuelo de la tabla", "SELECCIÓN REQUERIDA", JOptionPane.WARNING_MESSAGE);
+        }else{
+            ArrayList <Vuelo> listaEliminar = new ArrayList<>();
+            for(int selectedRow:selectedFilas){
+                int idVuelo=(int)tblVuelos.getValueAt(selectedRow,0);
+                Agencia.eliminarVuelo(idVuelo);
+                listaEliminar.add(Agencia.listaVuelos.get(idVuelo-1));
             }
+            
+            Agencia.listaVuelos.removeAll(listaEliminar);
+            Agencia.actualizarIDVuelo();
+            actualizarDatosTabla(Agencia.listaVuelos);
         }
     }//GEN-LAST:event_btnEliminarVueloActionPerformed
 

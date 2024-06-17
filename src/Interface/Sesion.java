@@ -173,7 +173,7 @@ public class Sesion extends javax.swing.JFrame {
             else{
                 if (fechaActual.isAfter(vuelo.getFechaSalida())){
                     vuelo.setEstadoVuelo(false);
-                    Agencia.eliminarVuelo(vuelo.getIdVuelo(),1);
+                    Agencia.eliminarVuelo(vuelo.getIdVuelo());
                 }
                 else{
                     vuelo.setEstadoVuelo(true);

@@ -216,6 +216,7 @@ public class LatamAirlanes extends javax.swing.JFrame {
         absolutePanel.add(LatamLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 370, 114));
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -224,6 +225,7 @@ public class LatamAirlanes extends javax.swing.JFrame {
         absolutePanel.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 450, 130, 40));
 
         btnGuardar.setText("Guardar");
+        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);

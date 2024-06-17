@@ -215,6 +215,7 @@ public class Avianca extends javax.swing.JFrame {
         absolutePanel.add(AviancaLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 440, 100));
 
         btnGuardar.setText("Guardar");
+        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -223,6 +224,7 @@ public class Avianca extends javax.swing.JFrame {
         absolutePanel.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 450, 130, 40));
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
