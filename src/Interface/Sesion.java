@@ -173,6 +173,7 @@ public class Sesion extends javax.swing.JFrame {
             else{
                 if (fechaActual.isAfter(vuelo.getFechaSalida())){
                     vuelo.setEstadoVuelo(false);
+                    Agencia.eliminarVuelo(vuelo.getIdVuelo(),1);
                 }
                 else{
                     vuelo.setEstadoVuelo(true);
@@ -500,6 +501,7 @@ public class Sesion extends javax.swing.JFrame {
         jpanelFiltro.add(origentxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 190, 30));
 
         btnBuscar.setText("Buscar");
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -551,6 +553,7 @@ public class Sesion extends javax.swing.JFrame {
 
         btnReservar.setText("Reservar");
         btnReservar.setToolTipText("");
+        btnReservar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReservar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReservarActionPerformed(evt);
@@ -622,6 +625,7 @@ public class Sesion extends javax.swing.JFrame {
         Reservas.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 800, -1));
 
         btnEditarReserva.setText("Editar");
+        btnEditarReserva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditarReserva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarReservaActionPerformed(evt);
@@ -630,6 +634,7 @@ public class Sesion extends javax.swing.JFrame {
         Reservas.add(btnEditarReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 520, 140, 50));
 
         btnPagarReserva.setText("Pagar");
+        btnPagarReserva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPagarReserva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPagarReservaActionPerformed(evt);
@@ -725,6 +730,7 @@ public class Sesion extends javax.swing.JFrame {
         btnEditAddTarjet.setBorder(null);
         btnEditAddTarjet.setBorderPainted(false);
         btnEditAddTarjet.setContentAreaFilled(false);
+        btnEditAddTarjet.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditAddTarjet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditAddTarjetActionPerformed(evt);
@@ -736,6 +742,7 @@ public class Sesion extends javax.swing.JFrame {
         btnSaveChanges.setBorder(null);
         btnSaveChanges.setBorderPainted(false);
         btnSaveChanges.setContentAreaFilled(false);
+        btnSaveChanges.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSaveChanges.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveChangesActionPerformed(evt);

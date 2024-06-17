@@ -4,6 +4,7 @@
  */
 package Interface;
 
+import AgenciaDeViajes.Agencia;
 import AgenciaDeViajes.Vuelo;
 import java.awt.Image;
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ import java.util.Comparator;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -103,6 +105,7 @@ public class DisposeVuelos extends javax.swing.JFrame {
         btnEliminarVuelo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 36)); // NOI18N
         jLabel1.setText("Eliminar Vuelos");
@@ -110,6 +113,7 @@ public class DisposeVuelos extends javax.swing.JFrame {
         btnDevolver.setBorder(null);
         btnDevolver.setBorderPainted(false);
         btnDevolver.setContentAreaFilled(false);
+        btnDevolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDevolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDevolverActionPerformed(evt);
@@ -153,6 +157,16 @@ public class DisposeVuelos extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblVuelos);
 
         btnEliminarVuelo.setText("ELIMINAR VUELO");
+        btnEliminarVuelo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminarVueloMouseClicked(evt);
+            }
+        });
+        btnEliminarVuelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarVueloActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -195,6 +209,32 @@ public class DisposeVuelos extends javax.swing.JFrame {
         Admin admin = new Admin();
         admin.setVisible(true);
     }//GEN-LAST:event_btnDevolverActionPerformed
+
+    private void btnEliminarVueloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarVueloActionPerformed
+        // TODO add your handling code here:
+        // Este método corresponde a cuando queremos pagar, básicamente debemos seleccionar una fila y después darle al botón de pagar
+        //Y dependiendo de si el usuario tiene registrada una targeta o no, se tomarán las debidas acciones
+        int [] selectedRows = tblVuelos.getSelectedRows();
+        
+        ArrayList <Integer> selectedFilas = new ArrayList <>();
+        
+        for(int selectedRow:selectedRows){
+            selectedFilas.add(selectedRow);
+        }
+        if(selectedFilas.isEmpty()){
+            
+        }else{
+            for(int selectedRow:selectedFilas){
+                int idVuelo=(int)tblVuelos.getValueAt(selectedRow,0);
+                Agencia.eliminarVuelo(idVuelo,0);
+            }
+            actualizarDatosTabla(AgenciaDeViajes.Agencia.listaVuelos);
+        }
+    }//GEN-LAST:event_btnEliminarVueloActionPerformed
+
+    private void btnEliminarVueloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarVueloMouseClicked
+        //NADA
+    }//GEN-LAST:event_btnEliminarVueloMouseClicked
 
     /**
      * @param args the command line arguments

@@ -70,12 +70,13 @@ public class Admin extends javax.swing.JFrame {
         txtEscalas = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        add = new javax.swing.JButton();
         btnAnadir = new javax.swing.JButton();
         txtMensaje = new javax.swing.JLabel();
         eliminarVuelo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
@@ -86,6 +87,7 @@ public class Admin extends javax.swing.JFrame {
         btnDevolver.setBorder(null);
         btnDevolver.setBorderPainted(false);
         btnDevolver.setContentAreaFilled(false);
+        btnDevolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDevolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDevolverActionPerformed(evt);
@@ -182,18 +184,30 @@ public class Admin extends javax.swing.JFrame {
         jLabel15.setText("Si no necesita, dejar en blanco");
         getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 290, -1, -1));
 
-        jButton1.setText("Añadir Escala");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        add.setText("Añadir Escala");
+        add.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                addMouseClicked(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 320, -1, -1));
+        add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addActionPerformed(evt);
+            }
+        });
+        getContentPane().add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 320, -1, -1));
 
         btnAnadir.setText("AÑADIR VUELO");
+        btnAnadir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAnadir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAnadirMouseClicked(evt);
+            }
+        });
+        btnAnadir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnadirActionPerformed(evt);
             }
         });
         getContentPane().add(btnAnadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 320, -1, -1));
@@ -202,6 +216,7 @@ public class Admin extends javax.swing.JFrame {
         getContentPane().add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 300, 270, 20));
 
         eliminarVuelo.setText("ELIMINAR VUELOS");
+        eliminarVuelo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         eliminarVuelo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 eliminarVueloMouseClicked(evt);
@@ -255,7 +270,7 @@ public class Admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAnadirMouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
         Timer timer = new Timer(2000, (e) -> {txtMensaje.setText("");});
         
         timer.setRepeats(false);
@@ -268,7 +283,7 @@ public class Admin extends javax.swing.JFrame {
             escalas.add(txtEscalas.getText());
             txtEscalas.setText("");
         }
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_addMouseClicked
 
     private void btnDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolverActionPerformed
         //Si el administrador desea devolverse, se devolverá al inicio
@@ -282,6 +297,14 @@ public class Admin extends javax.swing.JFrame {
         DisposeVuelos eVuelos = new DisposeVuelos();
         eVuelos.setVisible(true);
     }//GEN-LAST:event_eliminarVueloMouseClicked
+
+    private void btnAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirActionPerformed
+        //NADA
+    }//GEN-LAST:event_btnAnadirActionPerformed
+
+    private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
+        //NADA
+    }//GEN-LAST:event_addActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -318,11 +341,11 @@ public class Admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton add;
     private javax.swing.JButton btnAnadir;
     private javax.swing.JButton btnDevolver;
     private javax.swing.JComboBox<String> comboAereo;
     private javax.swing.JButton eliminarVuelo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
