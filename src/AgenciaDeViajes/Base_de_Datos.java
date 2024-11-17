@@ -18,7 +18,7 @@ public class Base_de_Datos {
     private static Map<Integer, Usuario> usuariosMap = new HashMap<>();
     
     public static Connection conectar(String pass){
-        String url = "jdbc:mysql://localhost:3306/ejercicio_multitablas";
+        String url = "jdbc:mysql://localhost:3306/agencia_de_viajes";
         String user = "root";
         
         Connection con=null;
