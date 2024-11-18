@@ -141,6 +141,7 @@ public class Base_de_Datos {
                 usuariosMap.put(id, usuario);
             }
             
+            int auxId=0;
             //Aquí se cargan las reservas de cada usuario
             while (rs2.next()){
                 
@@ -153,8 +154,11 @@ public class Base_de_Datos {
                 Vuelo vuelo = vuelosMap.get(id_vuelo);
                 Usuario usuario = usuariosMap.get(id_usuario);
                 
-                usuario.crearReserva(vuelo, buscarAsientos(con, id_vuelo, id));
-                usuario.getListaReserva().get(id-1).setPago(pago);
+                if (auxId != id){
+                    usuario.crearReserva(vuelo, buscarAsientos(con, id_vuelo, id));
+                    usuario.getListaReserva().get(id-1).setPago(pago);
+                    auxId = id;
+                }
             }
         }
         catch (SQLException e){
