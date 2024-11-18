@@ -8,6 +8,7 @@ import AgenciaDeViajes.Agencia;
 import static AgenciaDeViajes.Agencia.guardarEnArchivos;
 import static AgenciaDeViajes.Agencia.listaUsuarios;
 import static AgenciaDeViajes.Agencia.listaVuelos;
+import AgenciaDeViajes.Base_de_Datos;
 import AgenciaDeViajes.Usuario;
 import javax.swing.Timer;
 
@@ -410,9 +411,13 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // Si queremos salir, existe un botón para cerrar que automáticamente guarda toda la información de los vectores en los archivos
+        /*
         String archivoVuelos = "Vuelos.dat", archivoUsuarios = "Usuarios.dat";
         guardarEnArchivos(listaUsuarios, archivoUsuarios);
         guardarEnArchivos(listaVuelos, archivoVuelos);
+        */
+        //Si queremos salir, existe un botón para cerrar que automáticamente desconecta el programa con la base de datos
+        Base_de_Datos.desconectar(Agencia.con);
         System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
 
