@@ -5,6 +5,7 @@
 package AgenciaDeViajes;
 
 import Interface.Inicio;
+import java.sql.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,9 +32,12 @@ import java.util.Arrays;
 public class Agencia {
     public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     public static ArrayList<Vuelo> listaVuelos = new ArrayList<>();
+    public static  Connection con;
     
     public static void main(String [] args){
+        
         //ESTO SOLO ES PARA CREAR VUELOS Y CUENTAS DE PRUEBA
+        /*ANTES DE INTRODUCIR LA BASE DE DATOS
         String[]ciudades1={""};
         ArrayList<String>escalas1=new ArrayList<>(Arrays.asList(ciudades1));
         String[]ciudades2={"Madrid","Paris"};
@@ -59,12 +64,16 @@ public class Agencia {
         File fileVuelos  = new File(archivoVuelos);
         File fileUsuarios = new File(archivoUsuarios);
         
+        ANTES DE INTRODUCIR LA BASE DE DATOS*/
+        
         /*Aquí, se determina que si el vuelo existe, este mismo cargará desde los archivos
         a los vectores correspondientes. Si no existen, se crearán los archivos con algunos vuelos y Usuarios ya por predeterminados
         
         Además de todo esto, las clases que deben ser guardadas en los archivos (Vuelo, Reserva, Usuario y Asiento), debieron modificarse colocandoles el
         "implements" Serializable, debido a que para formar los archivos, se requiere que se utilice
         */
+        
+        /*ANTES DE INTRODUCIR LA BASE DE DATOS
         if (fileVuelos.exists()){
             cargarDesdeArchivoVuelos(archivoVuelos);
         }
@@ -79,6 +88,14 @@ public class Agencia {
             guardarEnArchivos(listaUsuarios, archivoUsuarios);
         }
         
+        ANTES DE INTRODUCIR LA BASE DE DATOS*/
+        
+        String contra = JOptionPane.showInputDialog(null, "Digite la contraseña de la Base de Datos", "ACCESO A LA BASE DE DATOS", JOptionPane.INFORMATION_MESSAGE);
+        con = Base_de_Datos.conectar(contra);
+        
+        //Aquí se procede a cargar los vuelos y cargar los usuarios en los respectivos vectores
+        Base_de_Datos.CargarVuelos(con);
+        Base_de_Datos.CargarUsuarios(con);
         //Aquí ya se abre la pestaña de Inicio
         Inicio inicio=new Inicio();
         
