@@ -191,4 +191,47 @@ public class Base_de_Datos {
         
         return asientos;
     }
+    
+    public static boolean usuariosNuevos(Connection con,String user_name, String name, String password){
+        String query1 = "INSERT INTO datos_usuarios (nombre) VALUES (?)";
+        String query2 = "INSERT INTO cuenta (usuario, contrasena) VALUES (?,?)";
+        
+        try{
+            //No permite que se ejecute primero una query y después la otra. Esta función manda todas estas instrucciones de una vez
+            con.setAutoCommit(false);
+            
+            PreparedStatement ps1 = con.prepareStatement(query1);
+            
+            ps1.setString(1, user_name);
+            ps1.executeUpdate();
+            
+            PreparedStatement ps2 = con.prepareStatement(query2);
+            
+            ps2.setString(1, user_name);
+            ps2.setString(2, password);
+            ps2.executeUpdate();
+            
+            con.commit();
+        }
+        catch (SQLException e){
+            //En caso de un error, para no tener una tabla con inconsistencias, se utiliza el rollback()
+            try{
+                con.rollback();
+                return false;
+            }
+            catch (SQLException rollbackE){
+                rollbackE.printStackTrace();
+            }
+        }
+        finally{
+            try{
+                //De cualquier manera, el programa volverá a ejecutar una query después de otra, por ello vuelve a ser true
+                con.setAutoCommit(true);
+            }
+            catch (SQLException autoCommitE){
+                autoCommitE.printStackTrace();
+            }
+        }
+        return true;
+    }
 }
