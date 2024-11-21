@@ -108,6 +108,7 @@ public class Agencia {
         }
     }
     
+    //Aquí se eliminan los vuelos (NOTA: Se eliminan los vuelos DE LA RESERVA mas no los vuelos del arrayList de vuelos
     public static void eliminarVuelo(int idVuelo){
         ArrayList <Reserva> listaEliminar = new ArrayList<>();
         
