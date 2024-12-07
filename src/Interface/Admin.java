@@ -5,6 +5,7 @@
 package Interface;
 
 import AgenciaDeViajes.Agencia;
+import AgenciaDeViajes.Base_de_Datos;
 import AgenciaDeViajes.Vuelo;
 import java.awt.Image;
 import java.time.LocalDate;
@@ -264,6 +265,8 @@ public class Admin extends javax.swing.JFrame {
             
             //Se actualiza el idVuelo del nuevo avión (es decir, se inicializa debido a que antes no tenía valor) con respecto a la posición de los demás aviones
             Agencia.actualizarIDVuelo();
+            
+            Base_de_Datos.añadirVuelos(Agencia.con, opAereo, origen, destino, fechaSalida, tarifa, this.escalas);
             
             txtMensaje.setText("VUELO AÑADIDO CON ÉXITO!!!");
             timer.start();
