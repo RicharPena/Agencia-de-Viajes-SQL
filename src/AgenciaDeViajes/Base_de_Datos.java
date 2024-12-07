@@ -6,9 +6,12 @@ package AgenciaDeViajes;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Systema
@@ -16,6 +19,7 @@ import java.util.Map;
 public class Base_de_Datos {
     private static Map<Integer, Vuelo> vuelosMap = new HashMap<>();
     private static Map<Integer, Usuario> usuariosMap = new HashMap<>();
+    private static Map<String, Integer> ciudadesMap = new HashMap<>();
     
     public static Connection conectar(String pass){
         String url = "jdbc:mysql://localhost:3306/agencia_de_viajes";
@@ -50,7 +54,7 @@ public class Base_de_Datos {
         String query2 = "SELECT vuelos.id, escalas.ciudad FROM escalasxvuelo JOIN escalas ON escalas.id = escalasxvuelo.id_escala JOIN vuelos ON vuelos.id = escalasxvuelo.id_vuelo;";
         String query3 = "SELECT asientos.id_vuelo, asientos.id_asiento AS idAsiento FROM asientos JOIN vuelos ON vuelos.id = asientos.id_vuelo;";
         
-        try{
+        try {
             PreparedStatement ps1 = con.prepareStatement(query1);
             PreparedStatement ps2 = con.prepareStatement(query2);
             PreparedStatement ps3 = con.prepareStatement(query3);
@@ -89,15 +93,6 @@ public class Base_de_Datos {
                 if (vuelo != null){
                     vuelo.getEscalas().add(ciudad);
                 }
-                
-                /* este método también puede servir, pero es mejor el HashMap
-                for (Vuelo vuelo : Agencia.listaVuelos ){
-                    if (vuelo.getIdVuelo() == id){
-                        vuelo.getEscalas().add(ciudad);
-                        break;
-                    }
-                }
-                */
             }
             
             //Aquí se cambian los estados de los asientos de los distintos vuelos
@@ -233,5 +228,277 @@ public class Base_de_Datos {
             }
         }
         return true;
+    }
+    
+    public static void reservarVuelo(Connection con, int pos_usuario, int pos_vuelo, ArrayList asientos){
+        String query1 = "INSERT INTO reservas (id_usuario, id_vuelo, pago) VALUES (?,?,0)"; //NO AÑADO LA FECHA RESERVA PORQUE ESO ES UN TRIGGER
+        String query2 = "INSERT INTO asientos (id_asiento, id_vuelo, id_reserva, ocupado) VALUES (?,?,?,1)";
+        int id_reserva = 0;
+        
+        try{
+            con.setAutoCommit(false);
+            
+            PreparedStatement ps1 = con.prepareStatement(query1, Statement.RETURN_GENERATED_KEYS); //necesito que me de el id, por lo que le indico que lo guarde
+            ps1.setInt(1, pos_usuario);
+            ps1.setInt(2, pos_vuelo);
+            
+            ps1.executeUpdate();
+            
+            ResultSet rs = ps1.getGeneratedKeys();//luego de ejecutar el codigo, guardo todas las claves que guardó de ese statement
+            //recorro los resultados que generó
+            if(rs.next()){
+                id_reserva = rs.getInt(1);//tomo el primero que hace referencia al id
+            }
+            rs.close();
+            
+            //Aquí si añado los asientos a la tabla de asientos
+            PreparedStatement ps2 = con.prepareStatement(query2);
+            for (int i=0; i < asientos.size(); i++){
+                ps2.setInt(1, (int) asientos.get(i));
+                ps2.setInt(2, pos_vuelo);
+                ps2.setInt(3, id_reserva);
+                
+                ps2.addBatch();//ejecuta todas las insercciones de una vez
+            }
+            ps2.executeBatch();            
+            
+            con.commit();
+        }
+        catch (SQLException e){
+            try{
+                con.rollback();
+            }
+            catch (SQLException rollback){
+                rollback.printStackTrace();
+            }
+            System.out.println("Error al insertar dato");
+            e.getStackTrace();
+        }
+        finally{
+            try {
+                con.setAutoCommit(true); // Restaurar autocommit
+            }
+            catch (SQLException autoC) {
+                autoC.printStackTrace();
+            }
+        }
+    }
+    
+    public static void modificarReserva(Connection con, ArrayList agregar, ArrayList eliminar, int id_vuelo, int id_reserva){
+        String query1 = "INSERT INTO asientos (id_asiento, id_vuelo, id_reserva, ocupado) VALUES (?,?,?,1);";
+        String query2 = "DELETE FROM asientos WHERE id_asiento = ? AND id_reserva = ?;";
+        
+        try{
+            con.setAutoCommit(false);
+            //Operación para agregar asientos
+            try (PreparedStatement ps1 = con.prepareStatement(query1)){
+                for (int i=0; i<agregar.size(); i++){
+                    ps1.setInt(1, (int) agregar.get(i));
+                    ps1.setInt(2, id_vuelo);
+                    ps1.setInt(3, id_reserva);
+
+                    ps1.addBatch();
+                }
+                ps1.executeBatch();
+            }
+            
+            //operación para eliminar asientos
+            try (PreparedStatement ps2 = con.prepareStatement(query2)){
+                for (int i=0; i<eliminar.size(); i++){
+                    ps2.setInt(1, (int) eliminar.get(i));
+                    ps2.setInt(2, id_reserva);
+
+                    ps2.addBatch();
+                }
+                ps2.executeBatch();
+            }
+            
+            con.commit();
+        }
+        catch (SQLException E){
+            try {
+                con.rollback();
+                System.out.println("Transaccion revertida gracias a un error");
+            }
+            catch (SQLException roll){
+                roll.printStackTrace();
+            }
+            E.printStackTrace();
+        }
+        
+        finally{
+            try {
+                con.setAutoCommit(true); // Restaurar autocommit
+            }
+            catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    
+    public static void eliminarReserva(Connection con, int id_reserva){
+        String query = "DELETE FROM reservas WHERE id = ?;";
+        
+        try (PreparedStatement ps = con.prepareStatement(query)){
+            //Lo que solo hace es eliminar la fila donde se encuentre ese id, además de que los asientos
+            //se eliminarán con un trigger
+            ps.setInt(1, id_reserva);
+            
+            ps.executeUpdate();
+        }
+        catch (SQLException e){
+            System.out.println("Error al eliminar reserva");
+            e.getStackTrace();
+        }
+    }
+    
+    //*********************************************************************************************************************
+    //RANGO DE SOLO ADMINISTRADOR
+    public static void añadirVuelos(Connection con, String aereo, String origen, String destino, LocalDate fechaSalida, int tarifa, ArrayList<String> escalas){
+        String query1 = "INSERT INTO vuelos (aereolinea, asientos_disponibles, origen, destino, fecha_salida, estado_vuelo, tarifa_general) VALUES (?,?,?,?,?,?,?);";
+        String query2 = "INSERT INTO escalasxvuelo (id_vuelo, id_escala) VALUES (?,?)";
+        Date cast_fechaSalida = Date.valueOf(fechaSalida);
+        int id_vuelo =0;
+        
+        verificarEscalas(con, escalas);
+        
+        try (PreparedStatement ps1 = con.prepareStatement(query1, Statement.RETURN_GENERATED_KEYS)){
+            ps1.setString(1, aereo);
+            
+            if (aereo.equals("Avianca")){
+                ps1.setInt(2, 166);
+            }
+            else{
+                if (aereo.equals("Fly Emirates")){
+                    ps1.setInt(2, 332);
+                }
+                else{
+                    ps1.setInt(2, 210);
+                }
+            }
+            
+            ps1.setString(3, origen);
+            ps1.setString(4, destino);
+            ps1.setDate(5, cast_fechaSalida);
+            ps1.setInt(6, 1);
+            ps1.setInt(7, tarifa);
+            
+            ps1.executeUpdate();
+            
+            try (ResultSet rs1 = ps1.getGeneratedKeys()){//luego de ejecutar el codigo, guardo todas las claves que guardó de ese statement
+                //recorro los resultados que generó
+                if(rs1.next()){
+                    id_vuelo= rs1.getInt(1);//tomo el primero que hace referencia al id
+                }
+            }
+            catch (SQLException E){
+                System.out.println("ERROR AL RETOMAR EL ID_VUELO");
+                E.printStackTrace();
+            }
+        }
+        catch (SQLException e){
+            System.out.println("Error al insertar un vuelo");
+            e.printStackTrace();
+        }
+        
+        //aquí verifico si existen escalas a añadir. Si no existen se crea el vuelo solo
+        if (escalas != null && !escalas.isEmpty()){
+            try (PreparedStatement ps2 = con.prepareStatement(query2)){
+                for (String escala : escalas){
+                    Integer id_escala = ciudadesMap.get(escala);
+                    if(id_escala != null){
+                        ps2.setInt(1, id_vuelo);
+                        ps2.setInt(2, id_escala);
+
+                        ps2.addBatch();
+                    }
+                }
+                ps2.executeBatch();
+            }
+            catch (SQLException e){
+                System.out.println("Error al insertar un vuelo");
+                e.printStackTrace();
+            }
+        }
+        
+        ciudadesMap.clear();
+    }
+    
+    //Complemento añadirVuelos
+    public static void verificarEscalas(Connection con, ArrayList<String> escalas){
+        //Verifico si existen escalas, si no existen pues se sale y no ejecuta el código
+        if (escalas == null || escalas.isEmpty()){
+            return;
+        }
+        
+        String query1 = "SELECT id, ciudad FROM escalas;";
+        String query2 = "INSERT INTO escalas (ciudad) VALUES (?);";
+        
+        try (PreparedStatement ps1 = con.prepareStatement(query1)){
+            
+            ResultSet rs1 = ps1.executeQuery();
+            
+            //Guardo todas las distintas escalas en un hashMap
+            while (rs1.next()){
+                int id = rs1.getInt("id");
+                String ciudad = rs1.getNString("ciudad");
+                ciudadesMap.put(ciudad, id);
+            }
+            
+            //aquí verifico que si en el arrayList de escalas están, no se agregan a la tabla
+            try (PreparedStatement ps2 = con.prepareStatement(query2, Statement.RETURN_GENERATED_KEYS)){
+                for (String escala : escalas){
+                    if (!ciudadesMap.containsKey(escala)){
+                        ps2.setString(1, escala);
+                        ps2.executeUpdate();
+                        
+                        //Obtiene la clave generada de la inserción
+                        try (ResultSet rs2 = ps2.getGeneratedKeys()){
+                            if (rs2.next()){
+                                ciudadesMap.put(escala, rs2.getInt(1));
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+        catch (SQLException e){
+            System.out.println("Error al leer dato");
+            e.getStackTrace();
+        }
+    }
+    
+    public static void eliminarVuelos(Connection con, int id_vuelo){
+        String query = "DELETE FROM vuelos WHERE id = ?;";
+        
+        try (PreparedStatement ps = con.prepareStatement(query)){
+            con.setAutoCommit(false);
+            //Lo que solo hace es eliminar la fila donde se encuentre ese id
+            //la eliminación de las reservas de los usuarios con ese id (incluido los asientos) son triggers
+            ps.setInt(1, id_vuelo);
+            
+            ps.executeUpdate();
+            
+            con.commit();
+        }
+        catch (SQLException e){
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            System.out.println("Error al eliminar el vuelo con id "+id_vuelo);
+            e.printStackTrace();
+        }
+        finally{
+            try{
+                con.setAutoCommit(true);
+            }
+            catch (SQLException E){
+                System.out.println("Error al setAutoCommit");
+                E.printStackTrace();
+            }
+        }
     }
 }
