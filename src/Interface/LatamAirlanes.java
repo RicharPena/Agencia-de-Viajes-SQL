@@ -9,6 +9,7 @@ import AgenciaDeViajes.Asiento;
 import AgenciaDeViajes.AsientoBusiness;
 import AgenciaDeViajes.AsientoEconomico;
 import AgenciaDeViajes.AsientoEconomicoPremium;
+import AgenciaDeViajes.Base_de_Datos;
 import AgenciaDeViajes.Usuario;
 import AgenciaDeViajes.Vuelo;
 import java.awt.Color;
@@ -281,11 +282,14 @@ public class LatamAirlanes extends javax.swing.JFrame {
                     }
                 }
             }
+            //Aquí se crea la reserva si el usuario no ha reservado anteriormente en este vuelo.
             Agencia.listaUsuarios.get(Inicio.posicionUsuario).crearReserva(Agencia.listaVuelos.get(posVuelo),asientos);
+            Base_de_Datos.reservarVuelo(Agencia.con, Inicio.posicionUsuario+1, posVuelo+1, asientos);
             
             Sesion sesion = new Sesion(1);
             sesion.setVisible(true);
         }else{
+            //Si ya existe la reserva, se determina si ya tiene reserva en ese mismo avión o si desea modificarla
             ArrayList <Integer> actual = Agencia.listaUsuarios.get(Inicio.posicionUsuario).getListaReserva().get(posReserva).getAsientos();
             ArrayList <Integer> nuevo = new ArrayList<>();
             
@@ -304,12 +308,17 @@ public class LatamAirlanes extends javax.swing.JFrame {
                 }
             }
             
+            //Aquí se empieza a evaluar si es para modificar la reserva o para eliminarla
             if(nuevo.equals(actual)){
                 
             }else{
+                //Aquí se elimina la reserva
                 if(nuevo.isEmpty()){
                     Agencia.listaUsuarios.get(Inicio.posicionUsuario).cancelarReserva(posReserva+1);
-                }else{
+                    Base_de_Datos.eliminarReserva(Agencia.con, posReserva+1);
+                }
+                //Aquí se modifica la reserva
+                else{
                     ArrayList <Integer> agregar = new ArrayList<>();
                     ArrayList <Integer> quitar = new ArrayList<>();
                     
@@ -329,6 +338,7 @@ public class LatamAirlanes extends javax.swing.JFrame {
                     
                     Agencia.listaUsuarios.get(Inicio.posicionUsuario).getListaReserva().get(posReserva).agregarAsientos(agregar);
                     Agencia.listaUsuarios.get(Inicio.posicionUsuario).getListaReserva().get(posReserva).eliminarAsientos(quitar);
+                    Base_de_Datos.modificarReserva(Agencia.con, agregar, quitar, posVuelo+1, posReserva+1);
                 }
             }
             Sesion sesion = new Sesion(2);
