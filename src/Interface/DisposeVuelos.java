@@ -5,6 +5,7 @@
 package Interface;
 
 import AgenciaDeViajes.Agencia;
+import AgenciaDeViajes.Base_de_Datos;
 import AgenciaDeViajes.Vuelo;
 import java.awt.Image;
 import java.time.LocalDate;
@@ -236,6 +237,7 @@ public class DisposeVuelos extends javax.swing.JFrame {
             for(int selectedRow:selectedFilas){
                 int idVuelo=(int)tblVuelos.getValueAt(selectedRow,0);
                 Agencia.eliminarVuelo(idVuelo);
+                Base_de_Datos.eliminarVuelos(Agencia.con, idVuelo); //Elimino los vuelos de la base de datos
                 listaEliminar.add(Agencia.listaVuelos.get(idVuelo-1));
             }
             
