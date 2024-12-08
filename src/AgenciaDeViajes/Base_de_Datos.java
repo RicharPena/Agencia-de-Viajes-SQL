@@ -10,8 +10,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 /**
  *
  * @author Systema
@@ -20,6 +18,7 @@ public class Base_de_Datos {
     private static Map<Integer, Vuelo> vuelosMap = new HashMap<>();
     private static Map<Integer, Usuario> usuariosMap = new HashMap<>();
     private static Map<String, Integer> ciudadesMap = new HashMap<>();
+    public static ArrayList<Vuelo> historialVuelos = new ArrayList<>();
     
     public static Connection conectar(String pass){
         String url = "jdbc:mysql://localhost:3306/agencia_de_viajes";
@@ -74,13 +73,17 @@ public class Base_de_Datos {
                 Date fsalida = rs1.getDate("fecha_salida");
                 LocalDate fecha_salida = fsalida.toLocalDate();
                 
-                //int estado_vuelo = rs.getInt("estado_vuelo");
+                int estado_vuelo = rs1.getInt("estado_vuelo");
                 int tarifa_general = rs1.getInt("tarifa_general");
                 
                 Vuelo vuelo = new Vuelo(aereolinea, origen, new ArrayList<>(), destino, tarifa_general, fecha_salida);
                 //Solo hacen referencia al objeto como tal, no se "duplica" el objeto
                 Agencia.listaVuelos.add(vuelo);
                 vuelosMap.put(id, vuelo);
+                
+                if(estado_vuelo != 1){
+                    historialVuelos.add(vuelo);
+                }
             }
             Agencia.actualizarIDVuelo();
             
@@ -92,6 +95,12 @@ public class Base_de_Datos {
                 Vuelo vuelo = vuelosMap.get(id);
                 if (vuelo != null){
                     vuelo.getEscalas().add(ciudad);
+                    for (Vuelo vueloHistorial : historialVuelos) {
+                        if (vueloHistorial.equals(vuelo)) {
+                            vueloHistorial.getEscalas().add(ciudad);
+                            break;
+                        }
+                    }
                 }
             }
             
@@ -113,8 +122,8 @@ public class Base_de_Datos {
     }
     
     public static void CargarUsuarios(Connection con){
-        String query1 = "SELECT cuenta.id, datos_usuarios.nombre, cuenta.usuario, cuenta.contrasena, datos_usuarios.tarjeta FROM datos_usuarios JOIN cuenta ON datos_usuarios.id = cuenta.id;";
-        String query2 = "SELECT reservas.id, reservas.id_usuario, reservas.id_vuelo, reservas.pago, asientos.id_asiento AS idAsiento FROM reservas JOIN asientos ON reservas.id = asientos.id_reserva;";
+        String query1 = "SELECT cuenta.id, datos_usuarios.nombre, cuenta.usuario, cuenta.contrasena, datos_usuarios.tarjeta, datos_usuarios.apellido, datos_usuarios.correo, datos_usuarios.direccion, datos_usuarios.cedula FROM datos_usuarios JOIN cuenta ON datos_usuarios.id = cuenta.id;";
+        String query2 = "SELECT reservas.id, reservas.id_usuario, reservas.id_vuelo, reservas.pago, asientos.id_asiento AS idAsiento FROM reservas JOIN asientos ON reservas.id = asientos.id_reserva ORDER BY reservas.id;";
         
         try{
             PreparedStatement ps1 = con.prepareStatement(query1);
@@ -129,9 +138,13 @@ public class Base_de_Datos {
                 String userName = rs1.getString("usuario");
                 String password = rs1.getString("contrasena");
                 String tarjeta = Integer.toString(rs1.getInt("tarjeta"));
+                String apellido = rs1.getString("apellido");
+                String correo = rs1.getString("correo");
+                String direccion = rs1.getString("direccion");
+                String cedula = Integer.toString(rs1.getInt("cedula"));
                 
                 //Se crean todos los usuarios menos su lista de reservas
-                Usuario usuario = new Usuario(name, userName, password, tarjeta, new ArrayList<>());
+                Usuario usuario = new Usuario(name, userName, password, tarjeta, new ArrayList<>(), direccion, correo, apellido, cedula);
                 Agencia.listaUsuarios.add(usuario);
                 usuariosMap.put(id, usuario);
             }
@@ -187,9 +200,9 @@ public class Base_de_Datos {
         return asientos;
     }
     
-    public static boolean usuariosNuevos(Connection con,String user_name, String name, String password){
-        String query1 = "INSERT INTO datos_usuarios (nombre) VALUES (?)";
-        String query2 = "INSERT INTO cuenta (usuario, contrasena) VALUES (?,?)";
+    public static boolean usuariosNuevos(Connection con,String user_name, String name, String password, String direccion, String email, String apellido, String cedula){
+        String query1 = "INSERT INTO datos_usuarios (nombre, apellido, correo, direccion, cedula) VALUES (?,?,?,?,?)";
+        String query2 = "INSERT INTO cuenta (usuario, contrasena) VALUES (?,?)";//completo
         
         try{
             //No permite que se ejecute primero una query y después la otra. Esta función manda todas estas instrucciones de una vez
@@ -198,6 +211,11 @@ public class Base_de_Datos {
             PreparedStatement ps1 = con.prepareStatement(query1);
             
             ps1.setString(1, user_name);
+            ps1.setString(2, apellido);
+            ps1.setString(3, email);
+            ps1.setString(4, direccion);
+            ps1.setString(5, cedula);
+            
             ps1.executeUpdate();
             
             PreparedStatement ps2 = con.prepareStatement(query2);
@@ -233,7 +251,9 @@ public class Base_de_Datos {
     public static void reservarVuelo(Connection con, int pos_usuario, int pos_vuelo, ArrayList asientos){
         String query1 = "INSERT INTO reservas (id_usuario, id_vuelo, pago) VALUES (?,?,0)"; //NO AÑADO LA FECHA RESERVA PORQUE ESO ES UN TRIGGER
         String query2 = "INSERT INTO asientos (id_asiento, id_vuelo, id_reserva, ocupado) VALUES (?,?,?,1)";
-        int id_reserva = 0;
+        String query3 = "SELECT asientos_disponibles FROM vuelos WHERE (id = ?)";
+        String query4 = "UPDATE vuelos SET asientos_disponibles = ? WHERE (id = ?);";
+        int id_reserva = 0, asientos_disp=0;
         
         try{
             con.setAutoCommit(false);
@@ -251,6 +271,18 @@ public class Base_de_Datos {
             }
             rs.close();
             
+            /******************************************************************************/
+            //Traigo los asientos disponibles del vuelo y elimino la cantidad de asientos que el usuario escoja
+            PreparedStatement ps3 = con.prepareStatement(query3);
+            ps3.setInt(1, pos_vuelo);
+            
+            ResultSet rs3 = ps3.executeQuery();
+            
+            while (rs3.next()){
+                asientos_disp = rs3.getInt("asientos_disponibles");
+            }
+            rs3.close();
+            
             //Aquí si añado los asientos a la tabla de asientos
             PreparedStatement ps2 = con.prepareStatement(query2);
             for (int i=0; i < asientos.size(); i++){
@@ -258,10 +290,17 @@ public class Base_de_Datos {
                 ps2.setInt(2, pos_vuelo);
                 ps2.setInt(3, id_reserva);
                 
+                asientos_disp--;
                 ps2.addBatch();//ejecuta todas las insercciones de una vez
             }
-            ps2.executeBatch();            
+            ps2.executeBatch();   
             
+            /*******************************************************************************/
+            PreparedStatement ps4 = con.prepareStatement(query4);
+            ps4.setInt(1, asientos_disp);
+            ps4.setInt(2, pos_vuelo);
+            
+            ps4.executeUpdate();            
             con.commit();
         }
         catch (SQLException e){
@@ -445,12 +484,19 @@ public class Base_de_Datos {
                 ciudadesMap.put(ciudad, id);
             }
             
-            //aquí verifico que si en el arrayList de escalas están, no se agregan a la tabla
+            //aquí verifico que si en el arrayList de escalas están sino, se agregan a la tabla
             try (PreparedStatement ps2 = con.prepareStatement(query2, Statement.RETURN_GENERATED_KEYS)){
                 for (String escala : escalas){
                     if (!ciudadesMap.containsKey(escala)){
                         ps2.setString(1, escala);
-                        ps2.executeUpdate();
+                        
+                        try{
+                            ps2.executeUpdate();
+                        }
+                        catch (SQLException e){
+                            System.out.println("Error al ejecutar la inserción para la escala "+escala);
+                            e.printStackTrace();
+                        }
                         
                         //Obtiene la clave generada de la inserción
                         try (ResultSet rs2 = ps2.getGeneratedKeys()){
@@ -458,8 +504,16 @@ public class Base_de_Datos {
                                 ciudadesMap.put(escala, rs2.getInt(1));
                             }
                         }
+                        catch (SQLException E){
+                            System.out.println("ERROR AL OBTENER LA CLAVE GENERADA POR LA INSERCION");
+                            E.printStackTrace();
+                        }
                     }
                 }
+            }
+            catch (SQLException E){
+                System.out.println("ERROR AL INSERTAR NUEVAS ESCALAS EN LA TABLA");
+                E.printStackTrace();
             }
             
         }
@@ -499,6 +553,32 @@ public class Base_de_Datos {
                 System.out.println("Error al setAutoCommit");
                 E.printStackTrace();
             }
+        }
+    }
+    
+    //***********************************************************************************************************************
+    //ESPACIO SOLO PARA MODIFICACIONES DE LOS USUARIOS
+    
+    public static void configuracionUsuarios (Connection con, String modificacion, String columna, int id_usuario){
+        String query;
+        
+        if (!columna.equals("usuario") && !columna.equals("contrasena")){
+            query = "UPDATE datos_usuarios SET " + columna + " = ? WHERE (id = ?);";
+        }
+        else{
+            query = "UPDATE cuenta SET "+ columna + " = ? WHERE (id = ?);";
+        }
+        
+        try (PreparedStatement ps1 = con.prepareStatement(query)) {
+            ps1.setString(1, modificacion);
+            ps1.setInt(2, id_usuario+1);
+
+            ps1.executeUpdate();
+
+        }
+        catch (SQLException e){
+            System.out.println("Error al actualizar dato");
+            e.printStackTrace();
         }
     }
 }
