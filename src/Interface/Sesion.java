@@ -5,6 +5,7 @@
 package Interface;
 
 import AgenciaDeViajes.Agencia;
+import AgenciaDeViajes.Base_de_Datos;
 import AgenciaDeViajes.Vuelo;
 import Tipografias.Fuentes;
 import java.awt.Color;
@@ -81,6 +82,10 @@ public class Sesion extends javax.swing.JFrame {
         parametroJTextFiel(txtCambioNombre);
         parametroJTextFiel(txtCambioUserName);
         parametroJTextFiel(txtTarjeta);
+        parametroJTextFiel(txtDireccion);
+        parametroJTextFiel(txtCorreo);
+        parametroJTextFiel(txtApellido);
+        parametroJTextFiel(txtCedula);
         
         if (AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).getTarjeta() == null){
             //El textField queda así, sin nada.
@@ -246,6 +251,10 @@ public class Sesion extends javax.swing.JFrame {
         txtCambioContra = new javax.swing.JPasswordField();
         txtConfCamContra = new javax.swing.JPasswordField();
         txtTarjeta = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
+        txtApellido = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
+        txtCedula = new javax.swing.JTextField();
         TbtnVisual1 = new javax.swing.JToggleButton();
         TbtnVisual2 = new javax.swing.JToggleButton();
         btnEditAddTarjet = new javax.swing.JButton();
@@ -658,7 +667,7 @@ public class Sesion extends javax.swing.JFrame {
                 txtCambioNombreActionPerformed(evt);
             }
         });
-        Config.add(txtCambioNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 710, 40));
+        Config.add(txtCambioNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 730, 30));
 
         txtCambioUserName.setText("Nuevo User Name");
         txtCambioUserName.setBorder(null);
@@ -672,7 +681,7 @@ public class Sesion extends javax.swing.JFrame {
                 txtCambioUserNameActionPerformed(evt);
             }
         });
-        Config.add(txtCambioUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 195, 710, 40));
+        Config.add(txtCambioUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 730, 30));
 
         txtCambioContra.setText("Contraseña Nueva");
         txtCambioContra.setBorder(null);
@@ -681,7 +690,12 @@ public class Sesion extends javax.swing.JFrame {
                 txtCambioContraMouseClicked(evt);
             }
         });
-        Config.add(txtCambioContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 285, 300, 45));
+        txtCambioContra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCambioContraActionPerformed(evt);
+            }
+        });
+        Config.add(txtCambioContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 300, 30));
 
         txtConfCamContra.setText("Confirmar Contraseña");
         txtConfCamContra.setBorder(null);
@@ -690,7 +704,7 @@ public class Sesion extends javax.swing.JFrame {
                 txtConfCamContraMouseClicked(evt);
             }
         });
-        Config.add(txtConfCamContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 285, 300, 45));
+        Config.add(txtConfCamContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 220, 300, 30));
 
         txtTarjeta.setText("Agregar / Cambiar Tarjeta");
         txtTarjeta.setBorder(null);
@@ -699,7 +713,53 @@ public class Sesion extends javax.swing.JFrame {
                 txtTarjetaMouseClicked(evt);
             }
         });
-        Config.add(txtTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 380, 375, 42));
+        Config.add(txtTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 340, 30));
+
+        txtCorreo.setText("Nuevo Correo Electronico");
+        txtCorreo.setBorder(null);
+        txtCorreo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCorreoMouseClicked(evt);
+            }
+        });
+        Config.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 370, 340, 30));
+
+        txtApellido.setText("Nuevo Apellido");
+        txtApellido.setBorder(null);
+        txtApellido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtApellidoMouseClicked(evt);
+            }
+        });
+        txtApellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtApellidoActionPerformed(evt);
+            }
+        });
+        Config.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 360, 30));
+
+        txtDireccion.setText("Nueva Dirección");
+        txtDireccion.setBorder(null);
+        txtDireccion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDireccionMouseClicked(evt);
+            }
+        });
+        txtDireccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDireccionActionPerformed(evt);
+            }
+        });
+        Config.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, 360, 30));
+
+        txtCedula.setText("Nueva Cedula");
+        txtCedula.setBorder(null);
+        txtCedula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCedulaMouseClicked(evt);
+            }
+        });
+        Config.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 440, 340, 30));
 
         TbtnVisual1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Button visual_001.png"))); // NOI18N
         TbtnVisual1.setBorder(null);
@@ -711,7 +771,7 @@ public class Sesion extends javax.swing.JFrame {
                 TbtnVisual1ActionPerformed(evt);
             }
         });
-        Config.add(TbtnVisual1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 290, -1, -1));
+        Config.add(TbtnVisual1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, -1, -1));
 
         TbtnVisual2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Button visual_001.png"))); // NOI18N
         TbtnVisual2.setBorder(null);
@@ -723,7 +783,7 @@ public class Sesion extends javax.swing.JFrame {
                 TbtnVisual2ActionPerformed(evt);
             }
         });
-        Config.add(TbtnVisual2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 290, -1, -1));
+        Config.add(TbtnVisual2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 220, -1, -1));
 
         btnEditAddTarjet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnEdit-Addtarjet.png"))); // NOI18N
         btnEditAddTarjet.setToolTipText("");
@@ -736,7 +796,7 @@ public class Sesion extends javax.swing.JFrame {
                 btnEditAddTarjetActionPerformed(evt);
             }
         });
-        Config.add(btnEditAddTarjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 370, 226, 56));
+        Config.add(btnEditAddTarjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, 226, 56));
 
         btnSaveChanges.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnSaveChanges.png"))); // NOI18N
         btnSaveChanges.setBorder(null);
@@ -748,13 +808,13 @@ public class Sesion extends javax.swing.JFrame {
                 btnSaveChangesActionPerformed(evt);
             }
         });
-        Config.add(btnSaveChanges, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 480, 226, 56));
+        Config.add(btnSaveChanges, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 520, 226, 56));
 
         txtMensaje.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         txtMensaje.setForeground(new java.awt.Color(255, 51, 51));
-        Config.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, 730, 30));
+        Config.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, 730, 30));
 
-        BGConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/BGPanelConfig.png"))); // NOI18N
+        BGConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/BGPanelConfig New.png"))); // NOI18N
         BGConfig.setToolTipText("");
         Config.add(BGConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 804, 590));
 
@@ -1000,6 +1060,7 @@ public class Sesion extends javax.swing.JFrame {
             }
             else{
                 AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).setNombre(txtCambioNombre.getText());
+                Base_de_Datos.configuracionUsuarios(Agencia.con, txtCambioNombre.getText(), "nombre", Interface.Inicio.posicionUsuario);
             }
         }
         
@@ -1013,6 +1074,63 @@ public class Sesion extends javax.swing.JFrame {
             }
             else{
                 AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).setUserName(txtCambioUserName.getText());
+                Base_de_Datos.configuracionUsuarios(Agencia.con, txtCambioUserName.getText(), "usuario", Interface.Inicio.posicionUsuario);
+            }
+        }
+        
+        if (txtDireccion.getText().equals("Nueva Dirección")){
+            //NADA
+        }
+        else{
+            if (txtDireccion.getText().equals("")){
+                txtMensaje.setText("No se ha escrito ninguna Dirección!!!");
+                timer.start();
+            }
+            else{
+                AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).setDireccion(txtDireccion.getText());
+                Base_de_Datos.configuracionUsuarios(Agencia.con, txtDireccion.getText(), "direccion", Interface.Inicio.posicionUsuario);
+            }
+        }
+        
+        if (txtCorreo.getText().equals("Nuevo Correo Electronico")){
+            //NADA
+        }
+        else{
+            if (txtCorreo.getText().equals("")){
+                txtMensaje.setText("No se ha escrito ningún Correo!!!");
+                timer.start();
+            }
+            else{
+                AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).setCorreo(txtCorreo.getText());
+                Base_de_Datos.configuracionUsuarios(Agencia.con, txtCorreo.getText(), "correo", Interface.Inicio.posicionUsuario);
+            }
+        }
+        
+        if (txtApellido.getText().equals("Nuevo Apellido")){
+            //NADA
+        }
+        else{
+            if (txtApellido.getText().equals("")){
+                txtMensaje.setText("No se ha escrito ningún Apellido!!!");
+                timer.start();
+            }
+            else{
+                AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).setApellido(txtApellido.getText());
+                Base_de_Datos.configuracionUsuarios(Agencia.con, txtApellido.getText(), "apellido", Interface.Inicio.posicionUsuario);
+            }
+        }
+        
+        if (txtCedula.getText().equals("Nueva Cedula")){
+            //NADA
+        }
+        else{
+            if (txtCedula.getText().equals("")){
+                txtMensaje.setText("No se ha escrito ninguna Cédula!!!");
+                timer.start();
+            }
+            else{
+                AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).setCedula(txtCedula.getText());
+                Base_de_Datos.configuracionUsuarios(Agencia.con, txtCedula.getText(), "cedula", Interface.Inicio.posicionUsuario);
             }
         }
         
@@ -1022,6 +1140,7 @@ public class Sesion extends javax.swing.JFrame {
         else{
             if (c1.equals(c2)){
                 AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).setPassword(c1);
+                Base_de_Datos.configuracionUsuarios(Agencia.con, c1, "contrasena", Interface.Inicio.posicionUsuario);
             }
             else{
                 if(txtCambioUserName.getText().equals("") || txtCambioNombre.getText().equals("")){
@@ -1040,6 +1159,7 @@ public class Sesion extends javax.swing.JFrame {
         else{
             if (txtTarjeta.getText().length() == 10){
                 AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).setTarjeta(txtTarjeta.getText());
+                Base_de_Datos.configuracionUsuarios(Agencia.con, txtTarjeta.getText(), "tarjeta", Interface.Inicio.posicionUsuario);
             }
             else{
                 txtMensaje.setText("Tarjeta Inválida");
@@ -1047,7 +1167,7 @@ public class Sesion extends javax.swing.JFrame {
             }
         }
         
-        if (txtCambioUserName.getText().equals("Nuevo User Name") && txtCambioNombre.getText().equals("Nuevo Nombre") && c1.equals("Contraseña Nueva") && c2.equals("Confirmar Contraseña") && txtTarjeta.getText().equals("Agregar / Cambiar Tarjeta")){
+        if (txtCambioUserName.getText().equals("Nuevo User Name") && txtCambioNombre.getText().equals("Nuevo Nombre") && c1.equals("Contraseña Nueva") && c2.equals("Confirmar Contraseña") && txtTarjeta.getText().equals("Agregar / Cambiar Tarjeta") && txtDireccion.getText().equals("Nueva Dirección") && txtCorreo.getText().equals("Nuevo Correo Electronico") && txtApellido.getText().equals("Nuevo Apellido") && txtCedula.getText().equals("Nueva Cedula")){
             txtMensaje.setText("Ningún cambio se ha realizado!!!");
             timer.start();
         }
@@ -1084,6 +1204,26 @@ public class Sesion extends javax.swing.JFrame {
             cursiveFontinTF(txtTarjeta);
             txtTarjeta.setForeground(Color.GRAY);
         }
+        if (txtDireccion.getText().equals("")){
+            txtDireccion.setText("Nueva Dirección");
+            cursiveFontinTF(txtDireccion);
+            txtDireccion.setForeground(Color.GRAY);
+        }
+        if (txtCorreo.getText().equals("")){
+            txtCorreo.setText("Nuevo Correo Electronico");
+            cursiveFontinTF(txtCorreo);
+            txtCorreo.setForeground(Color.GRAY);
+        }
+        if (txtApellido.getText().equals("")){
+            txtApellido.setText("Nuevo Apellido");
+            cursiveFontinTF(txtApellido);
+            txtApellido.setForeground(Color.GRAY);
+        }
+        if (txtCedula.getText().equals("")){
+            txtCedula.setText("Nueva Cedula");
+            cursiveFontinTF(txtCedula);
+            txtCedula.setForeground(Color.GRAY);
+        }
         if (c1.equals("")){
             txtCambioContra.setText("Contraseña Nueva");
             txtCambioContra.setEchoChar('\0');
@@ -1116,6 +1256,26 @@ public class Sesion extends javax.swing.JFrame {
             txtTarjeta.setText("Agregar / Cambiar Tarjeta");
             cursiveFontinTF(txtTarjeta);
             txtTarjeta.setForeground(Color.GRAY);
+        }
+        if (txtDireccion.getText().equals("")){
+            txtDireccion.setText("Nueva Dirección");
+            cursiveFontinTF(txtDireccion);
+            txtDireccion.setForeground(Color.GRAY);
+        }
+        if (txtCorreo.getText().equals("")){
+            txtCorreo.setText("Nuevo Correo Electronico");
+            cursiveFontinTF(txtCorreo);
+            txtCorreo.setForeground(Color.GRAY);
+        }
+        if (txtApellido.getText().equals("")){
+            txtApellido.setText("Nuevo Apellido");
+            cursiveFontinTF(txtApellido);
+            txtApellido.setForeground(Color.GRAY);
+        }
+        if (txtCedula.getText().equals("")){
+            txtCedula.setText("Nueva Cedula");
+            cursiveFontinTF(txtCedula);
+            txtCedula.setForeground(Color.GRAY);
         }
         if (c1.equals("")){
             txtCambioContra.setText("Contraseña Nueva");
@@ -1167,6 +1327,26 @@ public class Sesion extends javax.swing.JFrame {
             cursiveFontinTF(txtCambioUserName);
             txtCambioUserName.setForeground(Color.GRAY);
         }
+        if (txtDireccion.getText().equals("")){
+            txtDireccion.setText("Nueva Dirección");
+            cursiveFontinTF(txtDireccion);
+            txtDireccion.setForeground(Color.GRAY);
+        }
+        if (txtCorreo.getText().equals("")){
+            txtCorreo.setText("Nuevo Correo Electronico");
+            cursiveFontinTF(txtCorreo);
+            txtCorreo.setForeground(Color.GRAY);
+        }
+        if (txtApellido.getText().equals("")){
+            txtApellido.setText("Nuevo Apellido");
+            cursiveFontinTF(txtApellido);
+            txtApellido.setForeground(Color.GRAY);
+        }
+        if (txtCedula.getText().equals("")){
+            txtCedula.setText("Nueva Cedula");
+            cursiveFontinTF(txtCedula);
+            txtCedula.setForeground(Color.GRAY);
+        }
     }//GEN-LAST:event_txtCambioContraMouseClicked
 
     private void txtConfCamContraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfCamContraMouseClicked
@@ -1204,6 +1384,26 @@ public class Sesion extends javax.swing.JFrame {
             txtTarjeta.setText("Agregar / Cambiar Tarjeta");
             cursiveFontinTF(txtTarjeta);
             txtTarjeta.setForeground(Color.GRAY);
+        }
+        if (txtDireccion.getText().equals("")){
+            txtDireccion.setText("Nueva Dirección");
+            cursiveFontinTF(txtDireccion);
+            txtDireccion.setForeground(Color.GRAY);
+        }
+        if (txtCorreo.getText().equals("")){
+            txtCorreo.setText("Nuevo Correo Electronico");
+            cursiveFontinTF(txtCorreo);
+            txtCorreo.setForeground(Color.GRAY);
+        }
+        if (txtApellido.getText().equals("")){
+            txtApellido.setText("Nuevo Apellido");
+            cursiveFontinTF(txtApellido);
+            txtApellido.setForeground(Color.GRAY);
+        }
+        if (txtCedula.getText().equals("")){
+            txtCedula.setText("Nueva Cedula");
+            cursiveFontinTF(txtCedula);
+            txtCedula.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_txtConfCamContraMouseClicked
 
@@ -1252,6 +1452,7 @@ public class Sesion extends javax.swing.JFrame {
         else{
             if (txtTarjeta.getText().length() == 10){
                 AgenciaDeViajes.Agencia.listaUsuarios.get(Interface.Inicio.posicionUsuario).setTarjeta(txtTarjeta.getText());
+                Base_de_Datos.configuracionUsuarios(Agencia.con, txtTarjeta.getText(), "tarjeta", Interface.Inicio.posicionUsuario);
                 txtMensaje.setForeground(Color.GREEN);
                 txtMensaje.setText("Tarjeta Agregada / Cambiada con éxito");
                 timer.start();
@@ -1282,6 +1483,26 @@ public class Sesion extends javax.swing.JFrame {
             txtTarjeta.setText("");
             normalFontinTF(txtTarjeta);
             txtTarjeta.setForeground(Color.BLACK);
+        }
+        if (txtDireccion.getText().equals("")){
+            txtDireccion.setText("Nueva Dirección");
+            cursiveFontinTF(txtDireccion);
+            txtDireccion.setForeground(Color.GRAY);
+        }
+        if (txtCorreo.getText().equals("")){
+            txtCorreo.setText("Nuevo Correo Electronico");
+            cursiveFontinTF(txtCorreo);
+            txtCorreo.setForeground(Color.GRAY);
+        }
+        if (txtApellido.getText().equals("")){
+            txtApellido.setText("Nuevo Apellido");
+            cursiveFontinTF(txtApellido);
+            txtApellido.setForeground(Color.GRAY);
+        }
+        if (txtCedula.getText().equals("")){
+            txtCedula.setText("Nueva Cedula");
+            cursiveFontinTF(txtCedula);
+            txtCedula.setForeground(Color.GRAY);
         }
         if (c1.equals("")){
             txtCambioContra.setText("Contraseña Nueva");
@@ -1437,6 +1658,215 @@ public class Sesion extends javax.swing.JFrame {
     private void destinotxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destinotxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_destinotxtActionPerformed
+
+    private void txtCambioContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCambioContraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCambioContraActionPerformed
+
+    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDireccionActionPerformed
+
+    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidoActionPerformed
+
+    private void txtDireccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDireccionMouseClicked
+        String c1 = new String(txtCambioContra.getPassword());
+        String c2 = new String(txtConfCamContra.getPassword());
+        
+        if (txtDireccion.getText().equals("Nueva Dirección")){
+            txtDireccion.setText("");
+            normalFontinTF(txtDireccion);
+            txtDireccion.setForeground(Color.BLACK);
+        }
+        if (txtCambioNombre.getText().equals("")){
+            txtCambioNombre.setText("Nuevo Nombre");
+            cursiveFontinTF(txtCambioNombre);
+            txtCambioNombre.setForeground(Color.GRAY);
+        }
+        if (txtCambioUserName.getText().equals("")){
+            txtCambioUserName.setText("Nuevo User Name");
+            cursiveFontinTF(txtCambioUserName);
+            txtCambioUserName.setForeground(Color.GRAY);
+        }
+        if (txtTarjeta.getText().equals("")){
+            txtTarjeta.setText("Agregar / Cambiar Tarjeta");
+            cursiveFontinTF(txtTarjeta);
+            txtTarjeta.setForeground(Color.GRAY);
+        }
+        if (txtCorreo.getText().equals("")){
+            txtCorreo.setText("Nuevo Correo Electronico");
+            cursiveFontinTF(txtCorreo);
+            txtCorreo.setForeground(Color.GRAY);
+        }
+        if (txtApellido.getText().equals("")){
+            txtApellido.setText("Nuevo Apellido");
+            cursiveFontinTF(txtApellido);
+            txtApellido.setForeground(Color.GRAY);
+        }
+        if (txtCedula.getText().equals("")){
+            txtCedula.setText("Nueva Cedula");
+            cursiveFontinTF(txtCedula);
+            txtCedula.setForeground(Color.GRAY);
+        }
+        if (c1.equals("")){
+            txtCambioContra.setText("Contraseña Nueva");
+            txtCambioContra.setEchoChar('\0');
+            cursiveFontinPF(txtCambioContra);
+            txtCambioContra.setForeground(Color.GRAY);
+        }
+        if (c2.equals("")){
+            txtConfCamContra.setText("Confirmar Contraseña");
+            txtConfCamContra.setEchoChar('\0');
+            cursiveFontinPF(txtConfCamContra);
+            txtConfCamContra.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_txtDireccionMouseClicked
+
+    private void txtCorreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCorreoMouseClicked
+        String c1 = new String(txtCambioContra.getPassword());
+        String c2 = new String(txtConfCamContra.getPassword());
+        
+        if (txtCorreo.getText().equals("Nuevo Correo Electronico")){
+            txtCorreo.setText("");
+            normalFontinTF(txtCorreo);
+            txtCorreo.setForeground(Color.BLACK);
+        }
+        if (txtCambioNombre.getText().equals("")){
+            txtCambioNombre.setText("Nuevo Nombre");
+            cursiveFontinTF(txtCambioNombre);
+            txtCambioNombre.setForeground(Color.GRAY);
+        }
+        if (txtCambioUserName.getText().equals("")){
+            txtCambioUserName.setText("Nuevo User Name");
+            cursiveFontinTF(txtCambioUserName);
+            txtCambioUserName.setForeground(Color.GRAY);
+        }
+        if (txtTarjeta.getText().equals("")){
+            txtTarjeta.setText("Agregar / Cambiar Tarjeta");
+            cursiveFontinTF(txtTarjeta);
+            txtTarjeta.setForeground(Color.GRAY);
+        }
+        if (txtApellido.getText().equals("")){
+            txtApellido.setText("Nuevo Apellido");
+            cursiveFontinTF(txtApellido);
+            txtApellido.setForeground(Color.GRAY);
+        }
+        if (txtCedula.getText().equals("")){
+            txtCedula.setText("Nueva Cedula");
+            cursiveFontinTF(txtCedula);
+            txtCedula.setForeground(Color.GRAY);
+        }
+        if (c1.equals("")){
+            txtCambioContra.setText("Contraseña Nueva");
+            txtCambioContra.setEchoChar('\0');
+            cursiveFontinPF(txtCambioContra);
+            txtCambioContra.setForeground(Color.GRAY);
+        }
+        if (c2.equals("")){
+            txtConfCamContra.setText("Confirmar Contraseña");
+            txtConfCamContra.setEchoChar('\0');
+            cursiveFontinPF(txtConfCamContra);
+            txtConfCamContra.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_txtCorreoMouseClicked
+
+    private void txtApellidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtApellidoMouseClicked
+        String c1 = new String(txtCambioContra.getPassword());
+        String c2 = new String(txtConfCamContra.getPassword());
+        
+        if (txtApellido.getText().equals("Nuevo Apellido")){
+            txtApellido.setText("");
+            normalFontinTF(txtApellido);
+            txtApellido.setForeground(Color.BLACK);
+        }
+        if (txtCambioNombre.getText().equals("")){
+            txtCambioNombre.setText("Nuevo Nombre");
+            cursiveFontinTF(txtCambioNombre);
+            txtCambioNombre.setForeground(Color.GRAY);
+        }
+        if (txtCambioUserName.getText().equals("")){
+            txtCambioUserName.setText("Nuevo User Name");
+            cursiveFontinTF(txtCambioUserName);
+            txtCambioUserName.setForeground(Color.GRAY);
+        }
+        if (txtTarjeta.getText().equals("")){
+            txtTarjeta.setText("Agregar / Cambiar Tarjeta");
+            cursiveFontinTF(txtTarjeta);
+            txtTarjeta.setForeground(Color.GRAY);
+        }
+        if (txtCorreo.getText().equals("")){
+            txtCorreo.setText("Nuevo Correo Electronico");
+            cursiveFontinTF(txtCorreo);
+            txtCorreo.setForeground(Color.GRAY);
+        }
+        if (txtCedula.getText().equals("")){
+            txtCedula.setText("Nueva Cedula");
+            cursiveFontinTF(txtCedula);
+            txtCedula.setForeground(Color.GRAY);
+        }
+        if (c1.equals("")){
+            txtCambioContra.setText("Contraseña Nueva");
+            txtCambioContra.setEchoChar('\0');
+            cursiveFontinPF(txtCambioContra);
+            txtCambioContra.setForeground(Color.GRAY);
+        }
+        if (c2.equals("")){
+            txtConfCamContra.setText("Confirmar Contraseña");
+            txtConfCamContra.setEchoChar('\0');
+            cursiveFontinPF(txtConfCamContra);
+            txtConfCamContra.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_txtApellidoMouseClicked
+
+    private void txtCedulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCedulaMouseClicked
+        String c1 = new String(txtCambioContra.getPassword());
+        String c2 = new String(txtConfCamContra.getPassword());
+        
+        if (txtCedula.getText().equals("Nueva Cedula")){
+            txtCedula.setText("");
+            normalFontinTF(txtCedula);
+            txtCedula.setForeground(Color.BLACK);
+        }
+        if (txtCambioNombre.getText().equals("")){
+            txtCambioNombre.setText("Nuevo Nombre");
+            cursiveFontinTF(txtCambioNombre);
+            txtCambioNombre.setForeground(Color.GRAY);
+        }
+        if (txtCambioUserName.getText().equals("")){
+            txtCambioUserName.setText("Nuevo User Name");
+            cursiveFontinTF(txtCambioUserName);
+            txtCambioUserName.setForeground(Color.GRAY);
+        }
+        if (txtTarjeta.getText().equals("")){
+            txtTarjeta.setText("Agregar / Cambiar Tarjeta");
+            cursiveFontinTF(txtTarjeta);
+            txtTarjeta.setForeground(Color.GRAY);
+        }
+        if (txtCorreo.getText().equals("")){
+            txtCorreo.setText("Nuevo Correo Electronico");
+            cursiveFontinTF(txtCorreo);
+            txtCorreo.setForeground(Color.GRAY);
+        }
+        if (txtApellido.getText().equals("")){
+            txtApellido.setText("Nuevo Apellido");
+            cursiveFontinTF(txtApellido);
+            txtApellido.setForeground(Color.GRAY);
+        }
+        if (c1.equals("")){
+            txtCambioContra.setText("Contraseña Nueva");
+            txtCambioContra.setEchoChar('\0');
+            cursiveFontinPF(txtCambioContra);
+            txtCambioContra.setForeground(Color.GRAY);
+        }
+        if (c2.equals("")){
+            txtConfCamContra.setText("Confirmar Contraseña");
+            txtConfCamContra.setEchoChar('\0');
+            cursiveFontinPF(txtConfCamContra);
+            txtConfCamContra.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_txtCedulaMouseClicked
     
     //**************************************************************************************************************************************************************************
     //AQUÍ SE ACTUALIZA LA TABLA DE VUELOS AL MOMENTO DE SELECCIONAR UN BOTÓN PARA ORDENARLA SEGUN LAS PREFERENCIAS DLE USUARIO
@@ -1599,12 +2029,12 @@ public class Sesion extends javax.swing.JFrame {
                 //Aquí verifico si el estadoVuelo es true o si todavía hay asientos disponibles para reservar
                 if (posBus.get(i).getEstadoVuelo()){
                     estadoVuelo = "Habilitado";
+                    //Aquí añado los elementos a la tabla
+                    tb.addRow(new Object[]{ idVuelo, aereolinea, origen, escalas, destino, horario, business, ecoPremium, eco, estadoVuelo});
                 }
                 else{
                     estadoVuelo = "No Disponible";
                 }
-                //Aquí añado los elementos a la tabla
-                tb.addRow(new Object[]{ idVuelo, aereolinea, origen, escalas, destino, horario, business, ecoPremium, eco, estadoVuelo});
             }
         }
         //Aquí lo que se hace es cambiar el tamaño de las filas
@@ -1773,11 +2203,15 @@ public class Sesion extends javax.swing.JFrame {
     private javax.swing.JToggleButton tbtnReservas;
     private javax.swing.JToggleButton tbtnVuelos;
     private javax.swing.JLabel topMove;
+    private javax.swing.JTextField txtApellido;
     private javax.swing.JPasswordField txtCambioContra;
     private javax.swing.JTextField txtCambioNombre;
     private javax.swing.JTextField txtCambioUserName;
+    private javax.swing.JTextField txtCedula;
     private javax.swing.JPasswordField txtConfCamContra;
+    private javax.swing.JTextField txtCorreo;
     private javax.swing.JLabel txtDestino;
+    private javax.swing.JTextField txtDireccion;
     private javax.swing.JLabel txtMensaje;
     private javax.swing.JLabel txtOrigin;
     private javax.swing.JLabel txtShowUserName;
