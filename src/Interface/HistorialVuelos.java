@@ -1,0 +1,257 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package Interface;
+
+import AgenciaDeViajes.Base_de_Datos;
+import AgenciaDeViajes.Vuelo;
+import java.awt.Image;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ *
+ * @author RICHAR
+ */
+public class HistorialVuelos extends javax.swing.JFrame {
+
+    /**
+     * Creates new form HistorialVuelos
+     */
+    
+    DefaultTableModel tb = new DefaultTableModel();
+    
+    public HistorialVuelos() {
+        initComponents();
+        actualizarDatosTabla(Base_de_Datos.historialVuelos);
+        this.setLocationRelativeTo(null);
+        putImageinButton("/images/Back_Button_01.png",btnDevolver);
+    }
+    
+    private void putImageinButton(String ruta, JButton btn){
+        ImageIcon image = new ImageIcon(getClass().getResource(ruta));
+        Icon imageIcon = new ImageIcon(image.getImage().getScaledInstance(btn.getWidth(), btn.getHeight(), Image.SCALE_SMOOTH));
+        btn.setIcon(imageIcon);
+    }
+    
+    private void eliminarDatosTabla(JTable tabla){
+        DefaultTableModel vacio = (DefaultTableModel) tabla.getModel();
+        vacio.setRowCount(0);
+    }
+    
+    private void actualizarDatosTabla(ArrayList<Vuelo> posBus){
+        //Creo una matriz llamada ids que es la que va a tener los encabezados de las columnas de las tablas
+        String ids[] ={"ID","Aereolinea","Origen", "Escalas", "Destino", "Fecha Salida", "Business", "Eco Premium", "Economico", "Estado Vuelo", "Tiempo Transcurrido (Días)"};
+        tb.setColumnIdentifiers(ids); //Aquí se establece los encabezados en la tabla
+        tbHistorial.setModel(tb);//Y por último, como las tablas se basan en modelos, debemos añadir dicho modelo
+        
+        eliminarDatosTabla(tbHistorial);
+        
+        //Estas variables son las que van a almacenar los datos de las tablas
+        String aereolinea, origen,escalas, destino, estadoVuelo;
+        int idVuelo, business, ecoPremium, eco; 
+        long dias_transcurridos;
+        LocalDate horario, actual = LocalDate.now();
+        
+        //Como es la opción sin filtro, todo se deja igual y se capturan los datos para posteriormente mostrarlos en la interfase
+        for (int i=0; i< Base_de_Datos.historialVuelos.size(); i++){
+            idVuelo = posBus.get(i).getIdVuelo();
+            aereolinea = posBus.get(i).getAereolinea();
+            escalas = posBus.get(i).toStringescalas();
+            origen = posBus.get(i).getOrigen();
+            destino = posBus.get(i).getDestino();
+            business = posBus.get(i).getAsientos()[1].calcularTarifa(posBus.get(i).getTarifaGeneral());//Saco la tarifa para el asiento en la posición 1 (business)
+            ecoPremium = posBus.get(i).getAsientos()[32].calcularTarifa(posBus.get(i).getTarifaGeneral());//Saco la tarifa para el asiento en la posición 32 (economico premium)
+            eco = posBus.get(i).getAsientos()[75].calcularTarifa(posBus.get(i).getTarifaGeneral());//Saco la tarifa para el asiento en la posición 75 (economico)
+            horario = posBus.get(i).getFechaSalida();//Extraigo la fecha de salida del vuelo
+            
+            //Aquí calculo los días transcurridos entre la fecha actual y la fecha de salida
+            dias_transcurridos = ChronoUnit.DAYS.between(horario,actual);
+            
+            //Aquí verifico si el estadoVuelo es true o si todavía hay asientos disponibles para reservar
+            if (posBus.get(i).getEstadoVuelo()){
+                estadoVuelo = "Habilitado";
+            }
+            else{
+                estadoVuelo = "Despegó";
+            }
+            //Aquí añado los elementos a la tabla
+            tb.addRow(new Object[]{ idVuelo, aereolinea, origen, escalas, destino, horario, business, ecoPremium, eco, estadoVuelo, dias_transcurridos});
+        }
+        //Aquí lo que se hace es cambiar el tamaño de las filas
+        this.tbHistorial.setRowHeight(30);
+        //Ocultar columna de idVuelo para que el usuario no lo vea
+        ocultarColumna(tbHistorial,0);
+    }
+    
+    public void ocultarColumna(JTable table, int columnIndex) {
+        table.getColumnModel().getColumn(columnIndex).setMinWidth(0);
+        table.getColumnModel().getColumn(columnIndex).setMaxWidth(0);
+        table.getColumnModel().getColumn(columnIndex).setWidth(0);
+        table.getColumnModel().getColumn(columnIndex).setPreferredWidth(0);
+        table.getColumnModel().getColumn(columnIndex).setResizable(false);
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        btnDevolver = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbHistorial = new javax.swing.JTable();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
+
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("HISTORIAL DE VUELOS");
+
+        btnDevolver.setBorder(null);
+        btnDevolver.setBorderPainted(false);
+        btnDevolver.setContentAreaFilled(false);
+        btnDevolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDevolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDevolverActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(btnDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(260, 260, 260)
+                .addComponent(jLabel1)
+                .addContainerGap(292, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)))
+                .addGap(23, 23, 23))
+        );
+
+        tbHistorial.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11"
+            }
+        ));
+        jScrollPane1.setViewportView(tbHistorial);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 58, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolverActionPerformed
+        //Si el administrador desea devolverse, se devolverá al inicio
+        dispose();
+        Inicio inicio = new Inicio();
+        inicio.setVisible(true);
+    }//GEN-LAST:event_btnDevolverActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(HistorialVuelos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(HistorialVuelos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(HistorialVuelos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(HistorialVuelos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new HistorialVuelos().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDevolver;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tbHistorial;
+    // End of variables declaration//GEN-END:variables
+}
