@@ -37,6 +37,14 @@ public class Registro extends javax.swing.JFrame {
         txtName.setForeground(Color.GRAY);
         cursiveFontinTF(txtUserName);
         txtUserName.setForeground(Color.GRAY);
+        cursiveFontinTF(txtApellido);
+        txtApellido.setForeground(Color.GRAY);
+        cursiveFontinTF(txtCorreo);
+        txtCorreo.setForeground(Color.GRAY);
+        cursiveFontinTF(txtCedula);
+        txtCedula.setForeground(Color.GRAY);
+        cursiveFontinTF(txtDireccion);
+        txtDireccion.setForeground(Color.GRAY);
         
         txtContra.setEchoChar('\0');
         cursiveFontinTF(txtContra);
@@ -100,11 +108,15 @@ public class Registro extends javax.swing.JFrame {
         btnRegister = new javax.swing.JButton();
         txtName = new javax.swing.JTextField();
         txtUserName = new javax.swing.JTextField();
-        txtContra = new javax.swing.JPasswordField();
-        txtConfirContra = new javax.swing.JPasswordField();
         jToggleButton1 = new javax.swing.JToggleButton();
+        txtContra = new javax.swing.JPasswordField();
         jToggleButton2 = new javax.swing.JToggleButton();
+        txtConfirContra = new javax.swing.JPasswordField();
         txtMensaje = new javax.swing.JLabel();
+        txtDireccion = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
+        txtApellido = new javax.swing.JTextField();
+        txtCedula = new javax.swing.JTextField();
         bannerRegister = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -123,7 +135,7 @@ public class Registro extends javax.swing.JFrame {
                 btnBackActionPerformed(evt);
             }
         });
-        absolutoPanel.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        absolutoPanel.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
 
         btnRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btnRegister_001.png"))); // NOI18N
         btnRegister.setToolTipText("");
@@ -141,7 +153,7 @@ public class Registro extends javax.swing.JFrame {
                 btnRegisterActionPerformed(evt);
             }
         });
-        absolutoPanel.add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 440, -1, -1));
+        absolutoPanel.add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 700, -1, -1));
 
         txtName.setBackground(new java.awt.Color(250, 249, 248));
         txtName.setText("Nombre");
@@ -153,7 +165,12 @@ public class Registro extends javax.swing.JFrame {
                 txtNameMouseClicked(evt);
             }
         });
-        absolutoPanel.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 400, 40));
+        txtName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNameActionPerformed(evt);
+            }
+        });
+        absolutoPanel.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 550, 40));
 
         txtUserName.setBackground(new java.awt.Color(250, 249, 248));
         txtUserName.setText("User Name");
@@ -163,27 +180,12 @@ public class Registro extends javax.swing.JFrame {
                 txtUserNameMouseClicked(evt);
             }
         });
-        absolutoPanel.add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 212, 400, 50));
-
-        txtContra.setBackground(new java.awt.Color(250, 249, 248));
-        txtContra.setText("Contraseña");
-        txtContra.setBorder(null);
-        txtContra.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtContraMouseClicked(evt);
+        txtUserName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserNameActionPerformed(evt);
             }
         });
-        absolutoPanel.add(txtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 350, 50));
-
-        txtConfirContra.setBackground(new java.awt.Color(250, 249, 248));
-        txtConfirContra.setText("Confirmar Contraseña");
-        txtConfirContra.setBorder(null);
-        txtConfirContra.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtConfirContraMouseClicked(evt);
-            }
-        });
-        absolutoPanel.add(txtConfirContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 350, 50));
+        absolutoPanel.add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 550, 50));
 
         jToggleButton1.setBackground(new java.awt.Color(255, 249, 248));
         jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Button visual_001.png"))); // NOI18N
@@ -201,7 +203,17 @@ public class Registro extends javax.swing.JFrame {
                 jToggleButton1ActionPerformed(evt);
             }
         });
-        absolutoPanel.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, 40, 40));
+        absolutoPanel.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 40, 40));
+
+        txtContra.setBackground(new java.awt.Color(250, 249, 248));
+        txtContra.setText("Contraseña");
+        txtContra.setBorder(null);
+        txtContra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtContraMouseClicked(evt);
+            }
+        });
+        absolutoPanel.add(txtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 220, 40));
 
         jToggleButton2.setBackground(new java.awt.Color(255, 244, 243));
         jToggleButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Button visual_001.png"))); // NOI18N
@@ -219,26 +231,75 @@ public class Registro extends javax.swing.JFrame {
                 jToggleButton2ActionPerformed(evt);
             }
         });
-        absolutoPanel.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 360, -1, 40));
+        absolutoPanel.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 340, -1, 40));
+
+        txtConfirContra.setBackground(new java.awt.Color(250, 249, 248));
+        txtConfirContra.setText("Confirmar Contraseña");
+        txtConfirContra.setBorder(null);
+        txtConfirContra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtConfirContraMouseClicked(evt);
+            }
+        });
+        absolutoPanel.add(txtConfirContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 340, 210, 40));
 
         txtMensaje.setFont(new java.awt.Font("Yu Gothic UI Semilight", 1, 18)); // NOI18N
         txtMensaje.setForeground(new java.awt.Color(255, 0, 51));
-        absolutoPanel.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 420, 20));
+        absolutoPanel.add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 680, 390, 20));
 
-        bannerRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Register.png"))); // NOI18N
-        absolutoPanel.add(bannerRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 612));
+        txtDireccion.setText("Direccion");
+        txtDireccion.setBorder(null);
+        txtDireccion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDireccionMouseClicked(evt);
+            }
+        });
+        absolutoPanel.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 630, 550, 40));
+
+        txtCorreo.setText("Correo");
+        txtCorreo.setBorder(null);
+        txtCorreo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCorreoMouseClicked(evt);
+            }
+        });
+        absolutoPanel.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 486, 550, 40));
+
+        txtApellido.setText("Apellido");
+        txtApellido.setBorder(null);
+        txtApellido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtApellidoMouseClicked(evt);
+            }
+        });
+        txtApellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtApellidoActionPerformed(evt);
+            }
+        });
+        absolutoPanel.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 550, 40));
+
+        txtCedula.setText("Cedula");
+        txtCedula.setBorder(null);
+        txtCedula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCedulaMouseClicked(evt);
+            }
+        });
+        absolutoPanel.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 560, 550, 40));
+
+        bannerRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Register New.png"))); // NOI18N
+        absolutoPanel.add(bannerRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 770));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(absolutoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(absolutoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(absolutoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(absolutoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
         );
 
         pack();
@@ -251,12 +312,16 @@ public class Registro extends javax.swing.JFrame {
         String u = txtUserName.getText();
         String c1 = new String(txtContra.getPassword());
         String c2 = new String(txtConfirContra.getPassword());
+        String apell = txtApellido.getText();
+        String mail = txtCorreo.getText();
+        String cedula = txtCedula.getText();
+        String dir = txtDireccion.getText();
         
         Timer timer = new Timer(2000, (e) -> {txtMensaje.setText("");});
         
         timer.setRepeats(false);
         
-        if(u.equals("User Name") || n.equals("Nombre") || c1.equals("Contraseña") || c2.equals("Confirmar Contraseña")){
+        if(u.equals("User Name") || n.equals("Nombre") || c1.equals("Contraseña") || c2.equals("Confirmar Contraseña") || apell.equals("Apellido") || mail.equals("Correo") || cedula.equals("Cedula") || dir.equals("Direccion")){
             txtMensaje.setText("Hacen falta campos por llenar!!!");
             timer.start();
         }else{
@@ -274,8 +339,8 @@ public class Registro extends javax.swing.JFrame {
             }else{
                 if(c1.equals(c2)){
                     //Aquí se crea el nuevo usuario y se guarda en la base de datos
-                    AgenciaDeViajes.Agencia.listaUsuarios.add(new Usuario(n, u, c1));
-                    if(!AgenciaDeViajes.Base_de_Datos.usuariosNuevos(AgenciaDeViajes.Agencia.con, n, u, c1)){
+                    AgenciaDeViajes.Agencia.listaUsuarios.add(new Usuario(n, u, c1, dir, mail, apell, cedula));
+                    if(!AgenciaDeViajes.Base_de_Datos.usuariosNuevos(AgenciaDeViajes.Agencia.con, n, u, c1, dir, mail, apell, cedula)){
                         txtMensaje.setText("No se pudo realizar el registro / Error en la base de Datos");
                         timer.start();
                     }
@@ -312,6 +377,26 @@ public class Registro extends javax.swing.JFrame {
             cursiveFontinTF(txtUserName);
             txtUserName.setForeground(Color.GRAY);
         }
+        if (txtApellido.getText().equals("")){
+            txtApellido.setText("Apellido");
+            cursiveFontinTF(txtApellido);
+            txtApellido.setForeground(Color.GRAY);
+        }
+        if (txtCorreo.getText().equals("")){
+            txtCorreo.setText("Correo");
+            cursiveFontinTF(txtCorreo);
+            txtCorreo.setForeground(Color.GRAY);
+        }
+        if (txtCedula.getText().equals("")){
+            txtCedula.setText("Cedula");
+            cursiveFontinTF(txtCedula);
+            txtCedula.setForeground(Color.GRAY);
+        }
+        if (txtDireccion.getText().equals("")){
+            txtDireccion.setText("Direccion");
+            cursiveFontinTF(txtDireccion);
+            txtDireccion.setForeground(Color.GRAY);
+        }
         if (ps1.equals("")){
             txtContra.setText("Contraseña");
             txtContra.setEchoChar('\0');
@@ -339,6 +424,26 @@ public class Registro extends javax.swing.JFrame {
             txtName.setText("Nombre");
             cursiveFontinTF(txtName);
             txtName.setForeground(Color.GRAY);
+        }
+        if (txtApellido.getText().equals("")){
+            txtApellido.setText("Apellido");
+            cursiveFontinTF(txtApellido);
+            txtApellido.setForeground(Color.GRAY);
+        }
+        if (txtCorreo.getText().equals("")){
+            txtCorreo.setText("Correo");
+            cursiveFontinTF(txtCorreo);
+            txtCorreo.setForeground(Color.GRAY);
+        }
+        if (txtCedula.getText().equals("")){
+            txtCedula.setText("Cedula");
+            cursiveFontinTF(txtCedula);
+            txtCedula.setForeground(Color.GRAY);
+        }
+        if (txtDireccion.getText().equals("")){
+            txtDireccion.setText("Direccion");
+            cursiveFontinTF(txtDireccion);
+            txtDireccion.setForeground(Color.GRAY);
         }
         if (ps1.equals("")){
             txtContra.setText("Contraseña");
@@ -385,6 +490,26 @@ public class Registro extends javax.swing.JFrame {
             cursiveFontinTF(txtUserName);
             txtUserName.setForeground(Color.GRAY);
         }
+        if (txtApellido.getText().equals("")){
+            txtApellido.setText("Apellido");
+            cursiveFontinTF(txtApellido);
+            txtApellido.setForeground(Color.GRAY);
+        }
+        if (txtCorreo.getText().equals("")){
+            txtCorreo.setText("Correo");
+            cursiveFontinTF(txtCorreo);
+            txtCorreo.setForeground(Color.GRAY);
+        }
+        if (txtCedula.getText().equals("")){
+            txtCedula.setText("Cedula");
+            cursiveFontinTF(txtCedula);
+            txtCedula.setForeground(Color.GRAY);
+        }
+        if (txtDireccion.getText().equals("")){
+            txtDireccion.setText("Direccion");
+            cursiveFontinTF(txtDireccion);
+            txtDireccion.setForeground(Color.GRAY);
+        }
     }//GEN-LAST:event_txtContraMouseClicked
 
     private void txtConfirContraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtConfirContraMouseClicked
@@ -417,6 +542,26 @@ public class Registro extends javax.swing.JFrame {
             txtUserName.setText("User Name");
             cursiveFontinTF(txtUserName);
             txtUserName.setForeground(Color.GRAY);
+        }
+        if (txtApellido.getText().equals("")){
+            txtApellido.setText("Apellido");
+            cursiveFontinTF(txtApellido);
+            txtApellido.setForeground(Color.GRAY);
+        }
+        if (txtCorreo.getText().equals("")){
+            txtCorreo.setText("Correo");
+            cursiveFontinTF(txtCorreo);
+            txtCorreo.setForeground(Color.GRAY);
+        }
+        if (txtCedula.getText().equals("")){
+            txtCedula.setText("Cedula");
+            cursiveFontinTF(txtCedula);
+            txtCedula.setForeground(Color.GRAY);
+        }
+        if (txtDireccion.getText().equals("")){
+            txtDireccion.setText("Direccion");
+            cursiveFontinTF(txtDireccion);
+            txtDireccion.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_txtConfirContraMouseClicked
 
@@ -466,6 +611,210 @@ public class Registro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
+    private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
+        // NADA
+    }//GEN-LAST:event_txtUserNameActionPerformed
+
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+        // NADA
+    }//GEN-LAST:event_txtNameActionPerformed
+
+    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidoActionPerformed
+
+    private void txtApellidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtApellidoMouseClicked
+        String ps1 = new String(txtContra.getPassword());
+        String ps2 = new String(txtConfirContra.getPassword());
+        
+        if (txtName.getText().equals("")){
+            txtName.setText("Nombre");
+            normalFontinTF(txtName);
+            txtName.setForeground(Color.GRAY);
+        }
+        if (txtUserName.getText().equals("")){
+            txtUserName.setText("User Name");
+            cursiveFontinTF(txtUserName);
+            txtUserName.setForeground(Color.GRAY);
+        }
+        if (txtApellido.getText().equals("Apellido")){
+            txtApellido.setText("");
+            cursiveFontinTF(txtApellido);
+            txtApellido.setForeground(Color.BLACK);
+        }
+        if (txtCorreo.getText().equals("")){
+            txtCorreo.setText("Correo");
+            cursiveFontinTF(txtCorreo);
+            txtCorreo.setForeground(Color.GRAY);
+        }
+        if (txtCedula.getText().equals("")){
+            txtCedula.setText("Cedula");
+            cursiveFontinTF(txtCedula);
+            txtCedula.setForeground(Color.GRAY);
+        }
+        if (txtDireccion.getText().equals("")){
+            txtDireccion.setText("Direccion");
+            cursiveFontinTF(txtDireccion);
+            txtDireccion.setForeground(Color.GRAY);
+        }
+        if (ps1.equals("")){
+            txtContra.setText("Contraseña");
+            txtContra.setEchoChar('\0');
+            cursiveFontinPF(txtContra);
+            txtContra.setForeground(Color.GRAY);
+        }
+        if (ps2.equals("")){
+            txtConfirContra.setText("Confirmar Contraseña");
+            txtConfirContra.setEchoChar('\0');
+            cursiveFontinPF(txtConfirContra);
+            txtConfirContra.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_txtApellidoMouseClicked
+
+    private void txtCorreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCorreoMouseClicked
+        String ps1 = new String(txtContra.getPassword());
+        String ps2 = new String(txtConfirContra.getPassword());
+        
+        if (txtName.getText().equals("")){
+            txtName.setText("Nombre");
+            normalFontinTF(txtName);
+            txtName.setForeground(Color.GRAY);
+        }
+        if (txtUserName.getText().equals("")){
+            txtUserName.setText("User Name");
+            cursiveFontinTF(txtUserName);
+            txtUserName.setForeground(Color.GRAY);
+        }
+        if (txtApellido.getText().equals("")){
+            txtApellido.setText("Apellido");
+            cursiveFontinTF(txtApellido);
+            txtApellido.setForeground(Color.GRAY);
+        }
+        if (txtCorreo.getText().equals("Correo")){
+            txtCorreo.setText("");
+            cursiveFontinTF(txtCorreo);
+            txtCorreo.setForeground(Color.BLACK);
+        }
+        if (txtCedula.getText().equals("")){
+            txtCedula.setText("Cedula");
+            cursiveFontinTF(txtCedula);
+            txtCedula.setForeground(Color.GRAY);
+        }
+        if (txtDireccion.getText().equals("")){
+            txtDireccion.setText("Direccion");
+            cursiveFontinTF(txtDireccion);
+            txtDireccion.setForeground(Color.GRAY);
+        }
+        if (ps1.equals("")){
+            txtContra.setText("Contraseña");
+            txtContra.setEchoChar('\0');
+            cursiveFontinPF(txtContra);
+            txtContra.setForeground(Color.GRAY);
+        }
+        if (ps2.equals("")){
+            txtConfirContra.setText("Confirmar Contraseña");
+            txtConfirContra.setEchoChar('\0');
+            cursiveFontinPF(txtConfirContra);
+            txtConfirContra.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_txtCorreoMouseClicked
+
+    private void txtCedulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCedulaMouseClicked
+        String ps1 = new String(txtContra.getPassword());
+        String ps2 = new String(txtConfirContra.getPassword());
+        
+        if (txtName.getText().equals("")){
+            txtName.setText("Nombre");
+            normalFontinTF(txtName);
+            txtName.setForeground(Color.GRAY);
+        }
+        if (txtUserName.getText().equals("")){
+            txtUserName.setText("User Name");
+            cursiveFontinTF(txtUserName);
+            txtUserName.setForeground(Color.GRAY);
+        }
+        if (txtApellido.getText().equals("")){
+            txtApellido.setText("Apellido");
+            cursiveFontinTF(txtApellido);
+            txtApellido.setForeground(Color.GRAY);
+        }
+        if (txtCorreo.getText().equals("")){
+            txtCorreo.setText("Correo");
+            cursiveFontinTF(txtCorreo);
+            txtCorreo.setForeground(Color.GRAY);
+        }
+        if (txtCedula.getText().equals("Cedula")){
+            txtCedula.setText("");
+            cursiveFontinTF(txtCedula);
+            txtCedula.setForeground(Color.BLACK);
+        }
+        if (txtDireccion.getText().equals("")){
+            txtDireccion.setText("Direccion");
+            cursiveFontinTF(txtDireccion);
+            txtDireccion.setForeground(Color.GRAY);
+        }
+        if (ps1.equals("")){
+            txtContra.setText("Contraseña");
+            txtContra.setEchoChar('\0');
+            cursiveFontinPF(txtContra);
+            txtContra.setForeground(Color.GRAY);
+        }
+        if (ps2.equals("")){
+            txtConfirContra.setText("Confirmar Contraseña");
+            txtConfirContra.setEchoChar('\0');
+            cursiveFontinPF(txtConfirContra);
+            txtConfirContra.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_txtCedulaMouseClicked
+
+    private void txtDireccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDireccionMouseClicked
+        String ps1 = new String(txtContra.getPassword());
+        String ps2 = new String(txtConfirContra.getPassword());
+        
+        if (txtName.getText().equals("")){
+            txtName.setText("Nombre");
+            normalFontinTF(txtName);
+            txtName.setForeground(Color.GRAY);
+        }
+        if (txtUserName.getText().equals("")){
+            txtUserName.setText("User Name");
+            cursiveFontinTF(txtUserName);
+            txtUserName.setForeground(Color.GRAY);
+        }
+        if (txtApellido.getText().equals("")){
+            txtApellido.setText("Apellido");
+            cursiveFontinTF(txtApellido);
+            txtApellido.setForeground(Color.BLACK);
+        }
+        if (txtCorreo.getText().equals("")){
+            txtCorreo.setText("Correo");
+            cursiveFontinTF(txtCorreo);
+            txtCorreo.setForeground(Color.GRAY);
+        }
+        if (txtCedula.getText().equals("")){
+            txtCedula.setText("Cedula");
+            cursiveFontinTF(txtCedula);
+            txtCedula.setForeground(Color.GRAY);
+        }
+        if (txtDireccion.getText().equals("Direccion")){
+            txtDireccion.setText("");
+            cursiveFontinTF(txtDireccion);
+            txtDireccion.setForeground(Color.BLACK);
+        }
+        if (ps1.equals("")){
+            txtContra.setText("Contraseña");
+            txtContra.setEchoChar('\0');
+            cursiveFontinPF(txtContra);
+            txtContra.setForeground(Color.GRAY);
+        }
+        if (ps2.equals("")){
+            txtConfirContra.setText("Confirmar Contraseña");
+            txtConfirContra.setEchoChar('\0');
+            cursiveFontinPF(txtConfirContra);
+            txtConfirContra.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_txtDireccionMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -508,8 +857,12 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JButton btnRegister;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtCedula;
     private javax.swing.JPasswordField txtConfirContra;
     private javax.swing.JPasswordField txtContra;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtDireccion;
     private javax.swing.JLabel txtMensaje;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtUserName;
