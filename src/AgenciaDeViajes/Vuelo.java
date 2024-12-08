@@ -119,7 +119,7 @@ public class Vuelo implements Serializable{
     }
     
     //CONSTRUCTOR ALTERNATIVO
-    public Vuelo(int idVuelo, String aereolinea, Asiento[] asientos, int asientosDisponibles, String origen, ArrayList<String> escalas, String destino, boolean estadoVuelo, LocalDate fechaSalida) {
+    public Vuelo(int idVuelo, String aereolinea, Asiento[] asientos, int asientosDisponibles, String origen, ArrayList<String> escalas, String destino, boolean estadoVuelo, LocalDate fechaSalida, int tarifaGeneral) {
         this.idVuelo = idVuelo;
         this.aereolinea = aereolinea;
         this.asientos = asientos;
@@ -129,6 +129,7 @@ public class Vuelo implements Serializable{
         this.destino = destino;
         this.estadoVuelo = estadoVuelo;
         this.fechaSalida = fechaSalida;
+        this.tarifaGeneral = tarifaGeneral;
     }
 
     //Esta función nos ayuda a asignar los asientos en el vuelo
