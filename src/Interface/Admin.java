@@ -75,6 +75,7 @@ public class Admin extends javax.swing.JFrame {
         btnAnadir = new javax.swing.JButton();
         txtMensaje = new javax.swing.JLabel();
         eliminarVuelo = new javax.swing.JButton();
+        btnRegistroVuelos = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -197,7 +198,7 @@ public class Admin extends javax.swing.JFrame {
                 addActionPerformed(evt);
             }
         });
-        getContentPane().add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 320, -1, -1));
+        getContentPane().add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 320, -1, -1));
 
         btnAnadir.setText("AÑADIR VUELO");
         btnAnadir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -211,10 +212,10 @@ public class Admin extends javax.swing.JFrame {
                 btnAnadirActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAnadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 320, -1, -1));
+        getContentPane().add(btnAnadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 350, -1, -1));
 
         txtMensaje.setForeground(new java.awt.Color(255, 0, 0));
-        getContentPane().add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 300, 270, 20));
+        getContentPane().add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 300, 270, 20));
 
         eliminarVuelo.setText("ELIMINAR VUELOS");
         eliminarVuelo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -223,7 +224,15 @@ public class Admin extends javax.swing.JFrame {
                 eliminarVueloMouseClicked(evt);
             }
         });
-        getContentPane().add(eliminarVuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, -1, -1));
+        getContentPane().add(eliminarVuelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, -1, -1));
+
+        btnRegistroVuelos.setText("REGISTRO VUELOS");
+        btnRegistroVuelos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegistroVuelosMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnRegistroVuelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 350, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -308,6 +317,13 @@ public class Admin extends javax.swing.JFrame {
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         //NADA
     }//GEN-LAST:event_addActionPerformed
+
+    private void btnRegistroVuelosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistroVuelosMouseClicked
+        //Si el administrador desea ver el registro de los vuelo que han salido, se le llevará a su respectiva pestaña
+        dispose();
+        HistorialVuelos hVuelos = new HistorialVuelos();
+        hVuelos.setVisible(true);
+    }//GEN-LAST:event_btnRegistroVuelosMouseClicked
     /**
      * @param args the command line arguments
      */
@@ -347,6 +363,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton add;
     private javax.swing.JButton btnAnadir;
     private javax.swing.JButton btnDevolver;
+    private javax.swing.JToggleButton btnRegistroVuelos;
     private javax.swing.JComboBox<String> comboAereo;
     private javax.swing.JButton eliminarVuelo;
     private javax.swing.JLabel jLabel1;
