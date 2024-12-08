@@ -18,23 +18,35 @@ public class Usuario implements Serializable{
     private String userName;
     private String password;
     private String nombre;
+    private String direccion;
+    private String correo;
+    private String apellido;
+    private String cedula;
     private ArrayList<Reserva> listaReserva = new ArrayList<>();
     private String tarjeta=null;
     
     //Este constructor es alternativo
-    public Usuario(String nombre, String userName, String password, String tarjeta, ArrayList<Reserva> listaReserva) {
+    public Usuario(String nombre, String userName, String password, String tarjeta, ArrayList<Reserva> listaReserva, String direccion, String correo, String apellido, String cedula) {
         this.userName = userName;
         this.password = password;
         this.nombre = nombre;
         this.tarjeta = tarjeta;
         this.listaReserva = listaReserva;
+        this.direccion = direccion;
+        this.correo = correo;
+        this.apellido = apellido;
+        this.cedula = cedula;
     }
     
     //Este constructor crea como tal a todos los usuarios
-    public Usuario(String nombre,String userName,String password){
+    public Usuario(String nombre,String userName,String password, String direccion, String correo, String apellido, String cedula){
         this.userName=userName;
         this.password=password;
         this.nombre=nombre;
+        this.direccion=direccion;
+        this.correo=correo;
+        this.apellido=apellido;
+        this.cedula=cedula;
     }
     
     //Este método verifica que el userName coincida con su respectiva contraseña
@@ -135,4 +147,38 @@ public class Usuario implements Serializable{
     public ArrayList<Reserva> getListaReserva() {
         return listaReserva;
     }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+    
+    
 }
