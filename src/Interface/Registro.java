@@ -340,7 +340,7 @@ public class Registro extends javax.swing.JFrame {
                 if(c1.equals(c2)){
                     //Aquí se crea el nuevo usuario y se guarda en la base de datos
                     AgenciaDeViajes.Agencia.listaUsuarios.add(new Usuario(n, u, c1, dir, mail, apell, cedula));
-                    if(!AgenciaDeViajes.Base_de_Datos.usuariosNuevos(AgenciaDeViajes.Agencia.con, n, u, c1, dir, mail, apell, cedula)){
+                    if(!AgenciaDeViajes.Base_de_Datos.usuariosNuevos(AgenciaDeViajes.Agencia.con, u, n, c1, dir, mail, apell, cedula)){
                         txtMensaje.setText("No se pudo realizar el registro / Error en la base de Datos");
                         timer.start();
                     }

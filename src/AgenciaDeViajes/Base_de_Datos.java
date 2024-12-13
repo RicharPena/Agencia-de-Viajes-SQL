@@ -52,11 +52,15 @@ public class Base_de_Datos {
         String query1 = "SELECT * FROM vuelos";
         String query2 = "SELECT vuelos.id, escalas.ciudad FROM escalasxvuelo JOIN escalas ON escalas.id = escalasxvuelo.id_escala JOIN vuelos ON vuelos.id = escalasxvuelo.id_vuelo;";
         String query3 = "SELECT asientos.id_vuelo, asientos.id_asiento AS idAsiento FROM asientos JOIN vuelos ON vuelos.id = asientos.id_vuelo;";
+        String call1 = "{CALL verificar_vuelo()}";
         
         try {
             PreparedStatement ps1 = con.prepareStatement(query1);
             PreparedStatement ps2 = con.prepareStatement(query2);
             PreparedStatement ps3 = con.prepareStatement(query3);
+            CallableStatement cs1 = con.prepareCall(call1);
+            
+            cs1.execute();
             
             ResultSet rs1 = ps1.executeQuery();
             ResultSet rs2 = ps2.executeQuery();
@@ -149,7 +153,7 @@ public class Base_de_Datos {
                 usuariosMap.put(id, usuario);
             }
             
-            int auxId=0;
+            int auxId=0, aux_long=0;
             //Aquí se cargan las reservas de cada usuario
             while (rs2.next()){
                 
@@ -164,7 +168,8 @@ public class Base_de_Datos {
                 
                 if (auxId != id){
                     usuario.crearReserva(vuelo, buscarAsientos(con, id_vuelo, id));
-                    usuario.getListaReserva().get(id-1).setPago(pago);
+                    aux_long = usuario.getListaReserva().size();
+                    usuario.getListaReserva().get(aux_long-1).setPago(pago);
                     auxId = id;
                 }
             }
@@ -201,28 +206,26 @@ public class Base_de_Datos {
     }
     
     public static boolean usuariosNuevos(Connection con,String user_name, String name, String password, String direccion, String email, String apellido, String cedula){
-        String query1 = "INSERT INTO datos_usuarios (nombre, apellido, correo, direccion, cedula) VALUES (?,?,?,?,?)";
-        String query2 = "INSERT INTO cuenta (usuario, contrasena) VALUES (?,?)";//completo
+        String call1 = "{CALL agregar_usuario(?,?,?,?,?)}";
+        String call2 = "{CALL agregar_cuenta(?,?)}";
         
         try{
             //No permite que se ejecute primero una query y después la otra. Esta función manda todas estas instrucciones de una vez
             con.setAutoCommit(false);
             
-            PreparedStatement ps1 = con.prepareStatement(query1);
+            CallableStatement cs1 = con.prepareCall(call1);
+            CallableStatement cs2 = con.prepareCall(call2);
             
-            ps1.setString(1, user_name);
-            ps1.setString(2, apellido);
-            ps1.setString(3, email);
-            ps1.setString(4, direccion);
-            ps1.setString(5, cedula);
+            cs1.setString(1, name);
+            cs1.setString(2, apellido);
+            cs1.setString(3, email);
+            cs1.setString(4, direccion);
+            cs1.setString(5, cedula);
+            cs1.execute();
             
-            ps1.executeUpdate();
-            
-            PreparedStatement ps2 = con.prepareStatement(query2);
-            
-            ps2.setString(1, user_name);
-            ps2.setString(2, password);
-            ps2.executeUpdate();
+            cs2.setString(1, user_name);
+            cs2.setString(2, password);
+            cs2.execute();
             
             con.commit();
         }
@@ -311,7 +314,7 @@ public class Base_de_Datos {
                 rollback.printStackTrace();
             }
             System.out.println("Error al insertar dato");
-            e.getStackTrace();
+            e.printStackTrace();
         }
         finally{
             try {
